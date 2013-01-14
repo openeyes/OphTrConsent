@@ -67,8 +67,8 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, information, witness_required, interpreter_required, witness_name, interpreter_name', 'safe'),
-			array('information, witness_required, interpreter_required, parent_guardian', 'required'),
+			array('event_id, information, witness_required, parent_guardian, interpreter_required, witness_name, interpreter_name', 'safe'),
+			array('information, witness_required, interpreter_required', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, event_id, information, witness_required, interpreter_required, parent_guardian, ', 'safe', 'on' => 'search'),
@@ -102,7 +102,7 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 			'information' => 'An information leaflet has been provided',
 			'witness_required' => 'Witness required',
 			'interpreter_required' => 'Interpreter required',
-			'parent_guardian' => 'Parent guardian',
+			'parent_guardian' => 'Parent/guardian',
 		);
 	}
 
@@ -144,6 +144,14 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 	protected function afterValidate() {
 		if (empty($_POST['Procedures_procedures'])) {
 			$this->addError('procedures', 'At least one procedure must be entered');
+		}
+
+		if ($this->witness_required && strlen($this->witness_name) <1) {
+			$this->addError('witness_name', 'Witness name must be entered');
+		}
+
+		if ($this->interpreter_required && strlen($this->interpreter_name) <1) {
+			$this->addError('interpreter_name', 'Interpreter name must be entered');
 		}
 
 		return parent::afterValidate();

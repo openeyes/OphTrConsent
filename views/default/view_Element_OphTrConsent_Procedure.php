@@ -17,7 +17,7 @@
 						<?php }else{?>
 							<h4>
 								<?php foreach ($element->procedures as $item) {
-									echo $item->proc->term?><br/>
+									echo $item->term?><br/>
 								<?php }?>
 							</h4>
 						<?php }?>
@@ -39,7 +39,7 @@
 						<?php }else{?>
 							<h4>
 								<?php foreach ($element->additional_procedures as $item) {
-									echo $item->proc->term?><br/>
+									echo $item->term?><br/>
 								<?php }?>
 							</h4>
 						<?php }?>

@@ -90,17 +90,17 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
 			'anaesthetic_type' => array(self::BELONGS_TO, 'AnaestheticType', 'anaesthetic_type_id'),
-			'additional_procedures' => array(self::HAS_MANY, 'EtOphtrconsentProcedureAddProcsAddProcs', 'element_id'),
+			'additional_procedures' => array(self::MANY_MANY, 'Procedure', 'et_ophtrconsent_procedure_add_procs_add_procs(element_id, proc_id)'),
 		);
 	}
 
 	public function getProcedures() {
+		$procedures = array();
+
 		if (Yii::app()->getController()->getAction()->id == 'create') {
 			if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
 				throw new Exception("Patient not found: $patient->id");
 			}
-
-			$procedures = array();
 
 			if ($episode = $patient->getEpisodeForCurrentSubspecialty()) {
 				if ($event = $episode->getMostRecentEventByType(EventType::model()->find('class_name=?',array('OphTrOperation'))->id)) {
@@ -111,11 +111,13 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 					}
 				}
 			}
-
-			return $procedures;
 		} else {
-			return EtOphtrconsentProcedureProceduresProcedures::model()->findAll('element_id=?',array($this->id));
+			foreach (EtOphtrconsentProcedureProceduresProcedures::model()->findAll('element_id=?',array($this->id)) as $proc) {
+				$procedures[] = $proc->proc;
+			}
 		}
+
+		return $procedures;
 	}
 
 	/**
@@ -206,19 +208,27 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 			}
 		}
 
-		foreach ($_POST['Procedures_additional'] as $procedure_id) {
-			if (!EtOphtrconsentProcedureAddProcsAddProcs::model()->find('element_id=? and proc_id=?',array($this->id,$procedure_id))) {
-				$p = new EtOphtrconsentProcedureAddProcsAddProcs;
-				$p->element_id = $this->id;
-				$p->proc_id = $procedure_id;
-				if (!$p->save()) {
-					throw new Exception("Unable to save additional procedure item: ".print_r($p->getErrors(),true));
+		if (isset($_POST['Procedures_additional'])) {
+			foreach ($_POST['Procedures_additional'] as $procedure_id) {
+				if (!EtOphtrconsentProcedureAddProcsAddProcs::model()->find('element_id=? and proc_id=?',array($this->id,$procedure_id))) {
+					$p = new EtOphtrconsentProcedureAddProcsAddProcs;
+					$p->element_id = $this->id;
+					$p->proc_id = $procedure_id;
+					if (!$p->save()) {
+						throw new Exception("Unable to save additional procedure item: ".print_r($p->getErrors(),true));
+					}
 				}
 			}
-		}
 
-		foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?',array($this->id)) as $p) {
-			if (!in_array($p->proc_id,$_POST['Procedures_additional'])) {
+			foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?',array($this->id)) as $p) {
+				if (!in_array($p->proc_id,$_POST['Procedures_additional'])) {
+					if (!$p->delete()) {
+						throw new Exception("Unable to delete additional procedure item: ".print_r($p->getErrors(),true));
+					}
+				}
+			}
+		} else {
+			foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?',array($this->id)) as $p) {
 				if (!$p->delete()) {
 					throw new Exception("Unable to delete additional procedure item: ".print_r($p->getErrors(),true));
 				}
