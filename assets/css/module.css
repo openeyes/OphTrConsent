@@ -1,0 +1,6 @@
+table.select_procedures { border: 1px solid #999; margin-left: 20px; margin-bottom: 2em; }
+table.select_procedures tr { border: 1px solid #999; }
+table.select_procedures td { padding: 10px; }
+table.select_procedures th { padding: 5px 10px 5px 10px; text-align: left; }
+table.select_procedures th.select { width: 20px; }
+table.select_procedures th.date { width: 90px; }

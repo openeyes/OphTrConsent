@@ -95,8 +95,8 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-'benefits' => 'Benefits',
-'risks' => 'Risks',
+			'benefits' => 'Benefits',
+			'risks' => 'Risks',
 		);
 	}
 
@@ -119,6 +119,90 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
+	}
+
+	public function getProcedures() {
+		$procedures = array();
+
+		if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
+			throw new Exception("Patient not found: $patient->id");
+		}
+
+		if ($episode = $patient->getEpisodeForCurrentSubspecialty()) {
+			if (isset($_GET['booking_event_id'])) {
+				if (!$event = Event::model()->findByPk($_GET['booking_event_id'])) {
+					throw new Exception("Can't find event: ".$_GET['booking_event_id']);
+				}
+				if ($event->episode_id != $episode->id) {
+					throw new Exception("Selected event is not in the current episode");
+				}
+				if ($eo = ElementOperation::model()->find('event_id=?',array($event->id))) {
+					foreach ($eo->procedures as $proc) {
+						$procedures[] = $proc;
+					}
+				}
+			} else if (isset($_GET['procedure_id'])) {
+				$procedures[] = Procedure::model()->findByPk($_GET['procedure_id']);
+			}
+		}
+
+		return $procedures;
+	}
+
+	public function getAdditional_procedures() {
+		$procedures = array();
+		$procedure_ids = array();
+
+		foreach ($this->procedures as $proc) {
+			foreach ($proc->additional as $additional) {
+				if (!in_array($additional->id, $procedure_ids)) {
+					$procedure_ids[] = $additional->id;
+					$procedures[] = $additional;
+				}
+			}
+		}
+
+		return $procedures;
+	}
+
+	public function setDefaultOptions() {
+		if (Yii::app()->getController()->getAction()->id == 'create') {
+			$complication_ids = array();
+			$complications = array();
+			$benefit_ids = array();
+			$benefits = array();
+
+			foreach (array_merge($this->procedures,$this->additional_procedures) as $proc) {
+				foreach ($proc->complications as $complication) {
+					if (!in_array($complication->id,$complication_ids)) {
+						$complications[] = $complication;
+						$complication_ids[] = $complication->id;
+					}
+				}
+				foreach ($proc->benefits as $benefit) {
+					if (!in_array($benefit->id,$benefit_ids)) {
+						$benefits[] = $benefit;
+						$benefit_ids[] = $benefit->id;
+					}
+				}
+			}
+
+			foreach ($benefits as $i => $benefit) {
+				if ($i==0) {
+					$this->benefits = ucfirst($benefit->name);
+				} else {
+					$this->benefits .= ", ".$benefit->name;
+				}
+			}
+
+			foreach ($complications as $i => $complication) {
+				if ($i==0) {
+					$this->risks = ucfirst($complication->name);
+				} else {
+					$this->risks .= ", ".$complication->name;
+				}
+			}
+		}
 	}
 }
 ?>

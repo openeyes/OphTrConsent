@@ -67,7 +67,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, eye_id, anaesthetic_type_id, ', 'safe'),
+			array('event_id, eye_id, anaesthetic_type_id, booking_event_id', 'safe'),
 			array('eye_id, anaesthetic_type_id, ', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -90,34 +90,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
 			'anaesthetic_type' => array(self::BELONGS_TO, 'AnaestheticType', 'anaesthetic_type_id'),
-			'additional_procedures' => array(self::MANY_MANY, 'Procedure', 'et_ophtrconsent_procedure_add_procs_add_procs(element_id, proc_id)'),
 		);
-	}
-
-	public function getProcedures() {
-		$procedures = array();
-
-		if (Yii::app()->getController()->getAction()->id == 'create') {
-			if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
-				throw new Exception("Patient not found: $patient->id");
-			}
-
-			if ($episode = $patient->getEpisodeForCurrentSubspecialty()) {
-				if ($event = $episode->getMostRecentEventByType(EventType::model()->find('class_name=?',array('OphTrOperation'))->id)) {
-					if ($eo = ElementOperation::model()->find('event_id=?',array($event->id))) {
-						foreach ($eo->procedures as $proc) {
-							$procedures[] = $proc;
-						}
-					}
-				}
-			}
-		} else {
-			foreach (EtOphtrconsentProcedureProceduresProcedures::model()->findAll('element_id=?',array($this->id)) as $proc) {
-				$procedures[] = $proc->proc;
-			}
-		}
-
-		return $procedures;
 	}
 
 	/**
@@ -169,7 +142,13 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 			}
 
 			if ($episode = $patient->getEpisodeForCurrentSubspecialty()) {
-				if ($event = $episode->getMostRecentEventByType(EventType::model()->find('class_name=?',array('OphTrOperation'))->id)) {
+				if (isset($_GET['booking_event_id'])) {
+					if (!$event = Event::model()->findByPk($_GET['booking_event_id'])) {
+						throw new Exception("Can't find event: ".$_GET['booking_event_id']);
+					}
+					if ($event->episode_id != $episode->id) {
+						throw new Exception("Selected event is not in the current episode");
+					}
 					if ($eo = ElementOperation::model()->find('event_id=?',array($event->id))) {
 						$this->eye_id = $eo->eye_id;
 						$this->anaesthetic_type_id = $eo->anaesthetic_type_id;
@@ -179,12 +158,66 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		}
 	}
 
-	public function getproc_defaults() {
-		$ids = array();
-		foreach (EtOphtrconsentProcedureProcDefaults::model()->findAll() as $item) {
-			$ids[] = $item->value_id;
+	public function getProcedures() {
+		$procedures = array();
+
+		if (Yii::app()->getController()->getAction()->id == 'create') {
+			if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
+				throw new Exception("Patient not found: $patient->id");
+			}
+
+			if ($episode = $patient->getEpisodeForCurrentSubspecialty()) {
+				if (isset($_GET['booking_event_id'])) {
+					if (!$event = Event::model()->findByPk($_GET['booking_event_id'])) {
+						throw new Exception("Can't find event: ".$_GET['booking_event_id']);
+					}
+					if ($event->episode_id != $episode->id) {
+						throw new Exception("Selected event is not in the current episode");
+					}
+					if ($eo = ElementOperation::model()->find('event_id=?',array($event->id))) {
+						foreach ($eo->procedures as $proc) {
+							$procedures[] = $proc;
+						}
+					}
+				} else if (isset($_GET['procedure_id'])) {
+					$procedures[] = Procedure::model()->findByPk($_GET['procedure_id']);
+				}
+			}
+		} else {
+			foreach (EtOphtrconsentProcedureProceduresProcedures::model()->findAll('element_id=?',array($this->id)) as $proc) {
+				$procedures[] = $proc->proc;
+			}
 		}
-		return $ids;
+
+		return $procedures;
+	}
+
+	public function getAdditional_procedures() {
+		$procedures = array();
+
+		if (Yii::app()->getController()->getAction()->id == 'create') {
+			$procedure_ids = array();
+
+			foreach ($this->procedures as $proc) {
+				foreach ($proc->additional as $additional) {
+					if (!in_array($additional->id, $procedure_ids)) {
+						$procedure_ids[] = $additional->id;
+						$procedures[] = $additional;
+					}
+				}
+			}
+
+		} else {
+			foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?',array($this->id)) as $proc) {
+				$procedures[] = $proc->proc;
+			}
+		}
+
+		return $procedures;
+	}
+
+	protected function beforeSave() {
+		return parent::beforeSave();
 	}
 
 	protected function afterSave()
