@@ -58,7 +58,19 @@ class DefaultController extends BaseEventTypeController {
 		parent::actionView($id);
 	}
 
+	/**
+	 * Print action
+	 * @param integer $id event id
+	 */
 	public function actionPrint($id) {
-		parent::actionPrint($id);
+		$this->printInit($id);
+		$elements = array();
+		
+		foreach ($this->getDefaultElements('print') as $element) {
+			$elements[get_class($element)] = $element;
+		}
+
+		$this->printLog($id, true);
+		$this->printPDF($id, $elements);
 	}
 }
