@@ -5,15 +5,15 @@ class DefaultController extends BaseEventTypeController {
 		$errors = array();
 
 		if (!empty($_POST)) {
-			if (preg_match('/^procedure([0-9]+)$/',@$_POST['SelectBooking'],$m)) {
-				return $this->redirect(array('/OphTrConsent/Default/create?patient_id=1937817&procedure_id='.$m[1]));
+			if (@$_POST['SelectBooking'] == 'unbooked') {
+				return $this->redirect(array('/OphTrConsent/Default/create?patient_id=1937817&unbooked=1'));
 			} else if (preg_match('/^booking([0-9]+)$/',@$_POST['SelectBooking'],$m)) {
 				return $this->redirect(array('/OphTrConsent/Default/create?patient_id=1937817&booking_event_id='.$m[1]));
 			}
 			$errors = array('Booking' => array('Please select a booking or a procedure'));
 		}
 
-		if (isset($_GET['booking_event_id']) || isset($_GET['procedure_id'])) {
+		if (isset($_GET['booking_event_id']) || @$_GET['unbooked']) {
 			parent::actionCreate();
 		} else {
 			if (!$this->patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
@@ -46,7 +46,6 @@ class DefaultController extends BaseEventTypeController {
 			$this->renderPartial('select_event',array(
 				'errors' => $errors,
 				'operations' => $operations,
-				'procedures' => array(128 => 'Laser iridotomy'),
 			), false, true);
 		}
 	}

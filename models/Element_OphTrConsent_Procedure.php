@@ -179,8 +179,6 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 							$procedures[] = $proc;
 						}
 					}
-				} else if (isset($_GET['procedure_id'])) {
-					$procedures[] = Procedure::model()->findByPk($_GET['procedure_id']);
 				}
 			}
 		} else {

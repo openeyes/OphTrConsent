@@ -28,7 +28,8 @@
 		'element' => $element,
 		'durations' => false,
 		'identifier' => 'procedures',
-		'read_only' => true,
+		'read_only' => !@$_GET['unbooked'],
+		'restrict' => 'unbooked',
 	))?>
 	<?php echo $form->radioButtons($element, 'anaesthetic_type_id', 'anaesthetic_type')?>
 	<?php $form->widget('application.widgets.ProcedureSelection',array(

@@ -14,7 +14,7 @@
 	<?php  $this->displayErrors($errors)?>
 
 	<p>
-		Please select a booking or a procedure for this consent form:
+		Please indicate whether this consent form is for a booking or for unbooked procedures.
 	</p>
 
 	<table class="select_procedures">
@@ -38,17 +38,12 @@
 				</td>
 			</tr>
 		<?php }?>
-		<?php foreach ($procedures as $proc_id => $term) {?>
-			<tr>
-				<td>
-					<input type="radio" name="SelectBooking" value="procedure<?php echo $proc_id?>" />
-				</td>
-				<td>Unbooked</td>
-				<td>
-					<?php echo $term?>
-				</td>
-			</tr>
-		<?php }?>
+		<tr>
+			<td>
+				<input type="radio" name="SelectBooking" value="unbooked" />
+			</td>
+			<td colspan="2">Unbooked procedures</td>
+		</tr>
 	</table>
 
 	<?php  $this->displayErrors($errors)?>
