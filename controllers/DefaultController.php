@@ -66,11 +66,17 @@ class DefaultController extends BaseEventTypeController {
 		$this->printInit($id);
 		$elements = array();
 		
+		$template = 'print';
+
+		if (@$_GET['lang_id'] == 16) {
+			$template = 'print_french';
+		}
+
 		foreach ($this->getDefaultElements('print') as $element) {
 			$elements[get_class($element)] = $element;
 		}
 
 		$this->printLog($id, true);
-		$this->printPDF($id, $elements);
+		$this->printPDF($id, $elements, $template);
 	}
 }
