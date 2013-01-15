@@ -82,6 +82,12 @@ $(document).ready(function() {
 			$('#Element_OphTrConsent_Other_interpreter_name').hide();
 		}
 	});
+
+	$('#et_print').unbind('click').click(function() {
+		var m = window.location.href.match(/\/view\/([0-9]+)/);
+		printPDF(baseUrl+'/OphTrConsent/default/print/'+m[1],{});
+		return false;
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }

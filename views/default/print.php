@@ -74,7 +74,6 @@
 		I have been given an information leaflet that describes in-depth the procedure(s) which will be carried out.
 	</p>
 <?php }?>
-<p></p><p></p>
 <table>
 	<thead>
 		<tr><th></th><th></th></tr>
