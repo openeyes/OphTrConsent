@@ -4,11 +4,15 @@ class DefaultController extends BaseEventTypeController {
 	public function actionCreate() {
 		$errors = array();
 
+		if (!$this->patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
+			throw new Exception("Patient not found: ".@$_GET['patient_id']);
+		}
+
 		if (!empty($_POST)) {
 			if (@$_POST['SelectBooking'] == 'unbooked') {
-				return $this->redirect(array('/OphTrConsent/Default/create?patient_id=1937817&unbooked=1'));
+				return $this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&unbooked=1'));
 			} else if (preg_match('/^booking([0-9]+)$/',@$_POST['SelectBooking'],$m)) {
-				return $this->redirect(array('/OphTrConsent/Default/create?patient_id=1937817&booking_event_id='.$m[1]));
+				return $this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&booking_event_id='.$m[1]));
 			}
 			$errors = array('Booking' => array('Please select a booking or a procedure'));
 		}
@@ -16,9 +20,6 @@ class DefaultController extends BaseEventTypeController {
 		if (isset($_GET['booking_event_id']) || @$_GET['unbooked']) {
 			parent::actionCreate();
 		} else {
-			if (!$this->patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
-				throw new Exception("Patient not found: ".@$_GET['patient_id']);
-			}
 			$episode = $this->patient->getEpisodeForCurrentSubspecialty();
 			$operations = array();
 			
