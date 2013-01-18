@@ -155,6 +155,8 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 					}
 				}
 			}
+
+			$this->booking_event_id = @$_GET['booking_event_id'];
 		}
 	}
 
