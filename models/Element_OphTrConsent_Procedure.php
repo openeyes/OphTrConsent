@@ -155,6 +155,8 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 					}
 				}
 			}
+
+			$this->booking_event_id = @$_GET['booking_event_id'];
 		}
 	}
 
@@ -270,10 +272,20 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 	}
 
 	public function wrap($relations=array()) {
-		return parent::wrap(array(
+		$data = parent::wrap(array(
 			'EtOphtrconsentProcedureProceduresProcedures' => 'element_id',
 			'EtOphtrconsentProcedureAddProcsAddProcs' => 'element_id',
 		));
+
+		if ($data['booking_event_id']) {
+			if (!$event = Event::model()->findByPk($data['booking_event_id'])) {
+				throw new Exception("Event doesn't exist: ".$data['booking_event_id']);
+			}
+
+			$data['booking_event_id'] = '{event:'.$event->hash.'}';
+		}
+
+		return $data;
 	}
 }
 ?>
