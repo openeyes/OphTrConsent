@@ -25,8 +25,8 @@
 
 	<?php echo $form->checkBox($element, 'information', array('text-align' => 'right'))?>
 	<?php echo $form->checkBox($element, 'witness_required', array('text-align' => 'right'))?>
-	<?php echo $form->textField($element, 'witness_name', array('size' => '30','maxLength' => '255', 'hidden' => (!@$_POST['Element_OphTrConsent_Other']['witness_required'] && !$element->witness_name)))?>
+	<?php echo $form->textField($element, 'witness_name', array('size' => '30','maxLength' => '255', 'hide' => (!@$_POST['Element_OphTrConsent_Other']['witness_required'] && !$element->witness_name)))?>
 	<?php echo $form->checkBox($element, 'interpreter_required', array('text-align' => 'right'))?>
-	<?php echo $form->textField($element, 'interpreter_name', array('size' => '30','maxLength' => '255', 'hidden' => (!@$_POST['Element_OphTrConsent_Other']['interpreter_required'] && !$element->interpreter_name)))?>
-	<?php echo $form->textField($element, 'parent_guardian', array('size' => '30','maxlength' => '255', 'hidden' => $element->isAdult()))?>
+	<?php echo $form->textField($element, 'interpreter_name', array('size' => '30','maxLength' => '255', 'hide' => (!@$_POST['Element_OphTrConsent_Other']['interpreter_required'] && !$element->interpreter_name)))?>
+	<?php echo $form->textField($element, 'parent_guardian', array('size' => '30','maxlength' => '255', 'hide' => $element->isAdult()))?>
 </div>
