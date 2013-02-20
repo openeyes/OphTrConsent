@@ -23,17 +23,17 @@
 			<th class="date">Date</th>
 			<th class="procedures">Procedures</th>
 		</tr>
-		<?php foreach ($operations as $operation) {?>
+		<?php foreach ($bookings as $booking) {?>
 			<tr>
 				<td>
-					<input type="radio" name="SelectBooking" value="booking<?php echo $operation['evid']?>" />
+					<input type="radio" name="SelectBooking" value="booking<?php echo $booking->operation->event_id?>" />
 				</td>
 				<td>
-					<?php echo date('j M Y',strtotime($operation['date']))?>
+					<?php echo date('j M Y',strtotime($booking->session->date))?>
 				</td>
 				<td>
-					<?php foreach ($operation['procedures'] as $proc) {?>
-						<?php echo $proc?><br/>
+					<?php foreach ($booking->operation->procedures as $procedure) {?>
+						<?php echo $procedure->procedure->term?><br/>
 					<?php }?>
 				</td>
 			</tr>
