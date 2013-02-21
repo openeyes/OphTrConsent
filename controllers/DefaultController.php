@@ -55,13 +55,22 @@ class DefaultController extends BaseEventTypeController {
 		
 		$template = 'print';
 
-		if (@$_GET['lang_id'] == 16) {
-			$template = 'print_french';
+		if (isset($_GET['lang_id'])) {
+			if (!$language = Language::model()->findByPK($_GET['lang_id'])) {
+				throw new Exception("Language not found: ".print_r($language->getErrors(),true));
+			}
+		} else {
+			$language = Language::model()->find('name=?',array('English'));
 		}
 
 		foreach ($this->getDefaultElements('print') as $element) {
 			$elements[get_class($element)] = $element;
 		}
+
+		preg_match('/^([0-9]+)/',$elements['Element_OphTrConsent_Type']->type->name,$m);
+		$template_id = $m[1];
+
+		$template = "print{$template_id}_$language->name";
 
 		$this->printLog($id, true);
 		$this->printPDF($id, $elements, $template);
