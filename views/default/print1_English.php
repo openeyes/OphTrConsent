@@ -70,17 +70,13 @@ Patient: <?php echo $this->patient->fullName?> Hospital no: <?php echo $this->pa
 <br/>
 <p>I have explained the procedure to the patient. In particular, I have explained:</p>
 <p>The intended benefits</p>
-<ul>
-	<?php foreach (explode(', ',trim($elements['Element_OphTrConsent_BenefitsAndRisks']->benefits)) as $benefit) {?>
-		<li><?php echo ucfirst($benefit)?></li>
-	<?php }?>
-</ul>
+<p>
+	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->benefits?>
+</p>
 <p>Serious, frequently occurring or unavoidable risks</p>
-<ul>
-	<?php foreach (explode(', ',trim($elements['Element_OphTrConsent_BenefitsAndRisks']->risks)) as $risk) {?>
-		<li><?php echo ucfirst($risk)?></li>
-	<?php }?>
-</ul>
+<p>
+	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->risks?>
+</p>
 <?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
 	<p>Any extra procedures which may become necessary during the procedure(s)</p>
 	<ul>
