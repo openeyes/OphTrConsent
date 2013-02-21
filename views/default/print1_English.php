@@ -137,9 +137,10 @@
 			<td colspan="2">Name: <?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
 		</tr>
 	</table>
+	<div class="spacer"></div>
 	<h2>Top copy accepted by patient: yes/no <span class="noth3">(please ring)</span></h2>
+	<div class="spacer"></div>
 <?php }?>
-<div class="spacer"></div>
 <h3>Statement of patient</h3>
 <p>
 	Please read this form carefully.	If your treatment has been planned in advance, you should already have your own copy of the page which describes the benefits and risks of the proposed treatment. If not, you will be offered a copy now. If you have any questions, do ask - we are here to help you. You have the right to change your mind at any time, including after you have signed this form.
