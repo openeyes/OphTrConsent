@@ -1,5 +1,5 @@
 <style>
-	h1,h2,h3,h4 { display: inline; margin: 0 auto; width: 400px; text-align: center; }
+	h1,h2,h4 { display: inline; margin: 0 auto; width: 400px; text-align: center; }
 	.noth3 { font-size: 12pt; font-weight: normal; }
 	.spacer { height: 2em; }
 	table.signature { margin-left: 0; }
@@ -8,9 +8,11 @@
 <h1>Moorfields Eye Hospital NHS Foundation Trust</h1>
 <h2>Consent form 1</h2>
 <h2>For adults with mental capacity to give valid consent</h2>
-<h3>Patient agreement to investigation or treatment</h3>
-<h4>Patient details (or pre-printed label)</h4>
-<div style="height: 2em;"></div>
+<h2>Patient agreement to investigation or treatment</h2>
+<h2>Patient details (or pre-printed label)</h2>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
 <table>
 	<tr>
 		<th>Patient's surname/family name</th>
@@ -57,9 +59,13 @@
 		</tr>
 	<?php }?>
 </table>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<h2>To be retained in patient's notes</h2>
+<br/>
 <br pagebreak="true"/>
-<h3>To be retained in patient's notes</h3>
-Patient: <?php echo $this->patient->fullName?> Hospital no: <?php echo $this->patient->hos_num?>
 <h3>Name of proposed procedure or course of treatment</h3>
 <ul>
 	<?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $proc) {?>
@@ -131,7 +137,7 @@ Patient: <?php echo $this->patient->fullName?> Hospital no: <?php echo $this->pa
 			<td colspan="2">Name: <?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
 		</tr>
 	</table>
-	<h3>Top copy accepted by patient: yes/no <span class="noth3">(please ring)</span></h3>
+	<h2>Top copy accepted by patient: yes/no <span class="noth3">(please ring)</span></h2>
 <?php }?>
 <div class="spacer"></div>
 <h3>Statement of patient</h3>
