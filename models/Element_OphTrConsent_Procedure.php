@@ -178,9 +178,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 					}
 					if ($api = Yii::app()->moduleAPI->get('OphTrOperation')) {
 						if ($eo = $api->getOperationForEvent($event->id)) {
-							foreach ($eo->procedures as $procedure) {
-								$procedures[] = $procedure->procedure;
-							}
+							$procedures = $eo->procedures;
 						}
 					}
 				}

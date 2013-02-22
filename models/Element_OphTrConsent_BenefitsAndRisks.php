@@ -138,9 +138,7 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 				}
 				if ($api = Yii::app()->moduleAPI->get('OphTrOperation')) {
 					if ($eo = $api->getOperationForEvent($event->id)) {
-						foreach ($eo->procedures as $proc) {
-							$procedures[] = $proc->procedure;
-						}
+						$procedures = $eo->procedures;
 					}
 				}
 			} else if (isset($_GET['procedure_id'])) {
