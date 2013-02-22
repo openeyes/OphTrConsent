@@ -6,7 +6,6 @@
 	table.signature { margin-left: 0; }
 	table.signature td,th { margin-left: 0; padding-left: 0; width: 300px; }
 	p,li,td,th,span { font-size: 14pt; }
-	/* ul,li { margin: 0; padding: 0; } */
 	.mainContent { line-height: 3px; }
 	.topCopy { font-size: 10pt; line-height: 1px !important; }
 </style>
@@ -107,7 +106,7 @@
 		</p>
 		<p>
 			This procedure will involve:
-			[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia&nbsp;&nbsp;[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>]<br/>local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
+			[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia<br/>[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
 		</p>
 		<table>
 			<tr>

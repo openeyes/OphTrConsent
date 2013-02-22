@@ -2,16 +2,19 @@
 	h1,h2,h4 { display: inline; margin: 0 auto; width: 400px; text-align: center; }
 	.noth3 { font-size: 12pt; font-weight: normal; }
 	.spacer { height: 2em; }
+	table { border-spacing: 0; border-collapse: collapse; }
 	table.signature { margin-left: 0; }
-	table.signature td { margin-left: 0; width: 300px; }
+	table.signature td,th { margin-left: 0; padding-left: 0; width: 300px; }
+	p,li,td,th,span { font-size: 14pt; }
+	.mainContent { line-height: 3px; }
+	.topCopy { font-size: 10pt; line-height: 1px !important; }
 </style>
-<h1>Moorfields Eye Hospital NHS Foundation Trust</h1>
 <h2>Consent form 2</h2>
 <h2>Parental agreement to investigation or treatment for a child or young person</h2>
-<h2>Patient details (or pre-printed label)</h2>
 <div class="spacer"></div>
 <div class="spacer"></div>
 <div class="spacer"></div>
+<p><strong>Patient details (or pre-printed label)</strong></p>
 <table>
 	<tr>
 		<th>Patient's surname/family name</th>
@@ -78,57 +81,50 @@
 	Please read this form carefully. If the procedure has been planned in advance, you should already have your own copy of page 3 which describes the benefits and risks of the proposed treatment. If not, you will be offered a copy now. If you have any further questions, do ask - we are here to help you and your child. You have the right to change your mind at any time, including after you have signed this form.
 </p>
 <p>
-	<strong>I agree</strong> to the procedure or course of treatment described on this form and I confirm that I have 'parental responsibility' for this child.
-</p>
-<p>
-	<strong>I understand</strong> that you cannot give me a guarantee that a particular person will perform the procedure. The person will, however, have appropriate experience.
-</p>
-<p>
-	<strong>I understand</strong> that my child and I will have the opportunity to discuss the details of anaesthesia with an anaesthetist before the procedure, unless the urgency of the situation prevents this. (This only applies to children having general or regional anaesthesia.)
-</p>
-<p>
-	<strong>I understand that any</strong> procedure in addition to those described on this form will only be carried out if it is necessary to save the life of my child or to prevent serious harm to his or her health.
-</p>
-<p>
-	<strong>I have been told about</strong> additional procedures which may become necessary during my child's treatment. I have listed below any procedures which I do not wish to be carried out without further discussion: .............................................................
+	<strong>I agree</strong> to the procedure or course of treatment described on this form and I confirm that I have 'parental responsibility' for this child.<br/>
+	<strong>I understand</strong> that you cannot give me a guarantee that a particular person will perform the procedure. The person will, however, have appropriate experience.<br/>
+	<strong>I understand</strong> that my child and I will have the opportunity to discuss the details of anaesthesia with an anaesthetist before the procedure, unless the urgency of the situation prevents this. (This only applies to children having general or regional anaesthesia.)<br/>
+	<strong>I understand that any</strong> procedure in addition to those described on this form will only be carried out if it is necessary to save the life of my child or to prevent serious harm to his or her health.<br/>
+	<strong>I have been told about</strong> additional procedures which may become necessary during my child's treatment. I have listed below any procedures which I do not wish to be carried out without further discussion: ................................................................................................................................
 </p>
 <table>
 	<tr>
-		<td>Signature:..............................................................</td>
-		<td>Date:..........................................................</td>
+		<td>Signature:.......................................</td>
+		<td>Date:...................................................</td>
 	</tr>
 	<tr>
-		<td>Name (PRINT):................................................</td>
-		<td>Relationship to child:.....................................................</td>
+		<td>Name (PRINT):...............................</td>
+		<td>Relationship to child:...........................</td>
 	</tr>
 </table>
-<div class="spacer"></div>
+<br pagebreak="true"/>
 <h3>Child's agreement to treatment (if child wishes to sign)</h3>
 <p>
 	I agree to have the treatment I have been told about.
 </p>
 <table>
 	<tr>
-		<td>Name:..............................................................</td>
-		<td>Signature:..........................................................</td>
+		<td>Name: <?php echo $this->patient->first_name?> <?php echo $this->patient->last_name?></td>
+		<td></td>
 	</tr>
 	<tr>
-		<td>Date:................................................</td>
+		<td>Signature:.................................</td>
+		<td>Date:.........................</td>
 	</tr>
 </table>
-<br pagebreak="true"/>
+<div class="spacer"></div>
 <h3>Confirmation of consent <span class="noth3">(to be completed by a health professional when the child is admitted for the procedure, if the parent/child have signed the form in advance)</span></h3>
 <p>
 	On behalf of the team treating the patient, I have confirmed with the child and his or her parent(s) that they have no further questions and wish the procedure to go ahead.
 </p>
 <table>
 	<tr>
-		<td>Signed:..............................................................</td>
-		<td>Date:..........................................................</td>
+		<td>Signed:...............................................</td>
+		<td>Date:.......................................</td>
 	</tr>
 	<tr>
-		<td>Name (PRINT):................................................</td>
-		<td>Job title:.....................................................</td>
+		<td>Name (PRINT):................................</td>
+		<td>Job title:...................................</td>
 	</tr>
 </table>
 <div class="spacer"></div>
@@ -137,7 +133,7 @@
 	See also advance directive/living will (eg Jehovah's Witness form)
 </p>
 <p>
-	Parent has withdrawn consent (ask parent to sign /date here) .................................
+	Parent has withdrawn consent (ask parent to sign /date here) ........................................................
 </p>
 <br pagebreak="true"/>
 <h2>Moorfields Eye Hospital NHS Trust</h2>
@@ -147,15 +143,14 @@
 		<li><?php echo $elements['Element_OphTrConsent_Procedure']->eye->adjective?> <?php echo $proc->term?></li>
 	<?php }?>
 </ul>
-<h3>Statement of health professional</h3> (to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)
-<br/>
-<p><strong>I have explained the procedure to the patient. In particular, I have explained:</strong></p>
-<p><strong>The intended benefits:</strong></p>
+<h3>Statement of health professional <span class="noth3">(to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)</span></h3>
 <p>
-	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->benefits?>
+	<strong>I have explained the procedure to the patient. In particular, I have explained:</strong>
 </p>
-<p><strong>Serious, frequently occurring or unavoidable risks:</strong></p>
 <p>
+	<strong>The intended benefits:</strong>
+	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->benefits?><br/>
+	<strong>Serious, frequently occurring or unavoidable risks:</strong>
 	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->risks?>
 </p>
 <?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
@@ -169,51 +164,41 @@
 <p>
 	I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of this patient and <?php echo $this->patient->pos?> parents.
 </p>
-<?php if ($elements['Element_OphTrConsent_Other']->information) {?>
-	<p>
-		An informational leaflet has been provided.
-	</p>
-<?php }?>
 <p>
-	[&nbsp;&nbsp;] "Anaesthesia at Moorfields Eye Hospital" leaflet has been provided
-</p>
-<p>
-	This procedure will involve:
-</p>
-<p>
-	[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia&nbsp;&nbsp;[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
+	[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] An informational leaflet has been provided.<br/>
+	[&nbsp;&nbsp;] "Anaesthesia at Moorfields Eye Hospital" leaflet has been provided<br/>
+	<strong>This procedure will involve:</strong>
+	[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia<br/>[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
 </p>
 <table>
 	<tr>
-		<td>Signed:..............................................................</td>
-		<td>Date:..........................................................</td>
+		<td>Signed:..............................................</td>
+		<td>Date:...........................................</td>
 	</tr>
 	<tr>
-		<td>Name (PRINT):................................................</td>
-		<td>Job title:.....................................................</td>
+		<td>Name (PRINT):...................................</td>
+		<td>Job title:......................................</td>
 	</tr>
 </table>
 <div class="spacer"></div>
 <p>
 	Contact details (if child/parent wishes to discuss options later) .....................
 </p>
-<br pagebreak="true"/>
 <?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
 	<h3>Statement of interpreter</h3>
-	<p>
-		I have interpreted the information above to the child and <?php echo $this->patient->pos?> parents to the best of my ability and in a way in which I believe they can understand.
-	</p>
+	<span>I have interpreted the information above to the child and <?php echo $this->patient->pos?> parents to the best of my ability and in a way in which I believe they can understand.</span><br/><br/>
 	<table>
 		<tr>
-			<td>Signed:..............................................................</td>
-			<td>Date:..........................................................</td>
+			<td>Signed:...........................................</td>
+			<td>Date:............................................</td>
 		</tr>
 		<tr>
 			<td colspan="2">Name: <?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
 		</tr>
 	</table>
-	<h3>Top copy accepted by patient: yes/no <span class="noth3">(please ring)</span></h3>
 <?php }?>
+<br pagebreak="true"/>
+<span class="topCopy">Top copy accepted by patient: yes/no (please ring)</span>
 <h2>Form 2: Supplementary consent</h2>
 <h3>Images</h3>
 <p>
