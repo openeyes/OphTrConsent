@@ -33,7 +33,7 @@
 				</td>
 				<td>
 					<?php foreach ($booking->operation->procedures as $procedure) {?>
-						<?php echo $procedure->procedure->term?><br/>
+						<?php echo $procedure->term?><br/>
 					<?php }?>
 				</td>
 			</tr>
