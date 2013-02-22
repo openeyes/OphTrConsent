@@ -19,13 +19,13 @@
 	<strong>Statement of health professional</strong> (to be filled in by health professional with appropriate knowledge of proposed procedure, as specified in consent policy)
 </p>
 <p>
-	I have explained the procedure to the patient/parent. In particular, I have explained:
+	<strong>I have explained the procedure to the patient/parent. In particular, I have explained:</strong>
 </p>
-<p>The intended benefits</p>
+<p><strong>The intended benefits:</strong></p>
 <p>
 	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->benefits?>
 </p>
-<p>Serious, frequently occurring or unavoidable risks</p>
+<p><strong>Serious, frequently occurring or unavoidable risks:</strong></p>
 <p>
 	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->risks?>
 </p>

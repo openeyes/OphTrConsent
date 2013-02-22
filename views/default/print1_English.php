@@ -74,12 +74,12 @@
 </ul>
 <h3>Statement of health professional</h3> (to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)
 <br/>
-<p>I have explained the procedure to the patient. In particular, I have explained:</p>
-<p>The intended benefits</p>
+<p><strong>I have explained the procedure to the patient. In particular, I have explained:</strong></p>
+<p><strong>The intended benefits:</strong></p>
 <p>
 	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->benefits?>
 </p>
-<p>Serious, frequently occurring or unavoidable risks</p>
+<p><strong>Serious, frequently occurring or unavoidable risks:</strong></p>
 <p>
 	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->risks?>
 </p>
@@ -220,7 +220,7 @@
 	Photographs, x-rays or other images may be taken as part of your treatment and will form part of your medical record. It is very unlikely that you would be recognised from these images. If however you could be recognised we would seek your specific consent before any particular publication.
 </p>
 <p>
-	Do you agree to them being used for:
+	<strong>Do you agree to them being used for:</strong>
 </p>
 <p>
 	[<?php if ($elements['Element_OphTrConsent_Permissions']->images) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Education
