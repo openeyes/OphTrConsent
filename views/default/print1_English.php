@@ -139,6 +139,7 @@
 			</table>
 			<div class="spacer"></div>
 		<?php }?>
+		<br/>
 		<br pagebreak="true"/>
 	<?php }?>
 	<div class="topCopy">Top copy accepted by patient: yes/no (please ring)</div>
