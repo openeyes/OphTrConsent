@@ -70,75 +70,77 @@
 <h2>To be retained in patient's notes</h2>
 <br/>
 <br pagebreak="true"/>
-<div class="mainContent">
-	<h3>Name of proposed procedure or course of treatment</h3>
-	<ul>
-		<?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $proc) {?>
-			<li><?php echo $elements['Element_OphTrConsent_Procedure']->eye->adjective?> <?php echo $proc->term?></li>
-		<?php }?>
-	</ul>
-	<h3>Statement of health professional <span class="noth3">(to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)</span></h3>
-	<p>
-		<strong>I have explained the procedure to the patient. In particular, I have explained:</strong>
-	</p>
-	<p>
-		<strong>The intended benefits:</strong>
-		<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->benefits?>
-	</p>
-	<p>
-		<strong>Serious, frequently occurring or unavoidable risks:</strong>
-		<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->risks?>
-	</p>
-	<?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
-		<p>Any extra procedures which may become necessary during the procedure(s)</p>
+<?php for ($i=0; $i<2; $i++) {?>
+	<div class="mainContent">
+		<h3>Name of proposed procedure or course of treatment</h3>
 		<ul>
-			<?php foreach ($elements['Element_OphTrConsent_Procedure']->additional_procedures as $proc) {?>
-				<li><?php echo $proc->term?></li>
+			<?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $proc) {?>
+				<li><?php echo $elements['Element_OphTrConsent_Procedure']->eye->adjective?> <?php echo $proc->term?></li>
 			<?php }?>
 		</ul>
-	<?php }?>
-	<p>
-		I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of this patient. I assess that this patient has the capacity to give valid consent.
-	</p>
-	<p>
-		[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] An informational leaflet has been provided.<br/>
-		[&nbsp;&nbsp;] "Anaesthesia at Moorfields Eye Hospital" leaflet has been provided
-	</p>
-	<p>
-		This procedure will involve:
-		[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia&nbsp;&nbsp;[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>]<br/>local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
-	</p>
-	<table>
-		<tr>
-			<td>Signed:.............................................</td>
-			<td>Date:...........................................</td>
-		</tr>
-		<tr>
-			<td>Name (PRINT):................................</td>
-			<td>Job title:.......................................</td>
-		</tr>
-	</table>
-	<div class="spacer"></div>
-	<p>
-		Contact details (if patient wishes to discuss options later): 0207 253 3411
-	</p>
-	<?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
-		<h3>Statement of interpreter</h3>
+		<h3>Statement of health professional <span class="noth3">(to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)</span></h3>
 		<p>
-			I have interpreted the information above to the patient to the best of my ability and in a way in which I believe s/he can understand.
+			<strong>I have explained the procedure to the patient. In particular, I have explained:</strong>
+		</p>
+		<p>
+			<strong>The intended benefits:</strong>
+			<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->benefits?>
+		</p>
+		<p>
+			<strong>Serious, frequently occurring or unavoidable risks:</strong>
+			<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->risks?>
+		</p>
+		<?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
+			<p>Any extra procedures which may become necessary during the procedure(s)</p>
+			<ul>
+				<?php foreach ($elements['Element_OphTrConsent_Procedure']->additional_procedures as $proc) {?>
+					<li><?php echo $proc->term?></li>
+				<?php }?>
+			</ul>
+		<?php }?>
+		<p>
+			I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of this patient. I assess that this patient has the capacity to give valid consent.
+		</p>
+		<p>
+			[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] An informational leaflet has been provided.<br/>
+			[&nbsp;&nbsp;] "Anaesthesia at Moorfields Eye Hospital" leaflet has been provided
+		</p>
+		<p>
+			This procedure will involve:
+			[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia&nbsp;&nbsp;[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>]<br/>local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
 		</p>
 		<table>
 			<tr>
-				<td>Signed:..................................................</td>
-				<td>Date:.............................................</td>
+				<td>Signed:.............................................</td>
+				<td>Date:...........................................</td>
 			</tr>
 			<tr>
-				<td colspan="2">Name: <?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
+				<td>Name (PRINT):................................</td>
+				<td>Job title:.......................................</td>
 			</tr>
 		</table>
 		<div class="spacer"></div>
+		<p>
+			Contact details (if patient wishes to discuss options later): 0207 253 3411
+		</p>
+		<?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
+			<h3>Statement of interpreter</h3>
+			<p>
+				I have interpreted the information above to the patient to the best of my ability and in a way in which I believe s/he can understand.
+			</p>
+			<table>
+				<tr>
+					<td>Signed:..................................................</td>
+					<td>Date:.............................................</td>
+				</tr>
+				<tr>
+					<td colspan="2">Name: <?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
+				</tr>
+			</table>
+			<div class="spacer"></div>
+		<?php }?>
+		<br pagebreak="true"/>
 	<?php }?>
-	<br pagebreak="true"/>
 	<div class="topCopy">Top copy accepted by patient: yes/no (please ring)</div>
 	<h3>Statement of patient</h3>
 	<p>
