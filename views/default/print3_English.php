@@ -45,16 +45,7 @@
 <p>
 	[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] An informational leaflet has been provided.
 </p>
-<table>
-	<tr>
-		<td>Signed:...................................................</td>
-		<td>Date:.................................................</td>
-	</tr>
-	<tr>
-		<td>Name (PRINT):......................................</td>
-		<td>Job title:............................................</td>
-	</tr>
-</table>
+<?php echo $this->renderPartial('signature_table1')?>
 <br pagebreak="true"/>
 <?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
 	<h3>Statement of interpreter</h3>
@@ -76,29 +67,11 @@
 <p>
 	I understand that you cannot give me a guarantee that a particular person will perform the procedure. The person will, however, have appropriate experience. I understand that the procedure will/will not involve local anaesthesia.
 </p>
-<table>
-	<tr>
-		<td>Signed:.............................................</td>
-		<td>Date:...................................................</td>
-	</tr>
-	<tr>
-		<td>Name (PRINT):.................................</td>
-		<td>Relationship to patient:.......................</td>
-	</tr>
-</table>
+<?php echo $this->renderPartial('signature_table2')?>
 <div class="spacer"></div>
 <p>
 	Confirmation of consent (to be completed by a health professional when the patient is admitted for the procedure, if the patient/parent has signed the form in advance) I have confirmed that the patient/parent has no further questions and wishes the procedure to go ahead.
 </p>
-<table>
-	<tr>
-		<td>Signed:...................................................</td>
-		<td>Date:.................................................</td>
-	</tr>
-	<tr>
-		<td>Name (PRINT):......................................</td>
-		<td>Job title:............................................</td>
-	</tr>
-</table>
+<?php echo $this->renderPartial('signature_table1')?>
 <div class="spacer"></div>
 <h3>Top copy accepted by patient: yes/no <span class="noth3">(please ring)</span></h3>

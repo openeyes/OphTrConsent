@@ -117,16 +117,7 @@
 <p>
 	On behalf of the team treating the patient, I have confirmed with the child and his or her parent(s) that they have no further questions and wish the procedure to go ahead.
 </p>
-<table>
-	<tr>
-		<td>Signed:...............................................</td>
-		<td>Date:.......................................</td>
-	</tr>
-	<tr>
-		<td>Name (PRINT):................................</td>
-		<td>Job title:...................................</td>
-	</tr>
-</table>
+<?php echo $this->renderPartial('signature_table1')?>
 <div class="spacer"></div>
 <h3>Important notes: (tick if applicable)</h3>
 <p>
@@ -170,16 +161,7 @@
 	<strong>This procedure will involve:</strong>
 	[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia<br/>[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
 </p>
-<table>
-	<tr>
-		<td>Signed:..............................................</td>
-		<td>Date:...........................................</td>
-	</tr>
-	<tr>
-		<td>Name (PRINT):...................................</td>
-		<td>Job title:......................................</td>
-	</tr>
-</table>
+<?php echo $this->renderPartial('signature_table1')?>
 <div class="spacer"></div>
 <p>
 	Contact details (if child/parent wishes to discuss options later) .....................
