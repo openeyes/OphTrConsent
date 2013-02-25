@@ -136,7 +136,7 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 				if ($event->episode_id != $episode->id) {
 					throw new Exception("Selected event is not in the current episode");
 				}
-				if ($api = Yii::app()->moduleAPI->get('OphTrOperation')) {
+				if ($api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
 					if ($eo = $api->getOperationForEvent($event->id)) {
 						$procedures = $eo->procedures;
 					}
