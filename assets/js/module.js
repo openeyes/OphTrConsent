@@ -5,8 +5,6 @@ $(document).ready(function() {
 	$('#et_save').unbind('click').click(function() {
 		if (!$(this).hasClass('inactive')) {
 			disableButtons();
-
-			
 			return true;
 		}
 		return false;
@@ -86,6 +84,13 @@ $(document).ready(function() {
 	$('#et_print').unbind('click').click(function() {
 		var m = window.location.href.match(/\/view\/([0-9]+)/);
 		printPDF(baseUrl+'/OphTrConsent/default/print/'+m[1]+"?lang_id="+$('#printLanguage').val(),{});
+		return false;
+	});
+
+	$('tr.clickable').disableSelection();
+
+	$('tr.clickable').click(function() {
+		$(this).children('td:first').children('input[type="radio"]').attr('checked',true);
 		return false;
 	});
 });
