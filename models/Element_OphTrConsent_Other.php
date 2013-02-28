@@ -67,11 +67,11 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, information, witness_required, parent_guardian, interpreter_required, witness_name, interpreter_name, anaesthetic_leaflet', 'safe'),
-			array('information, witness_required, interpreter_required, anaesthetic_leaflet', 'required'),
+			array('event_id, information, witness_required, parent_guardian, interpreter_required, witness_name, interpreter_name, anaesthetic_leaflet, consultant_id', 'safe'),
+			array('information, witness_required, interpreter_required, anaesthetic_leaflet, consultant_id', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, event_id, information, witness_required, interpreter_required, parent_guardian, anaesthetic_leaflet', 'safe', 'on' => 'search'),
+			array('id, event_id, information, witness_required, interpreter_required, parent_guardian, anaesthetic_leaflet, consultant_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -88,6 +88,7 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'consultant' => array(self::BELONGS_TO, 'User', 'consultant_id'),
 		);
 	}
 
@@ -104,6 +105,7 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 			'witness_required' => 'Witness required',
 			'interpreter_required' => 'Interpreter required',
 			'parent_guardian' => 'Parent/guardian',
+			'consultant_id' => 'Consultant',
 		);
 	}
 
@@ -163,6 +165,14 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		!$this->interpreter_required && $this->interpreter_name = '';
 
 		return parent::beforeSave();
+	}
+
+	public function setDefaultOptions() {
+		if (Yii::app()->getController()->action->id == 'create') {
+			if (empty($_POST)) {
+				$this->consultant_id = Yii::app()->user->id;
+			}
+		}
 	}
 }
 ?>

@@ -41,7 +41,7 @@ if (@$vi) {
 <p>
 	[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] An informational leaflet has been provided.
 </p>
-<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
+<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
 <br pagebreak="true"/>
 <?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
 	<h3>Statement of interpreter</h3>
@@ -60,6 +60,6 @@ if (@$vi) {
 <p>
 	Confirmation of consent (to be completed by a health professional when the patient is admitted for the procedure, if the patient/parent has signed the form in advance) I have confirmed that the patient/parent has no further questions and wishes the procedure to go ahead.
 </p>
-<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
+<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
 <div class="spacer"></div>
 <h3>Top copy accepted by patient: yes/no <span class="noth3">(please ring)</span></h3>

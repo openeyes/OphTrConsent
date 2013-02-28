@@ -23,6 +23,40 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>">
 	<h4 class="elementTypeName"><?php  echo $element->elementType->name; ?></h4>
 
+	<?php echo $form->hiddenField($element, 'consultant_id')?>
+
+	<div class="eventDetail row">
+		<div class="label OphTrConsent_consultantLabel">Consultant:</div>
+		<span class="right">
+			<div>
+				<?php
+					$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+						'id'=>'OphTrConsent_consultantAutoComplete',
+						'name'=>'OphTrConsent_consultantAutoComplete',
+						'value'=>'',
+						'sourceUrl'=>array('default/users'),
+						'options'=>array(
+							'minLength'=>'3',
+							'select'=>"js:function(event, ui) {
+								$('#Element_OphTrConsent_Other_consultant_id').val(ui.item.id);
+								$('#consultant').val(ui.item.fullname);
+								$('#OphTrConsent_consultantAutoComplete').val('');
+								return false;
+							}",
+						),
+						'htmlOptions'=>array(
+							'style'=>'width: 320px;',
+							'placeholder' => 'type to search for users'
+						),
+					));
+				?>
+			</div>
+			<div id="OphTrConsent_consultantDiv">
+				<?php echo CHtml::textField('consultant',$element->consultant ? $element->consultant->fullNameAndTitleAndQualifications: '',array('readonly'=>'readonly'))?>
+			</div>
+		</span>
+	</div>
+
 	<?php echo $form->checkBox($element, 'information', array('text-align' => 'right'))?>
 	<?php echo $form->checkBox($element, 'anaesthetic_leaflet', array('text-align' => 'right'))?>
 	<?php echo $form->checkBox($element, 'witness_required', array('text-align' => 'right'))?>

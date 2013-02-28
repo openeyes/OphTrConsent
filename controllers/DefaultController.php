@@ -75,4 +75,50 @@ class DefaultController extends BaseEventTypeController {
 		$this->printLog($id, true);
 		$this->printPDF($id, $elements, $template, array('vi' => (boolean)@$_GET['vi']));
 	}
+
+	public function actionUsers() {
+		$users = array();
+
+		$criteria = new CDbCriteria;
+
+		$criteria->addCondition(array("active = :active"));
+		$criteria->addCondition(array("LOWER(concat_ws(' ',first_name,last_name)) LIKE :term"));
+
+		$params[':active'] = 1;
+		$params[':term'] = '%' . strtolower(strtr($_GET['term'], array('%' => '\%'))) . '%';
+
+		$criteria->params = $params;
+		$criteria->order = 'first_name, last_name';
+
+		$firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id']);
+		$consultant = null;
+		// only want a consultant for medical firms
+		if ($specialty = $firm->getSpecialty()) {
+			if ($specialty->medical) {
+				$consultant = $firm->getConsultantUser();
+			}
+		}
+
+		foreach (User::model()->findAll($criteria) as $user) {
+			if ($contact = $user->contact) {
+
+				$consultant_name = false;
+
+				// if we have a consultant for the firm, and its not the matched user, attach the consultant name to the entry
+				if ($consultant && $user->id != $consultant->id) {
+					$consultant_name = trim($consultant->contact->title.' '.$consultant->contact->first_name.' '.$consultant->contact->last_name);
+				}
+
+				$users[] = array(
+					'id' => $user->id,
+					'value' => trim($contact->title.' '.$contact->first_name.' '.$contact->last_name.' '.$contact->qualifications).' ('.$user->role.')',
+					'fullname' => trim($contact->title.' '.$contact->first_name.' '.$contact->last_name.' '.$contact->qualifications),
+					'role' => $user->role,
+					'consultant' => $consultant_name,
+				);
+			}
+		}
+
+		echo json_encode($users);
+	}
 }

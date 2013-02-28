@@ -4,6 +4,10 @@
 <table class="subtleWhite normalText">
 	<tbody>
 		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('consultant_id'))?></td>
+			<td><span class="big"><?php echo $element->consultant->fullNameAndTitle?></span></td>
+		</tr>
+		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('information'))?></td>
 			<td><span class="big"><?php echo $element->information ? 'Yes' : 'No'?></span></td>
 		</tr>

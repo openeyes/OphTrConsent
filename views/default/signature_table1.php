@@ -5,8 +5,8 @@
 			<td>Date:...............................</td>
 		</tr>
 		<tr>
-			<td>Name (PRINT):...............</td>
-			<td>Job title:..........................</td>
+			<td>Name (PRINT): <?php echo $consultant->fullNameAndTitle?></td>
+			<td>Job title: Consultant Ophthalmologist</td>
 		</tr>
 	</table>
 <?php }else{?>
@@ -16,8 +16,8 @@
 			<td>Date:...........................................</td>
 		</tr>
 		<tr>
-			<td>Name (PRINT):................................</td>
-			<td>Job title:.......................................</td>
+			<td>Name (PRINT): <?php echo $consultant->fullNameAndTitle?></td>
+			<td>Job title: Consultant Ophthalmologist</td>
 		</tr>
 	</table>
 <?php }?>

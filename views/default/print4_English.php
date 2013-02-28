@@ -161,12 +161,12 @@ if (@$vi) {
 	The above procedure is, in my clinical judgement, in the best interests of the patient, who lacks capacity to consent for himself or herself.  Where possible and appropriate I have discussed the patient’s condition with those close to him or her, and taken their knowledge of the patient’s past and present wishes, feelings, views and beliefs and values into account in determining his or her best interests.
 </p>
 <div class="spacer"></div>
-<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
+<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
 <div class="spacer"></div>
 <p>
 	Where second opinion sought, s/he should sign below to confirm agreement:
 </p>
-<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
+<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
 <br pagebreak="true"/>
 <p>
 	<strong>Guidance to health professionals</strong> (to be read in conjunction with consent policy)
