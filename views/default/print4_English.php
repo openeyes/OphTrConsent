@@ -1,19 +1,17 @@
-<style>
-	h1,h2,h4 { display: inline; margin: 0 auto; width: 400px; text-align: center; }
-	.noth3 { font-size: 12pt; font-weight: normal; }
-	.spacer { height: 2em; }
-	table { border-spacing: 0; border-collapse: collapse; }
-	table.signature { margin-left: 0; }
-	table.signature td,th { margin-left: 0; padding-left: 0; width: 300px; }
-	p,li,td,th,span { font-size: 14pt; }
-	.mainContent { line-height: 3px; }
-	.topCopy { font-size: 10pt; line-height: 1px !important; }
-</style>
+<?php
+if (@$vi) {
+	echo $this->renderPartial('_print_css_visually_impaired');
+} else {
+	echo $this->renderPartial('_print_css_normal');
+}
+?>
 <h2>Consent form 4</h2>
 <h2>Form for adults who are unable to consent to investigation or treatment</h2>
-<div class="spacer"></div>
-<div class="spacer"></div>
-<div class="spacer"></div>
+<?php if (!@$vi) {?>
+	<div class="spacer"></div>
+	<div class="spacer"></div>
+	<div class="spacer"></div>
+<?php }?>
 <p><strong>Patient details (or pre-printed label)</strong></p>
 <table>
 	<tr>
@@ -42,12 +40,14 @@
 	</tr>
 	<tr>
 		<th>Special requirements</th>
-		<td>...............................................................</td>
+		<td>........................................</td>
 	</tr>
-	<tr>
-		<td></td>
-		<td>(e.g. other language/other communication method)</td>
-	</tr>
+	<?php if (!@$vi) {?>
+		<tr>
+			<td></td>
+			<td>(e.g. other language/other communication method)</td>
+		</tr>
+	<?php }?>
 	<tr>
 		<th>Witness required</th>
 		<td><?php echo $elements['Element_OphTrConsent_Other']->witness_required ? 'Yes' : 'No'?></td>
@@ -114,7 +114,11 @@
 	<strong>[set out how the decision about the patient’s best interests was reached; what the reasons for reaching the decision were; who was consulted to help work out best interests; and what particular factors were taken into account.]</strong>
 </p>
 <p>
-	...............................................................................................................................
+	<?php if (@$vi) {?>
+		..................................................................................
+	<?php }else{?>
+		...............................................................................................................................
+	<?php }?>
 </p>
 <p>
 	(Where incapacity is likely to be temporary, for example if patient unconscious, or where patient has fluctuating capacity)
@@ -141,10 +145,14 @@
 </span>
 <br/>
 	.................................................................................................................................<br/><br/>
-<?php echo $this->renderPartial('signature_table2',array('address'=>true))?>
+<?php echo $this->renderPartial('signature_table2',array('vi'=>@$vi,'address'=>true))?>
 <p>
 	If a person close to the patient was not available in person, has this matter been discussed in any other way (eg over the telephone?)	Yes&nbsp;&nbsp;&nbsp;No<br/><br/>
-	Details:.....................................................................................................................
+	<?php if (@$vi) {?>
+		Details:......................................................................
+	<?php }else{?>
+		Details:.....................................................................................................................
+	<?php }?>
 </p>
 <p>
 	<strong>Signature of health professional proposing treatment</strong>
@@ -153,12 +161,12 @@
 	The above procedure is, in my clinical judgement, in the best interests of the patient, who lacks capacity to consent for himself or herself.  Where possible and appropriate I have discussed the patient’s condition with those close to him or her, and taken their knowledge of the patient’s past and present wishes, feelings, views and beliefs and values into account in determining his or her best interests.
 </p>
 <div class="spacer"></div>
-<?php echo $this->renderPartial('signature_table1')?>
+<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
 <div class="spacer"></div>
 <p>
 	Where second opinion sought, s/he should sign below to confirm agreement:
 </p>
-<?php echo $this->renderPartial('signature_table1')?>
+<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
 <br pagebreak="true"/>
 <p>
 	<strong>Guidance to health professionals</strong> (to be read in conjunction with consent policy)

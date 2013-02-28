@@ -1,14 +1,10 @@
-<style>
-	h1,h2,h4 { display: inline; margin: 0 auto; width: 400px; text-align: center; }
-	.noth3 { font-size: 12pt; font-weight: normal; }
-	.spacer { height: 2em; }
-	table { border-spacing: 0; border-collapse: collapse; }
-	table.signature { margin-left: 0; }
-	table.signature td,th { margin-left: 0; padding-left: 0; width: 300px; }
-	p,li,td,th,span { font-size: 14pt; }
-	.mainContent { line-height: 3px; }
-	.topCopy { font-size: 10pt; line-height: 1px !important; }
-</style>
+<?php
+if (@$vi) {
+	echo $this->renderPartial('_print_css_visually_impaired');
+} else {
+	echo $this->renderPartial('_print_css_normal');
+}
+?>
 <h2>Consent form 1</h2>
 <h2>For adults with mental capacity to give valid consent</h2>
 <h2>Patient agreement to investigation or treatment</h2>
@@ -108,7 +104,7 @@
 			This procedure will involve:
 			[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia<br/>[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
 		</p>
-		<?php echo $this->renderPartial('signature_table1')?>
+		<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
 		<div class="spacer"></div>
 		<p>
 			Contact details (if patient wishes to discuss options later): 0207 253 3411
@@ -118,15 +114,7 @@
 			<p>
 				I have interpreted the information above to the patient to the best of my ability and in a way in which I believe s/he can understand.
 			</p>
-			<table>
-				<tr>
-					<td>Signed:..................................................</td>
-					<td>Date:.............................................</td>
-				</tr>
-				<tr>
-					<td colspan="2">Name: <?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
-				</tr>
-			</table>
+			<?php echo $this->renderPartial('signature_table3',array('vi'=>@$vi,'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
 			<div class="spacer"></div>
 		<?php }?>
 		<br/>
@@ -147,34 +135,18 @@
 	</p>
 	<span>I have been told <strong>about additional procedures which may become necessary during my treatment. I have listed below any procedures</strong> which I do not wish to be carried out <strong>without further discussion.</strong></span><br/>
 	<span>................................................................................................................................</span><br/><br/>
-	<table class="signature">
-		<tr>
-			<td>Patient's signature:............................................</td>
-			<td>Date:......................................</td>
-		</tr>
-		<tr>
-			<td colspan="2">Name: <?php echo $this->patient->fullName?></td>
-		</tr>
-	</table>
+	<?php echo $this->renderPartial('signature_table4',array('vi'=>@$vi,'name'=>$this->patient->fullName))?>
 	<?php if ($elements['Element_OphTrConsent_Other']->witness_required) {?>
 		<br/>
 		<span>A <strong>witness</strong> should sign below <strong>if the patient is unable to sign but has indicated <?php echo $this->patient->obj?> consent.</strong></span><br/><br/>
-		<table>
-			<tr>
-				<td>Signature:..............................................</td>
-				<td>Date:......................................</td>
-			</tr>
-			<tr>
-				<td colspan="2">Name: <?php echo $elements['Element_OphTrConsent_Other']->witness_name?></td>
-			</tr>
-		</table>
+		<?php echo $this->renderPartial('signature_table3',array('vi'=>@$vi,'name'=>$elements['Element_OphTrConsent_Other']->witness_name))?>
 	<?php }?>
 	<h3>Confirmation of consent</h3>
 	(to be completed by a health professional when the patient is admitted, if the patient has signed the form in advance)
 	<p>
 		On behalf of the team treating the patient, I have confirmed with the patient that <?php echo $this->patient->pro?> has no further questions and wishes the procedure to go ahead.
 	</p>
-	<?php echo $this->renderPartial('signature_table1')?>
+	<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
 	<div class="spacer"></div>
 	<p>
 		<strong>Important notes:</strong> (tick if applicable)

@@ -73,6 +73,6 @@ class DefaultController extends BaseEventTypeController {
 		$template = "print{$template_id}_$language->name";
 
 		$this->printLog($id, true);
-		$this->printPDF($id, $elements, $template);
+		$this->printPDF($id, $elements, $template, array('vi' => (boolean)@$_GET['vi']));
 	}
 }

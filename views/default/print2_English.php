@@ -1,19 +1,17 @@
-<style>
-	h1,h2,h4 { display: inline; margin: 0 auto; width: 400px; text-align: center; }
-	.noth3 { font-size: 12pt; font-weight: normal; }
-	.spacer { height: 2em; }
-	table { border-spacing: 0; border-collapse: collapse; }
-	table.signature { margin-left: 0; }
-	table.signature td,th { margin-left: 0; padding-left: 0; width: 300px; }
-	p,li,td,th,span { font-size: 14pt; }
-	.mainContent { line-height: 3px; }
-	.topCopy { font-size: 10pt; line-height: 1px !important; }
-</style>
+<?php
+if (@$vi) {
+	echo $this->renderPartial('_print_css_visually_impaired');
+} else {
+	echo $this->renderPartial('_print_css_normal');
+}
+?>
 <h2>Consent form 2</h2>
 <h2>Parental agreement to investigation or treatment for a child or young person</h2>
-<div class="spacer"></div>
-<div class="spacer"></div>
-<div class="spacer"></div>
+<?php if (!@$vi) {?>
+	<div class="spacer"></div>
+	<div class="spacer"></div>
+	<div class="spacer"></div>
+<?php }?>
 <p><strong>Patient details (or pre-printed label)</strong></p>
 <table>
 	<tr>
@@ -42,12 +40,14 @@
 	</tr>
 	<tr>
 		<th>Special requirements</th>
-		<td>...............................................................</td>
+		<td>......................................</td>
 	</tr>
-	<tr>
-		<td></td>
-		<td>(e.g. other language/other communication method)</td>
-	</tr>
+	<?php if (!@$vi) {?>
+		<tr>
+			<td></td>
+			<td>(e.g. other language/other communication method)</td>
+		</tr>
+	<?php }?>
 	<tr>
 		<th>Witness required</th>
 		<td><?php echo $elements['Element_OphTrConsent_Other']->witness_required ? 'Yes' : 'No'?></td>
@@ -87,37 +87,19 @@
 	<strong>I understand that any</strong> procedure in addition to those described on this form will only be carried out if it is necessary to save the life of my child or to prevent serious harm to his or her health.<br/>
 	<strong>I have been told about</strong> additional procedures which may become necessary during my child's treatment. I have listed below any procedures which I do not wish to be carried out without further discussion: ................................................................................................................................
 </p>
-<table>
-	<tr>
-		<td>Signature:.......................................</td>
-		<td>Date:...................................................</td>
-	</tr>
-	<tr>
-		<td>Name (PRINT):...............................</td>
-		<td>Relationship to child:...........................</td>
-	</tr>
-</table>
+<?php echo $this->renderPartial('signature_table5',array('vi'=>@$vi))?>
 <br pagebreak="true"/>
 <h3>Child's agreement to treatment (if child wishes to sign)</h3>
 <p>
 	I agree to have the treatment I have been told about.
 </p>
-<table>
-	<tr>
-		<td>Name: <?php echo $this->patient->first_name?> <?php echo $this->patient->last_name?></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Signature:.................................</td>
-		<td>Date:.........................</td>
-	</tr>
-</table>
+<?php echo $this->renderPartial('signature_table3',array('vi'=>@$vi,'name'=>$this->patient->first_name.' '.$this->patient->last_name))?>
 <div class="spacer"></div>
 <h3>Confirmation of consent <span class="noth3">(to be completed by a health professional when the child is admitted for the procedure, if the parent/child have signed the form in advance)</span></h3>
 <p>
 	On behalf of the team treating the patient, I have confirmed with the child and his or her parent(s) that they have no further questions and wish the procedure to go ahead.
 </p>
-<?php echo $this->renderPartial('signature_table1')?>
+<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
 <div class="spacer"></div>
 <h3>Important notes: (tick if applicable)</h3>
 <p>
@@ -161,7 +143,7 @@
 	<strong>This procedure will involve:</strong>
 	[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia<br/>[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
 </p>
-<?php echo $this->renderPartial('signature_table1')?>
+<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi))?>
 <div class="spacer"></div>
 <p>
 	Contact details (if child/parent wishes to discuss options later) .....................
@@ -169,15 +151,7 @@
 <?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
 	<h3>Statement of interpreter</h3>
 	<span>I have interpreted the information above to the child and <?php echo $this->patient->pos?> parents to the best of my ability and in a way in which I believe they can understand.</span><br/><br/>
-	<table>
-		<tr>
-			<td>Signed:...........................................</td>
-			<td>Date:............................................</td>
-		</tr>
-		<tr>
-			<td colspan="2">Name: <?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
-		</tr>
-	</table>
+	<?php echo $this->renderPartial('signature_table3',array('vi'=>@$vi,'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
 <?php }?>
 <br pagebreak="true"/>
 <span class="topCopy">Top copy accepted by patient: yes/no (please ring)</span>

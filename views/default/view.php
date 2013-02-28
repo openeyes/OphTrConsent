@@ -12,6 +12,7 @@
 <div class="form_button">
 	<img class="loader" style="display: none;" src="<?php echo Yii::app()->createUrl('img/ajax-loader.gif')?>" alt="loading..." />&nbsp;
 	<button type="submit" class="classy blue venti" id="et_print" name="print"><span class="button-span button-span-blue">Print</span></button>
+	<button type="submit" class="classy blue venti" id="et_print_va" name="print"><span class="button-span button-span-blue">Print for visually impaired</span></button>
 </div>
 
 <iframe id="print_iframe" name="print_iframe" style="display: none;"></iframe>

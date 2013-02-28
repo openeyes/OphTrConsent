@@ -66,6 +66,11 @@ $(document).ready(function() {
 		return false;
 	});
 
+	$('#et_print_va').unbind('click').click(function() {
+		var m = window.location.href.match(/\/view\/([0-9]+)/);
+		printPDF(baseUrl+'/OphTrConsent/default/print/'+m[1],{"vi":true});
+	});
+
 	$('tr.clickable').disableSelection();
 
 	$('tr.clickable').click(function() {
