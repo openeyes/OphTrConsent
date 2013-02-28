@@ -187,16 +187,15 @@
 	Photographs, x-rays or other images may be taken as part of your child's treatment and will form part of the medical record. It is very unlikely that your child would be recognised from these images. If however your child could be recognised we would seek your specific consent before any particular publication.
 </p>
 <p>
-	Do you agree to them being used for:
+	<strong>I agree to use in audit, education and publication:</strong>
 </p>
 <p>
-	[<?php if ($elements['Element_OphTrConsent_Permissions']->images) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Education
+	[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Yes') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Yes&nbsp;&nbsp;&nbsp;
+	[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'No') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] No&nbsp;&nbsp;&nbsp;
+	[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Not applicable') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Not applicable
 </p>
 <p>
-	[<?php if ($elements['Element_OphTrConsent_Permissions']->images) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Research
-</p>
-<p>
-	If you do not wish to take part in either of the above, your care will not be compromised in any way.
+	If you do not wish to take part in the above, your care will not be compromised in any way.
 </p>
 <p>
 	Signature of Parent/Guardian ..............................
