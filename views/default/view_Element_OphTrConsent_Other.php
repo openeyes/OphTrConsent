@@ -8,6 +8,10 @@
 			<td><span class="big"><?php echo $element->information ? 'Yes' : 'No'?></span></td>
 		</tr>
 		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('anaesthetic_leaflet'))?></td>
+			<td><span class="big"><?php echo $element->anaesthetic_leaflet ? 'Yes' : 'No'?></span></td>
+		</tr>
+		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('witness_required'))?></td>
 			<td><span class="big"><?php echo $element->witness_required ? 'Yes' : 'No'?></span></td>
 		</tr>
