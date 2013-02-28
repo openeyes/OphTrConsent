@@ -55,13 +55,13 @@ class DefaultController extends BaseEventTypeController {
 		
 		$template = 'print';
 
-		if (isset($_GET['lang_id'])) {
+		/*if (isset($_GET['lang_id'])) {
 			if (!$language = Language::model()->findByPK($_GET['lang_id'])) {
 				throw new Exception("Language not found: ".print_r($language->getErrors(),true));
 			}
-		} else {
+		} else {*/
 			$language = Language::model()->find('name=?',array('English'));
-		}
+		//}
 
 		foreach ($this->getDefaultElements('print') as $element) {
 			$elements[get_class($element)] = $element;

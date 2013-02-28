@@ -10,7 +10,6 @@
 </div>
 
 <div class="form_button">
-	Print language: <?php echo CHtml::dropDownList('printLanguage',12,CHtml::listData(Language::model()->findAll(),'id','name'))?>
 	<img class="loader" style="display: none;" src="<?php echo Yii::app()->createUrl('img/ajax-loader.gif')?>" alt="loading..." />&nbsp;
 	<button type="submit" class="classy blue venti" id="et_print" name="print"><span class="button-span button-span-blue">Print</span></button>
 </div>
