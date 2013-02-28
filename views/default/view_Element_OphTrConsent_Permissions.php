@@ -4,12 +4,8 @@
 <table class="subtleWhite normalText">
 	<tbody>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('tissues_id'))?></td>
-			<td><span class="big"><?php echo $element->tissues ? $element->tissues->name : 'None'?></span></td>
-		</tr>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('images'))?></td>
-			<td><span class="big"><?php echo $element->images ? 'Yes' : 'No'?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('images_id'))?></td>
+			<td><span class="big"><?php echo $element->images ? $element->images->name : 'None'?></span></td>
 		</tr>
 	</tbody>
 </table>

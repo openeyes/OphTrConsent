@@ -17,7 +17,7 @@
  */
 
 /**
- * This is the model class for table "et_ophtrconsent_permissions_tissues".
+ * This is the model class for table "et_ophtrconsent_permissions_images".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -32,7 +32,7 @@
  * @property User $usermodified
  */
 
-class Element_OphTrConsent_Permissions_Tissues extends BaseActiveRecord
+class Element_OphTrConsent_Permissions_Images extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -48,7 +48,7 @@ class Element_OphTrConsent_Permissions_Tissues extends BaseActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'et_ophtrconsent_permissions_tissues';
+		return 'et_ophtrconsent_permissions_images';
 	}
 
 	/**

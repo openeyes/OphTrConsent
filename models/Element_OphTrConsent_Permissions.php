@@ -22,8 +22,7 @@
  * The followings are the available columns in table:
  * @property string $id
  * @property integer $event_id
- * @property integer $tissues_id
- * @property integer $images
+ * @property integer $images_id
  *
  * The followings are the available model relations:
  *
@@ -32,7 +31,7 @@
  * @property Event $event
  * @property User $user
  * @property User $usermodified
- * @property Element_OphTrConsent_Permissions_Tissues $tissues
+ * @property Element_OphTrConsent_Permissions_Images $images
  */
 
 class Element_OphTrConsent_Permissions extends BaseEventTypeElement
@@ -64,11 +63,11 @@ class Element_OphTrConsent_Permissions extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, tissues_id, images, ', 'safe'),
-			array('tissues_id, images, ', 'required'),
+			array('event_id, images_id', 'safe'),
+			array('images_id', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, event_id, tissues_id, images, ', 'safe', 'on' => 'search'),
+			array('id, event_id, images_id', 'safe', 'on' => 'search'),
 		);
 	}
 	
@@ -85,7 +84,7 @@ class Element_OphTrConsent_Permissions extends BaseEventTypeElement
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'tissues' => array(self::BELONGS_TO, 'Element_OphTrConsent_Permissions_Tissues', 'tissues_id'),
+			'images' => array(self::BELONGS_TO, 'Element_OphTrConsent_Permissions_Images', 'images_id'),
 		);
 	}
 
@@ -97,8 +96,7 @@ class Element_OphTrConsent_Permissions extends BaseEventTypeElement
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-'tissues_id' => 'Tissues',
-'images' => 'Agree for use in education audit and research',
+			'images_id' => 'Agree for use in audit, education and publication',
 		);
 	}
 
@@ -115,8 +113,7 @@ class Element_OphTrConsent_Permissions extends BaseEventTypeElement
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('tissues_id', $this->tissues_id);
-		$criteria->compare('images', $this->images);
+		$criteria->compare('images_id', $this->images);
 		
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,

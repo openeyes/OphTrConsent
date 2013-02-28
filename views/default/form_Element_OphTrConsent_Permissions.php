@@ -23,6 +23,5 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>">
 	<h4 class="elementTypeName"><?php  echo $element->elementType->name; ?></h4>
 
-	<?php echo $form->radioButtons($element, 'tissues_id', 'et_ophtrconsent_permissions_tissues')?>
-	<?php echo $form->checkBox($element, 'images', array('text-align' => 'right'))?>
+	<?php echo $form->radioButtons($element, 'images_id', 'et_ophtrconsent_permissions_images',null,false,false,false,true)?>
 </div>
