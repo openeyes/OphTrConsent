@@ -170,7 +170,11 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 	public function setDefaultOptions() {
 		if (Yii::app()->getController()->action->id == 'create') {
 			if (empty($_POST)) {
-				$this->consultant_id = Yii::app()->user->id;
+				if (isset(Yii::app()->session['selected_firm_id'])) {
+					if ($firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id'])) {
+						$this->consultant_id = $firm->getConsultantUser()->id;
+					}
+				}
 			}
 		}
 	}
