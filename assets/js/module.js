@@ -77,13 +77,14 @@ $(document).ready(function() {
 
 	$('#et_print').unbind('click').click(function() {
 		var m = window.location.href.match(/\/view\/([0-9]+)/);
-		printPDF(baseUrl+'/OphTrConsent/default/print/'+m[1],{});
+		printIFrameUrl(baseUrl+'/OphTrConsent/default/print/'+m[1],null);
 		return false;
 	});
 
 	$('#et_print_va').unbind('click').click(function() {
 		var m = window.location.href.match(/\/view\/([0-9]+)/);
-		printPDF(baseUrl+'/OphTrConsent/default/print/'+m[1],{"vi":true});
+		printIFrameUrl(baseUrl+'/OphTrConsent/default/print/'+m[1],{"vi":true});
+		return false;
 	});
 
 	$('tr.clickable').disableSelection();
