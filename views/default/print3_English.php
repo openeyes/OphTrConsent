@@ -61,7 +61,7 @@ if (@$vi) {
 	I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of those involved.
 </p>
 <p>
-	[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] An informational leaflet has been provided.
+	[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] The following informational leaflets have been provided: .............................................<br/>
 </p>
 <?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
 <br pagebreak="true"/>
