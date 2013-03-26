@@ -130,11 +130,14 @@ if (@$vi) {
 <br pagebreak="true"/>
 <h2>Moorfields Eye Hospital NHS Trust</h2>
 <h3>Name of proposed procedure or course of treatment</h3>
-<ul>
+<ul<?php if (@$vi) {?> class="ul_vi"<?php }?>>
 	<?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $proc) {?>
 		<li><?php echo $elements['Element_OphTrConsent_Procedure']->eye->adjective?> <?php echo $proc->term?></li>
 	<?php }?>
 </ul>
+<?php if (@$vi) {?>
+	<div class="spacer"></div>
+<?php }?>
 <h3>Statement of health professional <span class="noth3">(to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)</span></h3>
 <p>
 	<strong>I have explained the procedure to the patient. In particular, I have explained:</strong>
@@ -147,11 +150,14 @@ if (@$vi) {
 </p>
 <?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
 	<p>Any extra procedures which may become necessary during the procedure(s)</p>
-	<ul>
+	<ul<?php if (@$vi) {?> class="ul_vi"<?php }?>>
 		<?php foreach ($elements['Element_OphTrConsent_Procedure']->additional_procedures as $proc) {?>
 			<li><?php echo $proc->term?></li>
 		<?php }?>
 	</ul>
+	<?php if (@$vi) {?>
+		<div class="spacer"></div>
+	<?php }?>
 <?php }?>
 <p>
 	I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of this patient and <?php echo $this->patient->pos?> parents.
@@ -167,6 +173,7 @@ if (@$vi) {
 <p>
 	Contact details (if child/parent wishes to discuss options later) .....................
 </p>
+<br/>
 <?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
 	<h3>Statement of interpreter</h3>
 	<span>I have interpreted the information above to the child and <?php echo $this->patient->pos?> parents to the best of my ability and in a way in which I believe they can understand.</span><br/><br/>

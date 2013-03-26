@@ -26,6 +26,7 @@
 	table.signature { margin-left: 0; }
 	table.signature td,th { margin-left: 0; padding-left: 0; width: 300px; }
 	p,li,td,th,span { font-size: 22pt; }
-	.mainContent { line-height: 3px; }
+	/*.mainContent { line-height: 3px; }*/
 	.topCopy { font-size: 10pt; line-height: 1px !important; }
+	ul.ul_vi li { line-height: 2pt; }
 </style>

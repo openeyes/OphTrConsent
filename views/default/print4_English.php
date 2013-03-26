@@ -98,11 +98,14 @@ if (@$vi) {
 <h3>All sections to be completed by health professional proposing the procedure</h3>
 <div class="spacer"></div>
 <h3>A. Details of procedure or course of treatment proposed</h3>
-<ul>
+<ul<?php if (@$vi) {?> class="ul_vi"<?php }?>>
 	<?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $proc) {?>
 		<li><?php echo $elements['Element_OphTrConsent_Procedure']->eye->adjective?> <?php echo $proc->term?></li>
 	<?php }?>
 </ul>
+<?php if (@$vi) {?>
+	<div class="spacer"></div>
+<?php }?>
 <p>
 	(NB see guidance to health professionals overleaf for details of situations where court approval must first be sought)
 </p>

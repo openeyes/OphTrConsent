@@ -87,11 +87,14 @@ if (@$vi) {
 <?php for ($i=0; $i<2; $i++) {?>
 	<div class="mainContent">
 		<h3>Name of proposed procedure or course of treatment</h3>
-		<ul>
+		<ul<?php if (@$vi) {?> class="ul_vi"<?php }?>>
 			<?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $proc) {?>
 				<li><?php echo $elements['Element_OphTrConsent_Procedure']->eye->adjective?> <?php echo $proc->term?></li>
 			<?php }?>
 		</ul>
+		<?php if (@$vi) {?>
+			<div class="spacer"></div>
+		<?php }?>
 		<h3>Statement of health professional <span class="noth3">(to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)</span></h3>
 		<p>
 			<strong>I have explained the procedure to the patient. In particular, I have explained:</strong>
@@ -106,11 +109,14 @@ if (@$vi) {
 		</p>
 		<?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
 			<p>Any extra procedures which may become necessary during the procedure(s)</p>
-			<ul>
+			<ul<?php if (@$vi) {?> class="ul_vi"<?php }?>>
 				<?php foreach ($elements['Element_OphTrConsent_Procedure']->additional_procedures as $proc) {?>
 					<li><?php echo $proc->term?></li>
 				<?php }?>
 			</ul>
+			<?php if (@$vi) {?>
+				<div class="spacer"></div>
+			<?php }?>
 		<?php }?>
 		<p>
 			I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of this patient. I assess that this patient has the capacity to give valid consent.
