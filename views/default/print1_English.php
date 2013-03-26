@@ -42,7 +42,7 @@ if (@$vi) {
 	</tr>
 	<tr>
 		<th>Date of birth</th>
-		<td><?php echo $this->patient->dob?></td>
+		<td><?php echo $this->patient->NHSDate('dob')?></td>
 	</tr>
 	<tr>
 		<th>Hospital no</th>
