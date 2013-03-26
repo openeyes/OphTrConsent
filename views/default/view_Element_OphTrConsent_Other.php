@@ -60,5 +60,9 @@
 				<td><span class="big"><?php echo CHtml::encode($element->parent_guardian)?></span></td>
 			</tr>
 		<?php }?>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('include_supplementary_consent'))?></td>
+			<td><span class="big"><?php echo $element->include_supplementary_consent ? 'Yes' : 'No'?></span></td>
+		</tr>
 	</tbody>
 </table>

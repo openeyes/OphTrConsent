@@ -179,27 +179,29 @@ if (@$vi) {
 	<span>I have interpreted the information above to the child and <?php echo $this->patient->pos?> parents to the best of my ability and in a way in which I believe they can understand.</span><br/><br/>
 	<?php echo $this->renderPartial('signature_table3',array('vi'=>@$vi,'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
 <?php }?>
-<br pagebreak="true"/>
 <span class="topCopy">Top copy accepted by patient: yes/no (please ring)</span>
-<h2>Form 2: Supplementary consent</h2>
-<h3>Images</h3>
-<p>
-	Photographs, x-rays or other images may be taken as part of your child's treatment and will form part of the medical record. It is very unlikely that your child would be recognised from these images. If however your child could be recognised we would seek your specific consent before any particular publication.
-</p>
-<p>
-	<strong>I agree to use in audit, education and publication:</strong>
-</p>
-<p>
-	[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Yes') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Yes&nbsp;&nbsp;&nbsp;
-	[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'No') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] No&nbsp;&nbsp;&nbsp;
-	[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Not applicable') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Not applicable
-</p>
-<p>
-	If you do not wish to take part in the above, your care will not be compromised in any way.
-</p>
-<p>
-	Signature of Parent/Guardian ..............................
-</p>
-<p>
-	Date ...............................
-</p>
+<?php if ($elements['Element_OphTrConsent_Other']->include_supplementary_consent) {?>
+	<br pagebreak="true"/>
+	<h2>Form 2: Supplementary consent</h2>
+	<h3>Images</h3>
+	<p>
+		Photographs, x-rays or other images may be taken as part of your child's treatment and will form part of the medical record. It is very unlikely that your child would be recognised from these images. If however your child could be recognised we would seek your specific consent before any particular publication.
+	</p>
+	<p>
+		<strong>I agree to use in audit, education and publication:</strong>
+	</p>
+	<p>
+		[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Yes') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Yes&nbsp;&nbsp;&nbsp;
+		[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'No') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] No&nbsp;&nbsp;&nbsp;
+		[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Not applicable') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Not applicable
+	</p>
+	<p>
+		If you do not wish to take part in the above, your care will not be compromised in any way.
+	</p>
+	<p>
+		Signature of Parent/Guardian ..............................
+	</p>
+	<p>
+		Date ...............................
+	</p>
+<?php }?>

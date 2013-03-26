@@ -180,27 +180,29 @@ if (@$vi) {
 		[&nbsp;&nbsp;] See also advance decision refusing treatment (including a Jehovah’s Witness form)<br/>
 		[&nbsp;&nbsp;] Patient has withdrawn consent (ask patient to sign /date here): ..................................................................
 	</p>
-	<br pagebreak="true"/>
-	<h2>Form 1: Supplementary consent</h2>
-	<h3>Images</h3>
-	<p>
-		Photographs, x-rays or other images may be taken as part of your treatment and will form part of your medical record. It is very unlikely that you would be recognised from these images. If however you could be recognised we would seek your specific consent before any particular publication.
-	</p>
-	<p>
-		<strong>I agree to use in audit, education and publication:</strong>
-	</p>
-	<p>
-		[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Yes') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Yes&nbsp;&nbsp;&nbsp;
-		[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'No') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] No&nbsp;&nbsp;&nbsp;
-		[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Not applicable') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Not applicable
-	</p>
-	<p>
-		If you do not wish to take part in the above, your care will not be compromised in any way.
-	</p>
-	<p>
-		Patient signature ..............................
-	</p>
-	<p>
-		Date ...............................
-	</p>
+	<?php if ($elements['Element_OphTrConsent_Other']->include_supplementary_consent) {?>
+		<br pagebreak="true"/>
+		<h2>Form 1: Supplementary consent</h2>
+		<h3>Images</h3>
+		<p>
+			Photographs, x-rays or other images may be taken as part of your treatment and will form part of your medical record. It is very unlikely that you would be recognised from these images. If however you could be recognised we would seek your specific consent before any particular publication.
+		</p>
+		<p>
+			<strong>I agree to use in audit, education and publication:</strong>
+		</p>
+		<p>
+			[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Yes') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Yes&nbsp;&nbsp;&nbsp;
+			[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'No') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] No&nbsp;&nbsp;&nbsp;
+			[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Not applicable') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Not applicable
+		</p>
+		<p>
+			If you do not wish to take part in the above, your care will not be compromised in any way.
+		</p>
+		<p>
+			Patient signature ..............................
+		</p>
+		<p>
+			Date ...............................
+		</p>
+	<?php }?>
 </div>

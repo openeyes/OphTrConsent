@@ -65,4 +65,5 @@
 	<?php echo $form->checkBox($element, 'interpreter_required', array('text-align' => 'right'))?>
 	<?php echo $form->textField($element, 'interpreter_name', array('size' => '30','maxLength' => '255', 'hide' => (!@$_POST['Element_OphTrConsent_Other']['interpreter_required'] && !$element->interpreter_name)))?>
 	<?php echo $form->textField($element, 'parent_guardian', array('size' => '30','maxlength' => '255', 'hide' => $element->isAdult()))?>
+	<?php echo $form->checkBox($element, 'include_supplementary_consent', array('text-align' => 'right'))?>
 </div>

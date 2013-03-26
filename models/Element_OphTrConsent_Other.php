@@ -68,7 +68,7 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, information, witness_required, parent_guardian, interpreter_required, witness_name, interpreter_name, anaesthetic_leaflet, consultant_id', 'safe'),
+			array('event_id, information, witness_required, parent_guardian, interpreter_required, witness_name, interpreter_name, anaesthetic_leaflet, consultant_id, include_supplementary_consent', 'safe'),
 			array('information, witness_required, interpreter_required, anaesthetic_leaflet, consultant_id', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -107,6 +107,7 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 			'interpreter_required' => 'Interpreter required',
 			'parent_guardian' => 'Parent/guardian',
 			'consultant_id' => 'Consultant',
+			'include_supplementary_consent' => 'Include supplementary consent form',
 		);
 	}
 
