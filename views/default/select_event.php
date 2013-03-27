@@ -30,8 +30,12 @@
 			'htmlOptions' => array('class'=>'sliding'),
 			// 'focus'=>'#procedure_id'
 		));
-	?>
-	<?php  $this->displayErrors($errors)?>
+
+	$this->event_actions[] = EventAction::button('Create Consent Form', 'save', array('colour' => 'green'));
+	$this->event_actions[] = EventAction::button('Cancel', 'cancel', array('colour' => 'red'));
+	$this->renderPartial('//patient/event_actions');
+
+	$this->displayErrors($errors)?>
 
 	<h4>Create Consent Form</h4>
 	<h3 class="sectiondivider">
