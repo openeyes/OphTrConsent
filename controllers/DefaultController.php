@@ -47,6 +47,12 @@ class DefaultController extends BaseEventTypeController {
 
 			$this->event_type = EventType::model()->find('class_name=?',array('OphTrConsent'));
 			$this->title = "Please select booking";
+			$this->event_tabs = array(
+					array(
+							'label' => 'Select a booking',
+							'active' => true,
+					),
+			);
 			$this->renderPartial('select_event',array(
 				'errors' => $errors,
 				'bookings' => $bookings,

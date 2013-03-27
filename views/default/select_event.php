@@ -32,7 +32,6 @@
 		));
 
 	$this->event_actions[] = EventAction::button('Create Consent Form', 'save', array('colour' => 'green'));
-	$this->event_actions[] = EventAction::button('Cancel', 'cancel', array('colour' => 'red'));
 	$this->renderPartial('//patient/event_actions');
 
 	$this->displayErrors($errors)?>
@@ -72,12 +71,6 @@
 					</tr>							
 				</tbody>
 			</table>
-			<div class="btngroup padtop">
-				<button type="submit" class="classy green mini" id="et_save" name="save"><span class="btn green">Create Consent Form</span></button>
-				<button type="submit" class="classy red mini" id="et_cancel" name="cancel"><span class="button-span button-span-red">Cancel</span></button>
-				&nbsp;
-				<img class="loader" style="display: none;" src="/img/ajax-loader.gif" alt="loading..." />
-			</div>
 		</div>
 	</div>
 

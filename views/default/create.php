@@ -31,7 +31,6 @@
 		));
 
 	$this->event_actions[] = EventAction::button('Save', 'save', array('colour' => 'green'));
-	$this->event_actions[] = EventAction::button('Cancel', 'cancel', array('colour' => 'red'));
 	$this->renderPartial('//patient/event_actions');
 	?>
 
