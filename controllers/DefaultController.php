@@ -20,25 +20,26 @@ class DefaultController extends BaseEventTypeController {
 		if (isset($_GET['booking_event_id']) || @$_GET['unbooked']) {
 			parent::actionCreate();
 		} else {
-			$episode = $this->patient->getEpisodeForCurrentSubspecialty();
 			$operations = array();
-			
-			foreach (Yii::app()->db->createCommand()
-				->select("s.date, eo.id as eoid, e.id as evid")
-				->from("booking b")
-				->join("session s","b.session_id = s.id")
-				->join("element_operation eo","b.element_operation_id = eo.id")
-				->join("event e","eo.event_id = e.id")
-				->where("e.episode_id = ?",array($episode->id))
-				->queryAll() as $row) {
 
-				$row['procedures'] = array();
+			if ($episode = $this->patient->getEpisodeForCurrentSubspecialty()) {
+				foreach (Yii::app()->db->createCommand()
+					->select("s.date, eo.id as eoid, e.id as evid")
+					->from("ophtroperationbooking_operation_booking b")
+					->join("ophtroperationbooking_operation_session s","b.session_id = s.id")
+					->join("et_ophtroperationbooking_operation eo","b.element_id = eo.id")
+					->join("event e","eo.event_id = e.id")
+					->where("e.episode_id = ?",array($episode->id))
+					->queryAll() as $row) {
 
-				if (!Element_OphTrConsent_Procedure::model()->find('booking_event_id=?',array($row['evid']))) {
-					foreach (OperationProcedureAssignment::model()->findAll('operation_id=?',array($row['eoid'])) as $opa) {
-						$row['procedures'][] = $opa->procedure->term;
+					$row['procedures'] = array();
+
+					if (!Element_OphTrConsent_Procedure::model()->find('booking_event_id=?',array($row['evid']))) {
+						foreach (OphTrOperationbooking_Operation_Procedures::model()->findAll('element_id=?',array($row['eoid'])) as $opa) {
+							$row['procedures'][] = $opa->procedure->term;
+						}
+						$operations[] = $row;
 					}
-					$operations[] = $row;
 				}
 			}
 

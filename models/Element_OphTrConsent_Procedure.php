@@ -149,7 +149,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 					if ($event->episode_id != $episode->id) {
 						throw new Exception("Selected event is not in the current episode");
 					}
-					if ($eo = ElementOperation::model()->find('event_id=?',array($event->id))) {
+					if ($eo = Element_OphTrOperationbooking_Operation::model()->find('event_id=?',array($event->id))) {
 						$this->eye_id = $eo->eye_id;
 						$this->anaesthetic_type_id = $eo->anaesthetic_type_id;
 					}
@@ -176,7 +176,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 					if ($event->episode_id != $episode->id) {
 						throw new Exception("Selected event is not in the current episode");
 					}
-					if ($eo = ElementOperation::model()->find('event_id=?',array($event->id))) {
+					if ($eo = Element_OphTrOperationbooking_Operation::model()->find('event_id=?',array($event->id))) {
 						foreach ($eo->procedures as $proc) {
 							$procedures[] = $proc;
 						}

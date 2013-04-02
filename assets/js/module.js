@@ -5,8 +5,6 @@ $(document).ready(function() {
 	$('#et_save').unbind('click').click(function() {
 		if (!$(this).hasClass('inactive')) {
 			disableButtons();
-
-			
 			return true;
 		}
 		return false;
@@ -85,7 +83,7 @@ $(document).ready(function() {
 
 	$('#et_print').unbind('click').click(function() {
 		var m = window.location.href.match(/\/view\/([0-9]+)/);
-		printPDF(baseUrl+'/OphTrConsent/default/print/'+m[1]+"?lang_id="+$('#printLanguage').val(),{});
+		printIFrameUrl(baseUrl+'/OphTrConsent/default/print/'+m[1]+"?lang_id="+$('#printLanguage').val(),{});
 		return false;
 	});
 });
