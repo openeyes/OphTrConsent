@@ -86,6 +86,13 @@ $(document).ready(function() {
 		printIFrameUrl(baseUrl+'/OphTrConsent/default/print/'+m[1]+"?lang_id="+$('#printLanguage').val(),{});
 		return false;
 	});
+
+	$('tr.clickable').disableSelection();
+
+	$('tr.clickable').click(function() {
+		$(this).children('td:first').children('input[type="radio"]').attr('checked',true);
+		return false;
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
