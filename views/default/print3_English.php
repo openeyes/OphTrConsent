@@ -48,14 +48,7 @@ if (@$vi) {
 </p>
 <?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
 	<p>Any extra procedures which may become necessary during the procedure(s):</p>
-	<ul<?php if (@$vi) {?> class="ul_vi"<?php }?>>
-		<?php foreach ($elements['Element_OphTrConsent_Procedure']->additional_procedures as $proc) {?>
-			<li><?php echo $proc->term?></li>
-		<?php }?>
-	</ul>
-	<?php if (@$vi) {?>
-		<div class="spacer"></div>
-	<?php }?>
+	<?php echo $this->renderPartial('_proposed_procedures',array('va'=>@$va,'procedures'=>$elements['Element_OphTrConsent_Procedure']->additional_procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
 <?php }?>
 <p>
 	I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of those involved.
