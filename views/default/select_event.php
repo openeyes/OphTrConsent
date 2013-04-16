@@ -17,25 +17,26 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
  ?>
-<?php		$this->breadcrumbs=array($this->module->id);
+<?php
 	$this->header();
 	$assetpath = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('application.modules.OphTrOperationbooking.assets')).'/';
 ?>
 <h3 class="withEventIcon"><?php echo $this->event_type->name ?></h3>
 
 <div>
-	<?php			$form = $this->beginWidget('BaseEventTypeCActiveForm', array(
+	<?php $form = $this->beginWidget('BaseEventTypeCActiveForm', array(
 			'id'=>'clinical-create',
 			'enableAjaxValidation'=>false,
 			'htmlOptions' => array('class'=>'sliding'),
 			// 'focus'=>'#procedure_id'
 		));
 
-	$this->event_actions[] = EventAction::button('Create Consent Form', 'save', array('colour' => 'green'));
-	$this->renderPartial('//patient/event_actions');
-
-	$this->displayErrors($errors)?>
-
+		// Event actions
+		$this->event_actions[] = EventAction::button('Create Consent Form', 'save', array('colour' => 'green'));
+		$this->renderPartial('//patient/event_actions');
+	?>
+	<?php  $this->displayErrors($errors)?>
+	
 	<h4>Create Consent Form</h4>
 	<h3 class="sectiondivider">
 		<?php if (count($bookings) >0) {?>
@@ -75,6 +76,9 @@
 	</div>
 
 	<?php  $this->displayErrors($errors)?>
-	<?php  $this->endWidget(); ?></div>
+	
+	<div class="cleartall"></div>
+	<?php  $this->endWidget(); ?>
+</div>
 
 <?php  $this->footer(); ?>
