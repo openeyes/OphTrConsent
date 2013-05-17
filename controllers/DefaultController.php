@@ -1,4 +1,21 @@
 <?php
+/**
+ * OpenEyes
+ *
+ * (C) Moorfields Eye Hospital NHS Foundation Trust, 2008-2011
+ * (C) OpenEyes Foundation, 2011-2013
+ * This file is part of OpenEyes.
+ * OpenEyes is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * OpenEyes is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with OpenEyes in a file titled COPYING. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package OpenEyes
+ * @link http://www.openeyes.org.uk
+ * @author OpenEyes <info@openeyes.org.uk>
+ * @copyright Copyright (c) 2008-2011, Moorfields Eye Hospital NHS Foundation Trust
+ * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
+ * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
+ */
 
 class DefaultController extends BaseEventTypeController {
 	public function actionCreate() {
@@ -14,39 +31,38 @@ class DefaultController extends BaseEventTypeController {
 			} else if (preg_match('/^booking([0-9]+)$/',@$_POST['SelectBooking'],$m)) {
 				return $this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&booking_event_id='.$m[1]));
 			}
-			$errors = array('Booking' => array('Please select a booking or a procedure'));
+			$errors = array('Consent form' => array('Please select a booking or Unbooked procedures'));
 		}
 
 		if (isset($_GET['booking_event_id']) || @$_GET['unbooked']) {
 			parent::actionCreate();
 		} else {
-			$episode = $this->patient->getEpisodeForCurrentSubspecialty();
-			$operations = array();
-			
-			foreach (Yii::app()->db->createCommand()
-				->select("s.date, eo.id as eoid, e.id as evid")
-				->from("booking b")
-				->join("session s","b.session_id = s.id")
-				->join("element_operation eo","b.element_operation_id = eo.id")
-				->join("event e","eo.event_id = e.id")
-				->where("e.episode_id = ?",array($episode->id))
-				->queryAll() as $row) {
+			$bookings = array();
 
-				$row['procedures'] = array();
-
-				if (!Element_OphTrConsent_Procedure::model()->find('booking_event_id=?',array($row['evid']))) {
-					foreach (OperationProcedureAssignment::model()->findAll('operation_id=?',array($row['eoid'])) as $opa) {
-						$row['procedures'][] = $opa->procedure->term;
-					}
-					$operations[] = $row;
+			if ($api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
+				if ($episode = $this->patient->getEpisodeForCurrentSubspecialty()) {
+					$bookings = $api->getOpenBookingsForEpisode($episode->id);
 				}
 			}
 
 			$this->event_type = EventType::model()->find('class_name=?',array('OphTrConsent'));
 			$this->title = "Please select booking";
+			$this->event_tabs = array(
+					array(
+							'label' => 'Select a booking',
+							'active' => true,
+					),
+			);
+			$cancel_url = ($this->episode) ? '/patient/episode/'.$this->episode->id : '/patient/episodes/'.$this->patient->id;
+			$this->event_actions = array(
+					EventAction::link('Cancel',
+							Yii::app()->createUrl($cancel_url),
+							array('colour' => 'red', 'level' => 'secondary')
+					)
+			);
 			$this->renderPartial('select_event',array(
 				'errors' => $errors,
-				'operations' => $operations,
+				'bookings' => $bookings,
 			), false, true);
 		}
 	}
@@ -69,15 +85,70 @@ class DefaultController extends BaseEventTypeController {
 		
 		$template = 'print';
 
-		if (@$_GET['lang_id'] == 16) {
-			$template = 'print_french';
-		}
+		/*if (isset($_GET['lang_id'])) {
+			if (!$language = Language::model()->findByPK($_GET['lang_id'])) {
+				throw new Exception("Language not found: ".print_r($language->getErrors(),true));
+			}
+		} else {*/
+			$language = Language::model()->find('name=?',array('English'));
+		//}
 
 		foreach ($this->getDefaultElements('print') as $element) {
 			$elements[get_class($element)] = $element;
 		}
 
+		preg_match('/^([0-9]+)/',$elements['Element_OphTrConsent_Type']->type->name,$m);
+		$template_id = $m[1];
+
+		$template = "print{$template_id}_$language->name";
+
 		$this->printLog($id, true);
-		$this->printPDF($id, $elements, $template);
+		$this->printPDF($id, $elements, $template, array('vi' => (boolean)@$_GET['vi']));
+	}
+
+	public function actionUsers() {
+		$users = array();
+
+		$criteria = new CDbCriteria;
+
+		$criteria->addCondition(array("active = :active"));
+		$criteria->addCondition(array("LOWER(concat_ws(' ',first_name,last_name)) LIKE :term"));
+
+		$params[':active'] = 1;
+		$params[':term'] = '%' . strtolower(strtr($_GET['term'], array('%' => '\%'))) . '%';
+
+		$criteria->params = $params;
+		$criteria->order = 'first_name, last_name';
+
+		$firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id']);
+		$consultant = null;
+		// only want a consultant for medical firms
+		if ($specialty = $firm->getSpecialty()) {
+			if ($specialty->medical) {
+				$consultant = $firm->getConsultantUser();
+			}
+		}
+
+		foreach (User::model()->findAll($criteria) as $user) {
+			if ($contact = $user->contact) {
+
+				$consultant_name = false;
+
+				// if we have a consultant for the firm, and its not the matched user, attach the consultant name to the entry
+				if ($consultant && $user->id != $consultant->id) {
+					$consultant_name = trim($consultant->contact->title.' '.$consultant->contact->first_name.' '.$consultant->contact->last_name);
+				}
+
+				$users[] = array(
+					'id' => $user->id,
+					'value' => trim($contact->title.' '.$contact->first_name.' '.$contact->last_name.' '.$contact->qualifications).' ('.$user->role.')',
+					'fullname' => trim($contact->title.' '.$contact->first_name.' '.$contact->last_name.' '.$contact->qualifications),
+					'role' => $user->role,
+					'consultant' => $consultant_name,
+				);
+			}
+		}
+
+		echo json_encode($users);
 	}
 }

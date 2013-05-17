@@ -1,8 +1,9 @@
-<?php /**
+<?php
+/**
  * OpenEyes
  *
  * (C) Moorfields Eye Hospital NHS Foundation Trust, 2008-2011
- * (C) OpenEyes Foundation, 2011-2012
+ * (C) OpenEyes Foundation, 2011-2013
  * This file is part of OpenEyes.
  * OpenEyes is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * OpenEyes is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
@@ -12,7 +13,7 @@
  * @link http://www.openeyes.org.uk
  * @author OpenEyes <info@openeyes.org.uk>
  * @copyright Copyright (c) 2008-2011, Moorfields Eye Hospital NHS Foundation Trust
- * @copyright Copyright (c) 2011-2012, OpenEyes Foundation
+ * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 
@@ -67,11 +68,11 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, information, witness_required, parent_guardian, interpreter_required, witness_name, interpreter_name', 'safe'),
-			array('information, witness_required, interpreter_required', 'required'),
+			array('event_id, information, witness_required, parent_guardian, interpreter_required, witness_name, interpreter_name, anaesthetic_leaflet, consultant_id, include_supplementary_consent', 'safe'),
+			array('information, witness_required, interpreter_required, anaesthetic_leaflet, consultant_id', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, event_id, information, witness_required, interpreter_required, parent_guardian, ', 'safe', 'on' => 'search'),
+			array('id, event_id, information, witness_required, interpreter_required, parent_guardian, anaesthetic_leaflet, consultant_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -88,6 +89,7 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'consultant' => array(self::BELONGS_TO, 'User', 'consultant_id'),
 		);
 	}
 
@@ -100,9 +102,12 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 			'id' => 'ID',
 			'event_id' => 'Event',
 			'information' => 'An information leaflet has been provided',
+			'anaesthetic_leaflet' => 'Anaesthetic leaflet has been provided',
 			'witness_required' => 'Witness required',
 			'interpreter_required' => 'Interpreter required',
 			'parent_guardian' => 'Parent/guardian',
+			'consultant_id' => 'Consultant',
+			'include_supplementary_consent' => 'Include supplementary consent form',
 		);
 	}
 
@@ -162,6 +167,18 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		!$this->interpreter_required && $this->interpreter_name = '';
 
 		return parent::beforeSave();
+	}
+
+	public function setDefaultOptions() {
+		if (Yii::app()->getController()->action->id == 'create') {
+			if (empty($_POST)) {
+				if (isset(Yii::app()->session['selected_firm_id'])) {
+					if ($firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id'])) {
+						$this->consultant_id = $firm->getConsultantUser()->id;
+					}
+				}
+			}
+		}
 	}
 }
 ?>
