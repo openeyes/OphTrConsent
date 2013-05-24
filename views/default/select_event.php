@@ -64,6 +64,15 @@
 								}?>
 							</td>
 						</tr>
+						<?php if (Element_OphTrConsent_Procedure::model()->find('booking_event_id=?',array($booking->operation->event_id))) {?>
+							<tr>
+								<td colspan="5" style="padding: 0;">
+									<div class="alertBox" style="margin: 0;">
+										Warning: this booking already has a consent form
+									</div>
+								</td>
+							</tr>
+						<?php }?>
 					<?php }?>
 					<tr class="odd clickable">
 						<td><input type="radio" value="unbooked" name="SelectBooking" <?php if (count($bookings)==0) {?>checked="checked" <?php }?>/></td>
