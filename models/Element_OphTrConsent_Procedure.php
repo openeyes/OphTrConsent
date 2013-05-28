@@ -147,6 +147,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 					if (!$event = Event::model()->findByPk($_GET['booking_event_id'])) {
 						throw new Exception("Can't find event: ".$_GET['booking_event_id']);
 					}
+					$this->booking_event_id = $event->id;
 					if ($event->episode_id != $episode->id) {
 						throw new Exception("Selected event is not in the current episode");
 					}
