@@ -159,6 +159,8 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 					}
 				}
 			}
+
+			$this->booking_event_id = @$_GET['booking_event_id'];
 		}
 	}
 
@@ -271,13 +273,6 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		}
 
 		return parent::afterSave();
-	}
-
-	public function wrap($params=array()) {
-		return parent::wrap(array(
-			'EtOphtrconsentProcedureProceduresProcedures' => 'element_id',
-			'EtOphtrconsentProcedureAddProcsAddProcs' => 'element_id',
-		));
 	}
 }
 ?>

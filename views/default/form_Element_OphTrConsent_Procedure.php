@@ -25,6 +25,7 @@
 	<h4 class="elementTypeName"><?php  echo $element->elementType->name; ?></h4>
 
 	<?php echo $form->hiddenField($element, 'booking_event_id')?>
+
 	<?php echo $form->radioButtons($element, 'eye_id', 'eye')?>
 	<?php $form->widget('application.widgets.ProcedureSelection',array(
 		'element' => $element,
