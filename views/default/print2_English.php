@@ -1,4 +1,23 @@
 <?php
+/**
+ * OpenEyes
+ *
+ * (C) Moorfields Eye Hospital NHS Foundation Trust, 2008-2011
+ * (C) OpenEyes Foundation, 2011-2013
+ * This file is part of OpenEyes.
+ * OpenEyes is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * OpenEyes is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with OpenEyes in a file titled COPYING. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package OpenEyes
+ * @link http://www.openeyes.org.uk
+ * @author OpenEyes <info@openeyes.org.uk>
+ * @copyright Copyright (c) 2008-2011, Moorfields Eye Hospital NHS Foundation Trust
+ * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
+ * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
+ */
+ ?>
+<?php
 if (@$vi) {
 	echo $this->renderPartial('_print_css_visually_impaired');
 } else {
@@ -24,7 +43,7 @@ if (@$vi) {
 	</tr>
 	<tr>
 		<th>Date of birth</th>
-		<td><?php echo $this->patient->dob?></td>
+		<td><?php echo $this->patient->NHSDate('dob')?></td>
 	</tr>
 	<tr>
 		<th>Hospital no</th>
@@ -111,11 +130,7 @@ if (@$vi) {
 <br pagebreak="true"/>
 <h2>Moorfields Eye Hospital NHS Trust</h2>
 <h3>Name of proposed procedure or course of treatment</h3>
-<ul>
-	<?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $proc) {?>
-		<li><?php echo $elements['Element_OphTrConsent_Procedure']->eye->adjective?> <?php echo $proc->term?></li>
-	<?php }?>
-</ul>
+<?php echo $this->renderPartial('_proposed_procedures',array('vi'=>@$vi,'procedures'=>$elements['Element_OphTrConsent_Procedure']->procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
 <h3>Statement of health professional <span class="noth3">(to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)</span></h3>
 <p>
 	<strong>I have explained the procedure to the patient. In particular, I have explained:</strong>
@@ -128,17 +143,13 @@ if (@$vi) {
 </p>
 <?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
 	<p>Any extra procedures which may become necessary during the procedure(s)</p>
-	<ul>
-		<?php foreach ($elements['Element_OphTrConsent_Procedure']->additional_procedures as $proc) {?>
-			<li><?php echo $proc->term?></li>
-		<?php }?>
-	</ul>
+	<?php echo $this->renderPartial('_proposed_procedures',array('vi'=>@$vi,'procedures'=>$elements['Element_OphTrConsent_Procedure']->additional_procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
 <?php }?>
 <p>
 	I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of this patient and <?php echo $this->patient->pos?> parents.
 </p>
 <p>
-	[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] An informational leaflet has been provided.<br/>
+	[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] The following informational leaflets have been provided: .............................................<br/>
 	[<?php if ($elements['Element_OphTrConsent_Other']->anaesthetic_leaflet) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] "Anaesthesia at Moorfields Eye Hospital" leaflet has been provided<br/>
 	<strong>This procedure will involve:</strong>
 	[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia<br/>[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] sedation
@@ -148,32 +159,35 @@ if (@$vi) {
 <p>
 	Contact details (if child/parent wishes to discuss options later) .....................
 </p>
+<br/>
 <?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
 	<h3>Statement of interpreter</h3>
 	<span>I have interpreted the information above to the child and <?php echo $this->patient->pos?> parents to the best of my ability and in a way in which I believe they can understand.</span><br/><br/>
 	<?php echo $this->renderPartial('signature_table3',array('vi'=>@$vi,'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
 <?php }?>
-<br pagebreak="true"/>
 <span class="topCopy">Top copy accepted by patient: yes/no (please ring)</span>
-<h2>Form 2: Supplementary consent</h2>
-<h3>Images</h3>
-<p>
-	Photographs, x-rays or other images may be taken as part of your child's treatment and will form part of the medical record. It is very unlikely that your child would be recognised from these images. If however your child could be recognised we would seek your specific consent before any particular publication.
-</p>
-<p>
-	<strong>I agree to use in audit, education and publication:</strong>
-</p>
-<p>
-	[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Yes') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Yes&nbsp;&nbsp;&nbsp;
-	[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'No') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] No&nbsp;&nbsp;&nbsp;
-	[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Not applicable') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Not applicable
-</p>
-<p>
-	If you do not wish to take part in the above, your care will not be compromised in any way.
-</p>
-<p>
-	Signature of Parent/Guardian ..............................
-</p>
-<p>
-	Date ...............................
-</p>
+<?php if ($elements['Element_OphTrConsent_Other']->include_supplementary_consent) {?>
+	<br pagebreak="true"/>
+	<h2>Form 2: Supplementary consent</h2>
+	<h3>Images</h3>
+	<p>
+		Photographs, x-rays or other images may be taken as part of your child's treatment and will form part of the medical record. It is very unlikely that your child would be recognised from these images. If however your child could be recognised we would seek your specific consent before any particular publication.
+	</p>
+	<p>
+		<strong>I agree to use in audit, education and publication:</strong>
+	</p>
+	<p>
+		[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Yes') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Yes&nbsp;&nbsp;&nbsp;
+		[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'No') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] No&nbsp;&nbsp;&nbsp;
+		[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Not applicable') {?>x<?php }else{?>&nbsp;&nbsp;<?php }?>] Not applicable
+	</p>
+	<p>
+		If you do not wish to take part in the above, your care will not be compromised in any way.
+	</p>
+	<p>
+		Signature of Parent/Guardian ..............................
+	</p>
+	<p>
+		Date ...............................
+	</p>
+<?php }?>
