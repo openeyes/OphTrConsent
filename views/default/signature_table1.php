@@ -25,9 +25,22 @@
 		</tr>
 		<tr>
 			<td>Name (PRINT): <?php echo $consultant->fullNameAndTitle?></td>
-			<td>Job title: Consultant Ophthalmologist</td>
+			<td>Job title: <?php echo $consultant->role?></td>
 		</tr>
 	</table>
+	<?php if (@$lastmodified && $consultant->id != $lastmodified->id) {?>
+		<div class="spacer"></div>
+		<table>
+			<tr>
+				<td>Signed:............................</td>
+				<td>Date:...............................</td>
+			</tr>
+			<tr>
+				<td>Name (PRINT): <?php echo $lastmodified->fullNameAndTitle?></td>
+				<td>Job title: <?php echo $lastmodified->role?></td>
+			</tr>
+		</table>
+	<?php }?>
 <?php }else{?>
 	<table>
 		<tr>
@@ -36,7 +49,20 @@
 		</tr>
 		<tr>
 			<td>Name (PRINT): <?php echo $consultant->fullNameAndTitle?></td>
-			<td>Job title: Consultant Ophthalmologist</td>
+			<td>Job title: <?php echo $consultant->role?></td>
 		</tr>
 	</table>
+	<?php if (@$lastmodified && $consultant->id != $lastmodified->id) {?>
+		<div class="spacer"></div>
+		<table>
+			<tr>
+				<td>Signed:.............................................</td>
+				<td>Date:...........................................</td>
+			</tr>
+			<tr>
+				<td>Name (PRINT): <?php echo $lastmodified->fullNameAndTitle?></td>
+				<td>Job title: <?php echo $lastmodified->role?></td>
+			</tr>
+		</table>
+	<?php }?>
 <?php }?>
