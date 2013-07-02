@@ -24,7 +24,7 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>">
 	<h4 class="elementTypeName"><?php  echo $element->elementType->name; ?></h4>
 
-	<?php echo $form->hiddenField($element, 'consultant_id')?>
+	<?php echo $form->hiddenInput($element, 'consultant_id')?>
 
 	<div class="eventDetail row">
 		<div class="label OphTrConsent_consultantLabel">Consultant:</div>
