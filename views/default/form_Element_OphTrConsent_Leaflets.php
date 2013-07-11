@@ -24,5 +24,5 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>">
 	<h4 class="elementTypeName"><?php  echo $element->elementType->name; ?></h4>
 
-	<?php echo $form->multiSelectList($element, 'OphTrConsent_Leaflet', 'leaflets', 'leaflet_id', CHtml::listData(OphTrConsent_Leaflet::model()->findAllByCurrentSubspecialty(),'id','name'), array(), array('empty' => '- Leaflets -', 'label' => 'Leaflets provided'))?>
+	<?php echo $form->multiSelectList($element, 'OphTrConsent_Leaflet', 'leaflets', 'leaflet_id', CHtml::listData(OphTrConsent_Leaflet::model()->findAllByCurrentFirm(),'id','name'), array(), array('empty' => '- Leaflets -', 'label' => 'Leaflets provided'))?>
 </div>

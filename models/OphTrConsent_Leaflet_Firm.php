@@ -18,7 +18,7 @@
  */
 
 /**
- * This is the model class for table "ophtrconsent_leaflet".
+ * This is the model class for table "ophtrconsent_leaflet_firm".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -34,7 +34,7 @@
  *
  */
 
-class OphTrConsent_Leaflet extends BaseActiveRecord
+class OphTrConsent_Leaflet_Firm extends BaseActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -50,7 +50,7 @@ class OphTrConsent_Leaflet extends BaseActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'ophtrconsent_leaflet';
+		return 'ophtrconsent_leaflet_firm';
 	}
 
 	/**
@@ -77,8 +77,6 @@ class OphTrConsent_Leaflet extends BaseActiveRecord
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'subspecialties' => array(self::HAS_MANY, 'OphTrConsent_Leaflet_Subspecialty', 'leaflet_id'),
-			'firms' => array(self::HAS_MANY, 'OphTrConsent_Leaflet_Firm', 'leaflet_id'),
 		);
 	}
 
@@ -108,26 +106,6 @@ class OphTrConsent_Leaflet extends BaseActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 				'criteria' => $criteria,
 			));
-	}
-
-	public function findAllByCurrentFirm() {
-		$firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id']);
-
-		$subspecialty_id = $firm->serviceSubspecialtyAssignment ? $firm->serviceSubspecialtyAssignment->subspecialty_id : null;
-
-		$criteria = new CDbCriteria;
-
-		if ($firm->serviceSubspecialtyAssignment) {
-			$criteria->addCondition('subspecialty_id=:subspecialty_id');
-			$criteria->params[':subspecialty_id'] = $subspecialty_id;
-			$criteria->order = 'name asc';
-			return OphTrConsent_Leaflet::model()->with('subspecialties')->findAll($criteria);
-		} else {
-			$criteria->addCondition('firm_id=:firm_id');
-			$criteria->params[':firm_id'] = $firm->id;
-			$criteria->order = 'name asc';
-			return OphTrConsent_Leaflet::model()->with('firms')->findAll($criteria);
-		}
 	}
 }
 ?>

@@ -174,7 +174,9 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 			if (empty($_POST)) {
 				if (isset(Yii::app()->session['selected_firm_id'])) {
 					if ($firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id'])) {
-						$this->consultant_id = $firm->consultant->id;
+						if ($firm->consultant) {
+							$this->consultant_id = $firm->consultant->id;
+						}
 					}
 				}
 			}
