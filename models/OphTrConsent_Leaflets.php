@@ -66,7 +66,7 @@ class OphTrConsent_Leaflets extends BaseActiveRecord
 			// Please remove those attributes that should not be searched.
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */

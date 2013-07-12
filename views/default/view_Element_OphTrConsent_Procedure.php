@@ -33,7 +33,7 @@
 					<div class="eventHighlight medium">
 						<?php if (!$element->procedures) {?>
 							<h4>None</h4>
-						<?php }else{?>
+						<?php } else {?>
 							<h4>
 								<?php foreach ($element->procedures as $item) {
 									echo $item->term?><br/>
@@ -55,7 +55,7 @@
 					<div class="eventHighlight medium">
 						<?php if (!$element->additional_procedures) {?>
 							<h4>None</h4>
-						<?php }else{?>
+						<?php } else {?>
 							<h4>
 								<?php foreach ($element->additional_procedures as $item) {
 									echo $item->term?><br/>

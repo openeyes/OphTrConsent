@@ -30,7 +30,7 @@
  * @property Element_OphTrConsent_Procedure $element
  * @property Procedure $proc
  * @property User $user
- * @property User $usermodified 
+ * @property User $usermodified
  */
 
 class EtOphtrconsentProcedureProceduresProcedures extends BaseActiveRecord
@@ -67,7 +67,7 @@ class EtOphtrconsentProcedureProceduresProcedures extends BaseActiveRecord
 			array('id, element_id, proc_id', 'safe', 'on' => 'search'),
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */

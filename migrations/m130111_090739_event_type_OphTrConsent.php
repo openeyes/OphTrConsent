@@ -1,7 +1,8 @@
-<?php 
+<?php
 class m130111_090739_event_type_OphTrConsent extends CDbMigration
 {
-	public function up() {
+	public function up()
+	{
 		// --- EVENT TYPE ENTRIES ---
 
 		// create an event_type entry for this event type name if one doesn't already exist
@@ -253,7 +254,8 @@ class m130111_090739_event_type_OphTrConsent extends CDbMigration
 
 	}
 
-	public function down() {
+	public function down()
+	{
 		// --- drop any element related tables ---
 		// --- drop element tables ---
 		$this->dropTable('et_ophtrconsent_type');

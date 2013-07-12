@@ -17,8 +17,10 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 
-class DefaultController extends BaseEventTypeController {
-	public function actionCreate() {
+class DefaultController extends BaseEventTypeController
+{
+	public function actionCreate()
+	{
 		$errors = array();
 
 		if (!$this->patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
@@ -68,11 +70,13 @@ class DefaultController extends BaseEventTypeController {
 		}
 	}
 
-	public function actionUpdate($id) {
+	public function actionUpdate($id)
+	{
 		parent::actionUpdate($id);
 	}
 
-	public function actionView($id) {
+	public function actionView($id)
+	{
 		parent::actionView($id);
 	}
 
@@ -80,10 +84,11 @@ class DefaultController extends BaseEventTypeController {
 	 * Print action
 	 * @param integer $id event id
 	 */
-	public function actionPrint($id) {
+	public function actionPrint($id)
+	{
 		$this->printInit($id);
 		$elements = array();
-		
+
 		$template = 'print';
 
 		/*if (isset($_GET['lang_id'])) {
@@ -104,10 +109,11 @@ class DefaultController extends BaseEventTypeController {
 		$template = "print{$template_id}_$language->name";
 
 		$this->printLog($id, true);
-		$this->printPDF($id, $elements, $template, array('vi' => (boolean)@$_GET['vi']));
+		$this->printPDF($id, $elements, $template, array('vi' => (boolean) @$_GET['vi']));
 	}
 
-	public function actionUsers() {
+	public function actionUsers()
+	{
 		$users = array();
 
 		$criteria = new CDbCriteria;

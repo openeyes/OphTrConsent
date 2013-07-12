@@ -71,7 +71,7 @@ class Element_OphTrConsent_Permissions extends BaseEventTypeElement
 			array('id, event_id, images_id', 'safe', 'on' => 'search'),
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -115,7 +115,7 @@ class Element_OphTrConsent_Permissions extends BaseEventTypeElement
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
 		$criteria->compare('images_id', $this->images);
-		
+
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));

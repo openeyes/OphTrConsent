@@ -75,7 +75,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 			array('id, event_id, eye_id, anaesthetic_type_id, ', 'safe', 'on' => 'search'),
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -126,7 +126,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		$criteria->compare('procedures', $this->procedures);
 		$criteria->compare('anaesthetic_type_id', $this->anaesthetic_type_id);
 		$criteria->compare('add_procs', $this->add_procs);
-		
+
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
@@ -164,7 +164,8 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		}
 	}
 
-	public function getProcedures() {
+	public function getProcedures()
+	{
 		$procedures = array();
 
 		if (Yii::app()->getController()->getAction()->id == 'create') {
@@ -196,7 +197,8 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		return $procedures;
 	}
 
-	public function getAdditional_procedures() {
+	public function getAdditional_procedures()
+	{
 		$procedures = array();
 
 		if (Yii::app()->getController()->getAction()->id == 'create') {
@@ -220,7 +222,8 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		return $procedures;
 	}
 
-	protected function beforeSave() {
+	protected function beforeSave()
+	{
 		return parent::beforeSave();
 	}
 

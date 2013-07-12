@@ -66,7 +66,7 @@ class OphTrConsent_Leaflet extends BaseActiveRecord
 			// Please remove those attributes that should not be searched.
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -110,7 +110,8 @@ class OphTrConsent_Leaflet extends BaseActiveRecord
 			));
 	}
 
-	public function findAllByCurrentFirm() {
+	public function findAllByCurrentFirm()
+	{
 		$firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id']);
 
 		$subspecialty_id = $firm->serviceSubspecialtyAssignment ? $firm->serviceSubspecialtyAssignment->subspecialty_id : null;

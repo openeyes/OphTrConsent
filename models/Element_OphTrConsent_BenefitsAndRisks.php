@@ -71,7 +71,7 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 			array('id, event_id, benefits, risks, ', 'safe', 'on' => 'search'),
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -116,13 +116,14 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 		$criteria->compare('event_id', $this->event_id, true);
 		$criteria->compare('benefits', $this->benefits);
 		$criteria->compare('risks', $this->risks);
-		
+
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
 	}
 
-	public function getProcedures() {
+	public function getProcedures()
+	{
 		$procedures = array();
 
 		if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
@@ -150,7 +151,8 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 		return $procedures;
 	}
 
-	public function getAdditional_procedures() {
+	public function getAdditional_procedures()
+	{
 		$procedures = array();
 		$procedure_ids = array();
 
@@ -166,7 +168,8 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 		return $procedures;
 	}
 
-	public function setDefaultOptions() {
+	public function setDefaultOptions()
+	{
 		if (Yii::app()->getController()->getAction()->id == 'create') {
 			$complication_ids = array();
 			$complications = array();

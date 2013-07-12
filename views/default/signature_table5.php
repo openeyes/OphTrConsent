@@ -28,7 +28,7 @@
 			<td>Relationship to child:........................</td>
 		</tr>
 	</table>
-<?php }else{?>
+<?php } else {?>
 	<table>
 		<tr>
 			<td>Signature:.......................................</td>

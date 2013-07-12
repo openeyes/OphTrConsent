@@ -67,7 +67,7 @@ class Element_OphTrConsent_Type_Type extends BaseActiveRecord
 			array('id, name', 'safe', 'on' => 'search'),
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */

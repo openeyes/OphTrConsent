@@ -27,7 +27,7 @@
 				<span class="big">
 					<?php if (empty($element->leaflets)) {?>
 						None
-					<?php }else{?>
+					<?php } else {?>
 						<?php foreach ($element->leaflets as $leaflet) {?>
 							<?php echo $leaflet->leaflet->name?><br/>
 						<?php }?>

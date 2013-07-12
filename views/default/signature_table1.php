@@ -41,7 +41,7 @@
 			</tr>
 		</table>
 	<?php }?>
-<?php }else{?>
+<?php } else {?>
 	<table>
 		<tr>
 			<td>Signed:.............................................</td>

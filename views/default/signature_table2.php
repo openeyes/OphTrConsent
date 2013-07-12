@@ -33,7 +33,7 @@
 			<td>Relationship to patient:..........................</td>
 		</tr>
 	</table>
-<?php }else{?>
+<?php } else {?>
 	<table>
 		<tr>
 			<td>Signed:.............................................</td>

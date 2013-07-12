@@ -41,7 +41,7 @@ class m130227_124728_changes_to_permissions_fields extends CDbMigration
 		$this->dropForeignKey('et_ophtrconsent_permissions_images_fk','et_ophtrconsent_permissions');
 		$this->dropIndex('et_ophtrconsent_permissions_images_fk','et_ophtrconsent_permissions');
 		$this->dropColumn('et_ophtrconsent_permissions','images_id');
-		
+
 		$this->dropTable('et_ophtrconsent_permissions_images');
 
 		$this->addColumn('et_ophtrconsent_permissions','images','tinyint(1) unsigned NOT NULL');

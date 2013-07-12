@@ -118,13 +118,14 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('event_id', $this->event_id, true);
-		
+
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
 	}
 
-	protected function afterSave() {
+	protected function afterSave()
+	{
 		$existing_leaflet_ids = array();
 
 		foreach ($this->leaflets as $leaflet) {

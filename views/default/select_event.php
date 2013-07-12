@@ -36,19 +36,19 @@
 		$this->renderPartial('//patient/event_actions');
 	?>
 	<?php  $this->displayErrors($errors)?>
-	
+
 	<h4>Create Consent Form</h4>
 	<h3 class="sectiondivider">
 		<?php if (count($bookings) >0) {?>
 			Please indicate whether this Consent Form is for an existing booking or for unbooked procedures:
-		<?php }else{?>
+		<?php } else {?>
 			There are no open bookings in the current episode so you can only create a consent form for unbooked procedures.
 		<?php }?>
 	</h3>
 
 	<div class="edetail">
 		<div class="label">Select:</div>
-		<div class="data">							
+		<div class="data">
 			<table class="grid nodivider valignmiddle">
 				<tbody>
 					<?php foreach ($bookings as $booking) {?>
@@ -78,14 +78,14 @@
 						<td><input type="radio" value="unbooked" name="SelectBooking" <?php if (count($bookings)==0) {?>checked="checked" <?php }?>/></td>
 						<td></td>
 						<td colspan="3">Unbooked procedures</td>
-					</tr>							
+					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 
 	<?php  $this->displayErrors($errors)?>
-	
+
 	<div class="cleartall"></div>
 	<?php  $this->endWidget(); ?>
 </div>

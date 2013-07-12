@@ -128,13 +128,14 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		$criteria->compare('witness_required', $this->witness_required);
 		$criteria->compare('interpreter_required', $this->interpreter_required);
 		$criteria->compare('parent_guardian', $this->parent_guardian);
-		
+
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
 	}
 
-	public function isAdult() {
+	public function isAdult()
+	{
 		if (Yii::app()->getController()->action->id == 'create') {
 			if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
 				throw new Exception("Can't find patient: $patient->id");
@@ -146,7 +147,8 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		return !$patient->isChild();
 	}
 
-	protected function afterValidate() {
+	protected function afterValidate()
+	{
 		if (empty($_POST['Procedures_procedures'])) {
 			$this->addError('procedures', 'At least one procedure must be entered');
 		}
@@ -162,14 +164,16 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		return parent::afterValidate();
 	}
 
-	public function beforeSave() {
+	public function beforeSave()
+	{
 		!$this->witness_required && $this->witness_name = '';
 		!$this->interpreter_required && $this->interpreter_name = '';
 
 		return parent::beforeSave();
 	}
 
-	public function setDefaultOptions() {
+	public function setDefaultOptions()
+	{
 		if (Yii::app()->getController()->action->id == 'create') {
 			if (empty($_POST)) {
 				if (isset(Yii::app()->session['selected_firm_id'])) {
