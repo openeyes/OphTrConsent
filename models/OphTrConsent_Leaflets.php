@@ -109,4 +109,3 @@ class OphTrConsent_Leaflets extends BaseActiveRecord
 			));
 	}
 }
-?>

@@ -114,4 +114,3 @@ class Element_OphTrConsent_Type_Type extends BaseActiveRecord
 		));
 	}
 }
-?>

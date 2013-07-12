@@ -187,4 +187,3 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		}
 	}
 }
-?>

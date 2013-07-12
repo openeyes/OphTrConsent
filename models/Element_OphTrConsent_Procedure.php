@@ -278,4 +278,3 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		return parent::afterSave();
 	}
 }
-?>

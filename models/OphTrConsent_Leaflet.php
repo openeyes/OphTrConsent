@@ -131,4 +131,3 @@ class OphTrConsent_Leaflet extends BaseActiveRecord
 		}
 	}
 }
-?>

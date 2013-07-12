@@ -121,4 +121,3 @@ class Element_OphTrConsent_Permissions extends BaseEventTypeElement
 		));
 	}
 }
-?>

@@ -114,4 +114,3 @@ class Element_OphTrConsent_Permissions_Images extends BaseActiveRecord
 		));
 	}
 }
-?>

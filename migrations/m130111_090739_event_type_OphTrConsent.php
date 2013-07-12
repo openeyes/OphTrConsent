@@ -289,4 +289,3 @@ class m130111_090739_event_type_OphTrConsent extends CDbMigration
 		return true;
 	}
 }
-?>

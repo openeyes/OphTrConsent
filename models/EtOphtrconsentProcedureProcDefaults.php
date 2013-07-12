@@ -135,4 +135,3 @@ class EtOphtrconsentProcedureProcDefaults extends BaseActiveRecord
 		return parent::beforeValidate();
 	}
 }
-?>

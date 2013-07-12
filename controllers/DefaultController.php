@@ -30,7 +30,7 @@ class DefaultController extends BaseEventTypeController
 		if (!empty($_POST)) {
 			if (@$_POST['SelectBooking'] == 'unbooked') {
 				return $this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&unbooked=1'));
-			} else if (preg_match('/^booking([0-9]+)$/',@$_POST['SelectBooking'],$m)) {
+			} elseif (preg_match('/^booking([0-9]+)$/',@$_POST['SelectBooking'],$m)) {
 				return $this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&booking_event_id='.$m[1]));
 			}
 			$errors = array('Consent form' => array('Please select a booking or Unbooked procedures'));

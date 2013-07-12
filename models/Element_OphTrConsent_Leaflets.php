@@ -157,4 +157,3 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 		return parent::afterSave();
 	}
 }
-?>

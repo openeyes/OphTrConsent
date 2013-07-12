@@ -143,7 +143,7 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 						$procedures = $eo->procedures;
 					}
 				}
-			} else if (isset($_GET['procedure_id'])) {
+			} elseif (isset($_GET['procedure_id'])) {
 				$procedures[] = Procedure::model()->findByPk($_GET['procedure_id']);
 			}
 		}
@@ -209,4 +209,3 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 		}
 	}
 }
-?>

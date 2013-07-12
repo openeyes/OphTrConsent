@@ -108,4 +108,3 @@ class OphTrConsent_Leaflet_Subspecialty extends BaseActiveRecord
 			));
 	}
 }
-?>
