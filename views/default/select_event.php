@@ -55,7 +55,7 @@
 						<tr class="odd clickable">
 							<td><input type="radio" value="booking<?php echo $booking->operation->event_id?>" name="SelectBooking" /></td>
 							<td><img src="<?php echo Yii::app()->createUrl($assetpath.'img/small.png')?>" alt="op" width="19" height="19" /></td>
-							<td><?php echo $booking->operation->booking->session->NHSDate('date')?></td>
+							<td><?php echo $booking->operation->booking ? $booking->operation->booking->session->NHSDate('date') : 'UNSCHEDULED'?></td>
 							<td>Operation</td>
 							<td>
 								<?php foreach ($booking->operation->procedures as $i => $procedure) {
