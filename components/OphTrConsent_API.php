@@ -1,0 +1,69 @@
+<?php
+/**
+ * OpenEyes
+ *
+ * (C) Moorfields Eye Hospital NHS Foundation Trust, 2008-2011
+ * (C) OpenEyes Foundation, 2011-2013
+ * This file is part of OpenEyes.
+ * OpenEyes is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * OpenEyes is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with OpenEyes in a file titled COPYING. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package OpenEyes
+ * @link http://www.openeyes.org.uk
+ * @author OpenEyes <info@openeyes.org.uk>
+ * @copyright Copyright (c) 2008-2011, Moorfields Eye Hospital NHS Foundation Trust
+ * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
+ * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
+ */
+
+class OphTrConsent_API extends BaseAPI
+{
+
+	/**
+	 * checks if there is a consent form for the given episode and the given procedure and eye
+	 *
+	 * @param Episode $episode
+	 * @param Procedure $procedure
+	 * @param string $side - left, right or both
+	 */
+	public function hasConsentForProcedure($episode, $procedure, $side)
+	{
+		if ($episode) {
+
+			$required_eye = Eye::BOTH;
+
+			if (!in_array($side, array('left', 'right', 'both'))) {
+				throw new Exception('unrecognised side value ' . $side);
+			}
+
+			$event_type = $this->getEventType();
+
+			$criteria = new CDbCriteria;
+			$criteria->compare('event.event_type_id',$event_type->id);
+			$criteria->compare('event.episode_id',$episode->id);
+			$criteria->compare('assignedprocedures.id', $procedure->id);
+
+			$criteria->order = 't.created_date desc';
+
+			$eye_ids = array('eye_id' => Eye::BOTH);
+
+			if ($side == 'left') {
+				$eye_ids[] = Eye::LEFT;
+				$required_eye = Eye::LEFT;
+			} elseif ($side == 'right') {
+				$eye_ids[] = Eye::RIGHT;
+				$required_eye = Eye::RIGHT;
+			}
+
+			$criteria->addInCondition('t.eye_id', $eye_ids);
+
+			foreach (Element_OphTrConsent_Procedure::model()->with('event','assignedprocedures')->findAll($criteria) as $consent_proc) {
+				if ($consent_proc->eye_id == Eye::BOTH || $consent_proc->eye_id == $required_eye) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+}

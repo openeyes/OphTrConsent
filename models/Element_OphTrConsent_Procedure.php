@@ -91,6 +91,9 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
 			'anaesthetic_type' => array(self::BELONGS_TO, 'AnaestheticType', 'anaesthetic_type_id'),
+			'procedure_assignments' => array(self::HAS_MANY, 'EtOphtrconsentProcedureProceduresProcedures' , 'element_id' ),
+			'assignedprocedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
+				'through' => 'procedure_assignments'),
 		);
 	}
 
