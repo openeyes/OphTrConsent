@@ -157,7 +157,7 @@ if (@$vi) {
 	<p>
 		On behalf of the team treating the patient, I have confirmed with the patient that <?php echo $this->patient->pro?> has no further questions and wishes the procedure to go ahead.
 	</p>
-	<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
+	<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant, 'mask_consultant' => true))?>
 	<div class="spacer"></div>
 	<p>
 		<strong>Important notes:</strong> (tick if applicable)

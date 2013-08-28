@@ -24,8 +24,8 @@
 			<td>Date:...............................</td>
 		</tr>
 		<tr>
-			<td>Name (PRINT): <?php echo $consultant->fullNameAndTitle?></td>
-			<td>Job title: <?php echo $consultant->role?></td>
+			<td>Name (PRINT): <?php if (!@$mask_consultant) { echo $consultant->fullNameAndTitle; } ?></td>
+			<td>Job title: <?php if (!@$mask_consultant) { echo $consultant->role; } ?></td>
 		</tr>
 	</table>
 	<?php if (@$lastmodified && $consultant->id != $lastmodified->id) {?>
@@ -48,8 +48,8 @@
 			<td>Date:...........................................</td>
 		</tr>
 		<tr>
-			<td>Name (PRINT): <?php echo $consultant->fullNameAndTitle?></td>
-			<td>Job title: <?php echo $consultant->role?></td>
+			<td>Name (PRINT): <?php if (!@$mask_consultant) { echo $consultant->fullNameAndTitle; } ?></td>
+			<td>Job title: <?php if (!@$mask_consultant) { echo $consultant->role; } ?></td>
 		</tr>
 	</table>
 	<?php if (@$lastmodified && $consultant->id != $lastmodified->id) {?>
