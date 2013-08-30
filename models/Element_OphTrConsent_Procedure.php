@@ -94,6 +94,9 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 			'procedure_assignments' => array(self::HAS_MANY, 'EtOphtrconsentProcedureProceduresProcedures' , 'element_id' ),
 			'assignedprocedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
 				'through' => 'procedure_assignments'),
+			'additionalprocedure_assignments' => array(self::HAS_MANY, 'EtOphtrconsentProcedureAddProcsAddProcs', 'element_id' ),
+			'assignedadditionalprocedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
+				'through' => 'additionalprocedure_assignments')
 		);
 	}
 

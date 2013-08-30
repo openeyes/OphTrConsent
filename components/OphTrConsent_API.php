@@ -40,9 +40,14 @@ class OphTrConsent_API extends BaseAPI
 			$event_type = $this->getEventType();
 
 			$criteria = new CDbCriteria;
-			$criteria->compare('event.event_type_id',$event_type->id);
-			$criteria->compare('event.episode_id',$episode->id);
-			$criteria->compare('assignedprocedures.id', $procedure->id);
+			$criteria->addCondition('event.event_type_id = :eventtype_id');
+			$criteria->addCondition('event.episode_id = :episode_id');
+			$criteria->addCondition('assignedprocedures.id = :proc_id OR assignedadditionalprocedures.id = :proc_id');
+			$criteria->params = array(
+				':eventtype_id' => $event_type->id,
+				':episode_id' => $episode->id,
+				':proc_id' => $procedure->id
+			);
 
 			$criteria->order = 't.created_date desc';
 
@@ -58,7 +63,7 @@ class OphTrConsent_API extends BaseAPI
 
 			$criteria->addInCondition('t.eye_id', $eye_ids);
 
-			foreach (Element_OphTrConsent_Procedure::model()->with('event','assignedprocedures')->findAll($criteria) as $consent_proc) {
+			foreach (Element_OphTrConsent_Procedure::model()->with('event','assignedprocedures', 'assignedadditionalprocedures')->findAll($criteria) as $consent_proc) {
 				if ($consent_proc->eye_id == Eye::BOTH || $consent_proc->eye_id == $required_eye) {
 					return true;
 				}
