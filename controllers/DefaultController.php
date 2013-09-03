@@ -23,9 +23,11 @@ class DefaultController extends BaseEventTypeController
 	{
 		$errors = array();
 
-		if (!$this->patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
+		if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
 			throw new Exception("Patient not found: ".@$_GET['patient_id']);
 		}
+
+		$this->setSessionPatient($patient);
 
 		if (!empty($_POST)) {
 			if (@$_POST['SelectBooking'] == 'unbooked') {
