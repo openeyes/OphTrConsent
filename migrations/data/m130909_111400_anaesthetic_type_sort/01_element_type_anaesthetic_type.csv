@@ -1,0 +1,6 @@
+"element_type_id => ElementType.class_name","anaesthetic_type_id => AnaestheticType.code",display_order
+Element_OphTrConsent_Procedure,Top,10
+Element_OphTrConsent_Procedure,LA,20
+Element_OphTrConsent_Procedure,LAC,30
+Element_OphTrConsent_Procedure,LAS,40
+Element_OphTrConsent_Procedure,GA,50
