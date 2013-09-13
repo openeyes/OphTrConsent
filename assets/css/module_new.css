@@ -18,13 +18,22 @@
  */
 /* line 2, ../sass/components/_event.scss */
 .event.consent {
-  border-color: #f0906f;
+  border-color: #86cdff;
 }
 /* line 4, ../sass/components/_event.scss */
 .event.consent .event-content {
-  background-image: url('../img/new/watermark.png?1379077222');
+  background-image: url('../img/new/watermark.png?1379078026');
 }
 /* line 7, ../sass/components/_event.scss */
 .event.consent .event-title {
   background-image: url('../img/new/medium.png?1379077222');
+}
+
+/* line 2, ../sass/components/_elements.scss */
+.element ul.procedures {
+  list-style-type: none;
+}
+/* line 4, ../sass/components/_elements.scss */
+.element ul.procedures li {
+  margin: 0;
 }
