@@ -1,0 +1,11 @@
+.event {
+	&.consent {
+		border-color: #f0906f;
+		.event-content {
+			background-image: image-url("watermark.png");
+		}
+		.event-title {
+			background-image: image-url("medium.png");
+		}
+	}
+}
