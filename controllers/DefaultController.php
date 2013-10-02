@@ -66,4 +66,39 @@ class DefaultController extends BaseEventTypeController {
 		$this->printLog($id, true);
 		$this->printPDF($id, $elements, $template);
 	}
+
+	/**
+	 * Render PDF
+	 * @param integer $id event id
+	 * @param array $elements
+	 */
+	protected function printPDF($id, $elements, $template='print', $params=array())
+	{
+		// Remove any existing css
+		Yii::app()->getClientScript()->reset();
+
+		$this->layout = '//layouts/pdf';
+		$pdf_print = new OEPDFPrint('Openeyes', 'PDF', 'PDF');
+		$oeletter = new OELetter();
+		$oeletter->setBarcode('E:'.$id);
+		$body = $this->render($template, array_merge($params,array(
+			'elements' => $elements,
+			'eventId' => $id,
+		)), true);
+		$oeletter->addBody($body);
+		$pdf_print->addLetter($oeletter);
+
+		$consent_and_release = new OELetter();
+		$consent_and_release->setBarcode('E:'.$id);
+		foreach ($elements as $element) {
+			$event = Event::model()->findByPk($element->event_id);
+			break;
+		}
+		$consent_and_release_body = $this->render($template."_consent_and_release", array(
+			'patient' => $event->episode->patient,
+		), true);
+		$consent_and_release->addBody($consent_and_release_body);
+		$pdf_print->addLetter($consent_and_release);
+		$pdf_print->output();
+	}
 }
