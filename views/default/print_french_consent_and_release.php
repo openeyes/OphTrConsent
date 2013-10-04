@@ -21,12 +21,14 @@
 	.orbis_patient_name { text-decoration: underline; }
 </style>
 
-<h1>Consent and release</h1>
-<p>The "Undersigned" shall mean the patient, provided that the patient is age 18 or older, or the patient's legal guardian.  Execution of this Consent and Release ("Release") is optional and will not prevent the patient from receiving medical treatment from Project ORBIS International, Inc., its affiliates, subsidiaries and branch offices (collectively "ORBIS").  The Undersigned has the right to at any time request the cessation of the production of recordings, films and the like and ORBIS agrees to take the steps necessary to accommodate such cessation.</p>
-<p>For valuable consideration, the receipt of which is hereby acknowledged, the Undersigned consents to being interviewed, photographed, videotaped, recorded in connection with an ORBIS program, including during any medical operation(s) and procedure(s), and to the reproduction of the foregoing by any means available including, but not limited to print, film, radio and television broadcasts, multimedia, video, audio and over the internet (collectively "Patient Material").</p>
-<p>The Undersigned relinquishes and grants to ORBIS, on a royalty free basis, all right, title and interest in the Patient Material.  The Undersigned consents to the use of Patient Material in any way that may be useful for the advancement or dissemination of medical knowledge, education or teaching purposes, raise awareness and to promote ORBIS, including without limitation the right to give, sell, transfer, display, and exhibit the Patient Material and copies thereof and to circulate the same in any manner.  The Undersigned waives the right to inspect, approve or edit any Patient Material and any descriptive or advertising material used in connection therewith.</p>
-<p>The Undersigned releases, discharges, and agrees to hold harmless ORBIS, its officers, directors, employees, representatives, agents, assigns, and any person(s) or corporation(s) acting under permission or authority of ORBIS, including any firm publishing and/or distributing the Patient Material from or against any liability as a result of any use of the Patient Material and any distortion, blurring or alteration, or use in composite form, either intentionally or otherwise, that may occur or be produced in the taking, processing, reproduction, distribution, broadcast or use of the Patient Material, even should the same create any type of negative perception of the patient.</p>
-<p>This Release is made on behalf of myself, my dependents, heirs, executors, administrators and assigns, and is to be governed by the laws of the State of New York.  The Undersigned hereby represents and certifies that he/she has read the foregoing and fully understands the meaning and effect thereof, and intends to be legally bound, executes this Release this <?php echo date('jS')?> day of <?php echo date('F')?>, <?php echo date('Y')?>.</p>
+<h1>Consentement et décharge</h1>
+
+<p>Le « Soussigné » désigne le patient, à condition que le patient ait 18 ans ou plus, ou le tuteur légal du patient. La contraction de ce formulaire de Consentement et de décharge (« Décharge ») est facultative et n’empêchera pas le patient de recevoir de traitement médical du Projet ORBIS International, Inc., ainsi que de ses affiliés, filiales et succursales (collectivement, « ORBIS »). Le soussigné a le droit de demander à tout moment l’arrêt de la production d’enregistrements, de films et autres, et ORBIS accepte de prendre les mesures nécessaires pour respecter cette demande d’arrêt.</p>
+<p>Moyennant une contrepartie valable dont il accuse réception dans la présente, le Soussigné accepte d’être interrogé, photographié, filmé ou enregistré en rapport avec un programme d’ORBIS, notamment pendant toute opération et procédure médicale, et accepte la reproduction de ce qui précède par tous les moyens, y compris, mais sans s’y limiter, la diffusion écrite, télédiffusée, radiodiffusée ou sur Internet, au format multimédia, vidéo ou audio (collectivement, les « Publications sur le Patient »).</p>
+<p>Le Soussigné renonce à tous les droits, titres et intérêts dans les Publications sur le Patient et les accorde à ORBIS, en exemption de redevances. Le Soussigné consent à l’utilisation des Publications sur le Patient de toute manière utile pour l’évolution ou la diffusion des connaissances médicales, pour l’information ou l’enseignement, pour la sensibilisation et la promotion d’ORBIS, y compris, mais sans s’y limiter, le droit de donner, de vendre, de transférer, d’afficher et d’exposer les Publications sur le Patient ou des copies de celles-ci et de les faire circuler de toute manière possible. Le Soussigné renonce au droit d’examiner, d’approuver ou de modifier ces Publications sur le Patient et tout autre document descriptif ou publicitaire utilisé en relation avec celles-ci.</p>
+<p>Le Soussigné décharge, dégage de toute responsabilité et accepte de tenir à couvert ORBIS, ses administrateurs, directeurs, employés, représentants, agents, cessionnaires et tout autre personne ou corporation agissant sous la permission et l’autorité d’ORBIS, y compris toute entreprise publiant et/ou distribuant les Publications sur le Patient, pour toute responsabilité résultant de toute utilisation des Publications sur le Patient et de toute distorsion, de tout estompage ou de toute altération, ou de l’utilisation sous une composite, de manière intentionnelle ou non, pouvant survenir ou être produite lors de l’obtention, du traitement, de la reproduction, de la distribution, de la diffusion ou de l’utilisation des Publications sur le Patient, même si ces dernières créent tout type de perception négative du Patient.</p>
+<p>Cette Décharge est réalisée en mon nom propre et au nom de mes dépendants, héritiers, exécuteurs, administrateurs et cessionnaires, et est régie par les lois de l’État de New York. Le Soussigné représente et certifie par la présente qu’il a lu ce qui précède et qu’il en comprend entièrement la signification et l’effet, et avec l’intention d’être lié par la loi, il signe cette Décharge en ce <?php echo date('jS')?> du mois de <?php date('F Y')?>.</p>
+
 <table>
 	<thead>
 		<tr><th></th><th></th></tr>
@@ -36,13 +38,13 @@
 			<td>
 				<p>
 					__________________________<br/>
-					Signature of Patient/Guardian
+					Signature du Patient ou du Tuteur
 				</p>
 			</td>
 			<td>
 				<p>
 					<span class="orbis_patient_name"><?php echo $patient->fullName?></span><br/>
-					Patient Name
+					Nom en majuscules
 				</p>
 			</td>
 		</tr>
@@ -50,7 +52,7 @@
 			<td>
 				<p>
 					__________________________<br/>
-					Thumbprint if necessary
+					Empreinte du pouce si nécessaire
 				</p>
 			</td>
 		</tr>
