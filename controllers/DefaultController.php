@@ -81,6 +81,35 @@ class DefaultController extends BaseEventTypeController
 	}
 
 	/**
+	 * Render PDF
+	 * 
+	 * @param integer $id event id
+	 * @param array $elements
+	 * @param string $template
+	 * @param array $params (key value pairs)
+	 */
+	protected function printPDF($id, $elements, $template='print', $params=array())
+	{
+		// Remove any existing css
+		Yii::app()->getClientScript()->reset();
+
+		$this->layout = '//layouts/pdf';
+		$pdf_print = new OEPDFPrint('Openeyes', 'PDF', 'PDF');
+		// we want two copies
+		for ($i = 0; $i <= 1; $i++) {
+			$oeletter = new OELetter();
+			$oeletter->setBarcode('E:'.$id);
+			$body = $this->render($template, array_merge($params,array(
+						'elements' => $elements,
+						'eventId' => $id,
+					)), true);
+			$oeletter->addBody($body);
+			$pdf_print->addLetter($oeletter);
+		}
+		$pdf_print->output();
+	}
+
+	/**
 	 * Print action
 	 * @param integer $id event id
 	 */
