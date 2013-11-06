@@ -1,4 +1,3 @@
-<?php /* DEPRECATED */ ?>
 <?php
 /**
  * OpenEyes
@@ -17,55 +16,63 @@
  * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
- ?>
+?>
 
-<h4 class="elementTypeName"><?php  echo $element->elementType->name ?></h4>
-
-<table class="subtleWhite normalText">
-	<tbody>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('eye_id'))?></td>
-			<td><span class="big"><?php echo $element->eye ? $element->eye->name : 'None'?></span></td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<div class="colThird">
-					<b><?php echo CHtml::encode($element->getAttributeLabel('procedures'))?>:</b>
-					<div class="eventHighlight medium">
-						<?php if (!$element->procedures) {?>
-							<h4>None</h4>
-						<?php } else {?>
-							<h4>
-								<?php foreach ($element->procedures as $item) {
-									echo $item->term?><br/>
-								<?php }?>
-							</h4>
-						<?php }?>
-					</div>
+<section class="element">
+	<header class="element-header">
+		<h3 class="element-title"><?php  echo $element->elementType->name ?></h3>
+	</header>
+	<div class="element-data">
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('eye_id'))?></div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php echo $element->eye ? $element->eye->name : 'None'?></div>
+			</div>
+		</div>
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('procedures'))?>:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php if (!$element->procedures) {?>
+						<h4>None</h4>
+					<?php } else {?>
+						<h4>
+							<?php foreach ($element->procedures as $item) {
+								echo $item->term?><br/>
+							<?php }?>
+						</h4>
+					<?php }?></div>
+			</div>
+		</div>
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('anaesthetic_type_id'))?>:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php echo $element->anaesthetic_type ? $element->anaesthetic_type->name : 'None'?>
 				</div>
-			</td>
-		</tr>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('anaesthetic_type_id'))?></td>
-			<td><span class="big"><?php echo $element->anaesthetic_type ? $element->anaesthetic_type->name : 'None'?></span></td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<div class="colThird">
-					<b><?php echo CHtml::encode($element->getAttributeLabel('add_procs'))?>:</b>
-					<div class="eventHighlight medium">
-						<?php if (!$element->additional_procedures) {?>
-							<h4>None</h4>
-						<?php } else {?>
-							<h4>
-								<?php foreach ($element->additional_procedures as $item) {
-									echo $item->term?><br/>
-								<?php }?>
-							</h4>
-						<?php }?>
-					</div>
+			</div>
+		</div>
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('add_procs'))?>:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value">
+					<?php if (!$element->additional_procedures) {?>
+						<h4>None</h4>
+					<?php } else {?>
+						<h4>
+							<?php foreach ($element->additional_procedures as $item) {
+								echo $item->term?><br/>
+							<?php }?>
+						</h4>
+					<?php }?>
 				</div>
-			</td>
-		</tr>
-	</tbody>
-</table>
+			</div>
+		</div>
+	</div>
+</section>

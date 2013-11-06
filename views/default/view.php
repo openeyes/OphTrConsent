@@ -1,4 +1,3 @@
-<?php /* DEPRECATED */ ?>
 <?php
 /**
  * OpenEyes
@@ -17,24 +16,19 @@
  * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
- ?>
-<?php		$this->breadcrumbs=array($this->module->id);
-	$this->header();
 ?>
-<h3 class="withEventIcon"><?php  echo $this->event_type->name ?></h3>
+<?php $this->beginContent('//patient/event_container');?>
 
-<?php
-$this->event_actions[] = EventAction::button('Print', 'print', array('colour' => 'blue'));
-$this->event_actions[] = EventAction::button('Print for visually impaired', 'print_va', array('colour' => 'blue'));
-$this->renderPartial('//patient/event_actions');
-?>
+	<h2 class="event-title"><?php echo $this->event_type->name ?></h2>
 
-<div>
+	<?php
+	$this->event_actions[] = EventAction::button('Print', 'print', array(),array('class'=>'button small'));
+	$this->event_actions[] = EventAction::button('Print for visually impaired', 'print_va', array(),array('class'=>'button small'));
+	?>
+
 	<?php  $this->renderDefaultElements($this->action->id); ?>
 	<?php  $this->renderOptionalElements($this->action->id); ?>
-	<div class="cleartall"></div>
-</div>
 
-<iframe id="print_iframe" name="print_iframe" style="display: none;"></iframe>
+	<iframe id="print_iframe" name="print_iframe" style="display: none;"></iframe>
 
-<?php  $this->footer();?>
+<?php $this->endContent() ;?>

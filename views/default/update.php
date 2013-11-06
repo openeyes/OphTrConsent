@@ -1,4 +1,3 @@
-<?php /* DEPRECATED */ ?>
 <?php
 /**
  * OpenEyes
@@ -17,27 +16,24 @@
  * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
- ?>
-<?php		$this->breadcrumbs=array($this->module->id);
-	$this->header();
 ?>
-<h3 class="withEventIcon"><?php echo $this->event_type->name ?></h3>
 
-<div>
+<?php $this->beginContent('//patient/event_container');?>
+
+	<h2 class="event-title"><?php echo $this->event_type->name ?></h2>
+
 	<?php			$form = $this->beginWidget('BaseEventTypeCActiveForm', array(
 			'id'=>'clinical-create',
 			'enableAjaxValidation'=>false,
-			'htmlOptions' => array('class'=>'sliding'),
 			'focus'=>'#procedure_id'
 		));
-	$this->event_actions[] = EventAction::button('Save', 'save', array('colour' => 'green'));
-	$this->renderPartial('//patient/event_actions');
-	?>
-	<?php  $this->displayErrors($errors)?>
-	<?php  $this->renderDefaultElements($this->action->id, $form); ?>
-	<?php  $this->renderOptionalElements($this->action->id, $form); ?>
-	<?php  $this->displayErrors($errors)?>
-		<div class="cleartall"></div>
-	<?php  $this->endWidget(); ?></div>
+		$this->event_actions[] = EventAction::button('Save', 'save', array('level' => 'secondary'), array('class'=>'small button', 'form'=>'clinical-create'));
+		?>
+		<?php  $this->displayErrors($errors)?>
+		<?php  $this->renderDefaultElements($this->action->id, $form); ?>
+		<?php  $this->renderOptionalElements($this->action->id, $form); ?>
+		<?php  $this->displayErrors($errors, true)?>
 
-<?php  $this->footer(); ?>
+	<?php  $this->endWidget(); ?>
+
+<?php $this->endContent() ;?>

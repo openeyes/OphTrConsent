@@ -1,4 +1,3 @@
-<?php /* DEPRECATED */ ?>
 <?php
 /**
  * OpenEyes
@@ -19,13 +18,19 @@
  */
  ?>
 
-<h4 class="elementTypeName"><?php  echo $element->elementType->name ?></h4>
-
-<table class="subtleWhite normalText">
-	<tbody>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('images_id'))?></td>
-			<td><span class="big"><?php echo $element->images ? $element->images->name : 'None'?></span></td>
-		</tr>
-	</tbody>
-</table>
+<section class="element">
+	<header class="element-header">
+		<h3 class="element-title"><?php  echo $element->elementType->name ?></h3>
+	</header>
+	<div class="element-data">
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('images_id'))?></div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php echo $element->images ? $element->images->name : 'None'?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

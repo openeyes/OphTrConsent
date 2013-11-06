@@ -1,4 +1,3 @@
-<?php /* DEPRECATED */ ?>
 <?php
 /**
  * OpenEyes
@@ -19,22 +18,26 @@
  */
  ?>
 
-<h4 class="elementTypeName"><?php  echo $element->elementType->name ?></h4>
-
-<table class="subtleWhite normalText">
-	<tbody>
-		<tr>
-			<td>
-				<span class="big">
-					<?php if (empty($element->leaflets)) {?>
+<section class="element">
+	<header class="element-header">
+		<h3 class="element-title"><?php  echo $element->elementType->name ?></h3>
+	</header>
+	<div class="element-data">
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label">Leaflets provided:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php if (empty($element->leaflets)) {?>
 						None
 					<?php } else {?>
 						<?php foreach ($element->leaflets as $leaflet) {?>
 							<?php echo $leaflet->leaflet->name?><br/>
 						<?php }?>
 					<?php }?>
-				</span>
-			</td>
-		</tr>
-	</tbody>
-</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
