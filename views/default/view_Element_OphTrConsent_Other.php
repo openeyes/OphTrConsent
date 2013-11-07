@@ -18,51 +18,89 @@
  */
  ?>
 
-<h4 class="elementTypeName"><?php  echo $element->elementType->name ?></h4>
+<section class="element">
+	<header class="element-header">
+		<h3 class="element-title"><?php  echo $element->elementType->name ?></h3>
+	</header>
+	<div class="element-data">
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('consultant_id'))?>:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php echo $element->consultant->fullNameAndTitle?></div>
+			</div>
+		</div>
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('information'))?>:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php echo $element->information ? 'Yes' : 'No'?></div>
+			</div>
+		</div>
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('anaesthetic_leaflet'))?>:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php echo $element->anaesthetic_leaflet ? 'Yes' : 'No'?></div>
+			</div>
+		</div>
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('witness_required'))?>:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php echo $element->witness_required ? 'Yes' : 'No'?></div>
+			</div>
+		</div>
 
-<table class="subtleWhite normalText">
-	<tbody>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('consultant_id'))?></td>
-			<td><span class="big"><?php echo $element->consultant->fullNameAndTitle?></span></td>
-		</tr>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('information'))?></td>
-			<td><span class="big"><?php echo $element->information ? 'Yes' : 'No'?></span></td>
-		</tr>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('anaesthetic_leaflet'))?></td>
-			<td><span class="big"><?php echo $element->anaesthetic_leaflet ? 'Yes' : 'No'?></span></td>
-		</tr>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('witness_required'))?></td>
-			<td><span class="big"><?php echo $element->witness_required ? 'Yes' : 'No'?></span></td>
-		</tr>
 		<?php if ($element->witness_required) {?>
-			<tr>
-				<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('witness_name'))?></td>
-				<td><span class="big"><?php echo $element->witness_name?></span></td>
-			</tr>
+			<div class="row data-row">
+				<div class="large-3 column">
+					<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('witness_name'))?>:</div>
+				</div>
+				<div class="large-9 column">
+					<div class="data-value"><?php echo $element->witness_name?></div>
+				</div>
+			</div>
 		<?php }?>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('interpreter_required'))?></td>
-			<td><span class="big"><?php echo $element->interpreter_required ? 'Yes' : 'No'?></span></td>
-		</tr>
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('interpreter_required'))?>:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php echo $element->interpreter_required ? 'Yes' : 'No'?></div>
+			</div>
+		</div>
 		<?php if ($element->interpreter_required) {?>
-			<tr>
-				<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('interpreter_name'))?></td>
-				<td><span class="big"><?php echo $element->interpreter_name?></span></td>
-			</tr>
+			<div class="row data-row">
+				<div class="large-3 column">
+					<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('interpreter_name'))?>:</div>
+				</div>
+				<div class="large-9 column">
+					<div class="data-value"><?php echo $element->interpreter_name?></div>
+				</div>
+			</div>
 		<?php }?>
 		<?php if ($element->parent_guardian) {?>
-			<tr>
-				<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('parent_guardian'))?></td>
-				<td><span class="big"><?php echo CHtml::encode($element->parent_guardian)?></span></td>
-			</tr>
+			<div class="row data-row">
+				<div class="large-3 column">
+					<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('parent_guardian'))?>:</div>
+				</div>
+				<div class="large-9 column">
+					<div class="data-value"><?php echo CHtml::encode($element->parent_guardian)?></div>
+				</div>
+			</div>
 		<?php }?>
-		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('include_supplementary_consent'))?></td>
-			<td><span class="big"><?php echo $element->include_supplementary_consent ? 'Yes' : 'No'?></span></td>
-		</tr>
-	</tbody>
-</table>
+		<div class="row data-row">
+			<div class="large-3 column">
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('include_supplementary_consent'))?>:</div>
+			</div>
+			<div class="large-9 column">
+				<div class="data-value"><?php echo $element->include_supplementary_consent ? 'Yes' : 'No'?></div>
+			</div>
+		</div>
+	</div>
+</section>

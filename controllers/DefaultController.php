@@ -57,13 +57,14 @@ class DefaultController extends BaseEventTypeController
 			);
 			$cancel_url = ($this->episode) ? '/patient/episode/'.$this->episode->id : '/patient/episodes/'.$this->patient->id;
 			$this->event_actions = array(
-					EventAction::link('Cancel',
+					EventAction::button('Cancel',
 							Yii::app()->createUrl($cancel_url),
-							array('colour' => 'red', 'level' => 'secondary')
+							array('level' => 'warning'),
+							array('class'=>'button small', 'id'=>'et_cancel')
 					)
 			);
 			$this->processJsVars();
-			$this->renderPartial('select_event',array(
+			$this->render('select_event',array(
 				'errors' => $errors,
 				'bookings' => $bookings,
 			), false, true);

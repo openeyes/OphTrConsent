@@ -55,23 +55,19 @@ $(document).ready(function() {
 
 	$('input[id="Element_OphTrConsent_Other_witness_required"]').unbind('click').click(function() {
 		if ($(this).attr('checked') == 'checked') {
-			$('#div_Element_OphTrConsent_Other_witness_name').show();
-			$('#Element_OphTrConsent_Other_witness_name').show();
+			$('#Element_OphTrConsent_Other_witness_name').show().closest('.field-row').show();
 			$('#Element_OphTrConsent_Other_witness_name').val('').focus();
 		} else {
-			$('#div_Element_OphTrConsent_Other_witness_name').hide();
-			$('#Element_OphTrConsent_Other_witness_name').hide();
+			$('#Element_OphTrConsent_Other_witness_name').hide().closest('.field-row').hide();
 		}
 	});
 
 	$('input[id="Element_OphTrConsent_Other_interpreter_required"]').unbind('click').click(function() {
 		if ($(this).attr('checked') == 'checked') {
-			$('#div_Element_OphTrConsent_Other_interpreter_name').show();
-			$('#Element_OphTrConsent_Other_interpreter_name').show();
+			$('#Element_OphTrConsent_Other_interpreter_name').show().closest('.field-row').show();
 			$('#Element_OphTrConsent_Other_interpreter_name').val('').focus();
 		} else {
-			$('#div_Element_OphTrConsent_Other_interpreter_name').hide();
-			$('#Element_OphTrConsent_Other_interpreter_name').hide();
+			$('#Element_OphTrConsent_Other_interpreter_name').hide().closest('.field-row').hide();
 		}
 	});
 
