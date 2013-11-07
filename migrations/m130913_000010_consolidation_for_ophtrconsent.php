@@ -34,6 +34,36 @@ class m130913_000010_consolidation_for_ophtrconsent extends OEMigration
 
 	public function up()
 	{
+		if (!$this->consolidate(
+			array(
+				"m130111_090739_event_type_OphTrConsent",
+				"m130111_104627_element_type_eye_values",
+				"m130111_110747_element_type_anaesthetic_entries",
+				"m130111_130606_default_values",
+				"m130111_145028_default_values",
+				"m130111_145225_witness_name",
+				"m130114_133823_link_consent_form_to_operation_event",
+				"m130220_130522_numbers_in_type_dropdown",
+				"m130227_124728_changes_to_permissions_fields",
+				"m130228_085024_rename_permissions_element",
+				"m130228_130623_anaesthetic_leaflet_checkbox",
+				"m130228_142350_consultant_field",
+				"m130326_145039_include_supplementary_form_field",
+				"m130605_093254_consent_form_list",
+				"m130607_101057_leaflets_element",
+				"m130711_072157_firm_leaflets_required_for_support_services",
+				"m130711_092740_allow_support_service_consent_forms",
+				"m130909_111400_anaesthetic_type_sort",
+				"m130911_154400_revert_support_services_consent_forms",
+			)
+		)
+		) {
+			$this->createTables();
+		}
+	}
+
+	public function createTables()
+	{
 		$this->setData();
 		//disable foreign keys check
 		$this->execute("SET foreign_key_checks = 0");
