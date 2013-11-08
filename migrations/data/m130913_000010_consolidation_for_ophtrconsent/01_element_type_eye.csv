@@ -1,0 +1,4 @@
+element_type_id  => ElementType.class_name,eye_id,display_order
+Element_OphTrConsent_Procedure,1,3
+Element_OphTrConsent_Procedure,2,1
+Element_OphTrConsent_Procedure,3,2
