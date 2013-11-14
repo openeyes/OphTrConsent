@@ -36,7 +36,7 @@
 				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('risks'))?></div>
 			</div>
 			<div class="large-9 column">
-				<div class="data-value"><?php echo CHtml::encode($element->benefits)?></div>
+				<div class="data-value"><?php echo CHtml::encode($element->risks)?></div>
 			</div>
 		</div>
 	</div>
