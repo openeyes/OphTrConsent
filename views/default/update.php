@@ -27,7 +27,7 @@
 			'enableAjaxValidation'=>false,
 			'focus'=>'#procedure_id'
 		));
-		$this->event_actions[] = EventAction::button('Save', 'save', array('level' => 'secondary'), array('class'=>'small button', 'form'=>'clinical-create'));
+		$this->event_actions[] = EventAction::button('Save', 'save', array('level' => 'save'), array('form'=>'clinical-create'));
 		?>
 		<?php  $this->displayErrors($errors)?>
 		<?php  $this->renderDefaultElements($this->action->id, $form); ?>
