@@ -19,6 +19,10 @@
 
 class DefaultController extends BaseEventTypeController
 {
+	static protected $action_types = array(
+		'users' => self::ACTION_TYPE_FORM,
+	);
+
 	public $booking_event;
 	public $booking_operation;
 	public $unbooked = false;
