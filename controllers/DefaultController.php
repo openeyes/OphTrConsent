@@ -19,21 +19,96 @@
 
 class DefaultController extends BaseEventTypeController
 {
+	public $booking_event;
+
+	/**
+	 * Set the default values on each of the open elements.
+	 *
+	 * @param string $action
+	 * @throws Exception
+	 * (non-phpdoc)
+	 * @see BaseEventTypeController::setElementOptions($action)
+	 */
+	protected function setElementOptions($action)
+	{
+		parent::setElementOptions($action);
+
+		if ($action == 'create') {
+			// TODO: possibly should be setting this as property of the controller
+			if (isset($_GET['booking_event_id'])) {
+				if (!$booking_event = Event::model()->findByPk($_GET['booking_event_id'])) {
+					throw new Exception("Can't find event: ".$_GET['booking_event_id']);
+				}
+			}
+
+			if ($booking_event->episode_id != $this->episode->id) {
+				throw new Exception("Selected event is not in the current episode");
+			}
+
+			$eo = null;
+
+			if ($booking_event && $api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
+				$eo = $api->getOperationForEvent($booking_event->id);
+			}
+			$procedures = null;
+			if ($eo) {
+				$procedures = $eo->procedures;
+			}
+			elseif (@$_GET['procedure_id']) {
+				if (!$proc = Procedure::model()->findByPk($_GET['procedure_id'])) {
+					throw new Exception('Procedure not found');
+				}
+				$procedures = array($proc);
+			}
+
+			foreach ($this->open_elements as $element) {
+				switch (get_class($element)) {
+					case 'Element_OphTrConsent_Procedure':
+						$element->booking_event_id = $booking_event->id;
+						if ($eo) {
+							$element->eye_id = $eo->eye_id;
+							$element->anaesthetic_type_id = $eo->anaesthetic_type_id;
+						}
+						break;
+					case 'Element_OphTrConsent_BenefitsAndRisks':
+						$element->setBenefitsAndRisksFromProcedures($procedures);
+						break;
+					case 'Element_OphTrConsent_Other':
+						if ($this->firm->consultant) {
+							$element->consultant_id = $this->firm->consultant->id;
+						}
+						break;
+					case 'Element_OphTrConsent_Procedure':
+						$element->procedures = $procedures;
+						break;
+					case 'Element_OphTrConsent_Type':
+						if ($this->patient->isChild()) {
+							$element->type_id = 2;
+						}
+						else {
+							$element->type_id = 1;
+						}
+				}
+			}
+
+		}
+	}
+
+	/**
+	 * Manage picking an extant booking for setting consent form defaults
+	 *
+	 * (non-phpdoc)
+	 * @see BaseEventTypeController::actionCreate()
+	 */
 	public function actionCreate()
 	{
 		$errors = array();
 
-		if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
-			throw new Exception("Patient not found: ".@$_GET['patient_id']);
-		}
-
-		$this->setSessionPatient($patient);
-
 		if (!empty($_POST)) {
 			if (@$_POST['SelectBooking'] == 'unbooked') {
-				return $this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&unbooked=1'));
+				$this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&unbooked=1'));
 			} elseif (preg_match('/^booking([0-9]+)$/',@$_POST['SelectBooking'],$m)) {
-				return $this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&booking_event_id='.$m[1]));
+				$this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&booking_event_id='.$m[1]));
 			}
 			$errors = array('Consent form' => array('Please select a booking or Unbooked procedures'));
 		}
@@ -49,7 +124,6 @@ class DefaultController extends BaseEventTypeController
 				}
 			}
 
-			$this->event_type = EventType::model()->find('class_name=?',array('OphTrConsent'));
 			$this->title = "Please select booking";
 			$this->event_tabs = array(
 					array(
@@ -71,16 +145,6 @@ class DefaultController extends BaseEventTypeController
 				'bookings' => $bookings,
 			), false, true);
 		}
-	}
-
-	public function actionUpdate($id)
-	{
-		parent::actionUpdate($id);
-	}
-
-	public function actionView($id)
-	{
-		parent::actionView($id);
 	}
 
 	/**
@@ -115,6 +179,9 @@ class DefaultController extends BaseEventTypeController
 		$this->printPDF($id, $elements, $template, array('vi' => (boolean) @$_GET['vi']));
 	}
 
+	/**
+	 * Ajax action for getting list of users (json-encoded)
+	 */
 	public function actionUsers()
 	{
 		$users = array();
@@ -130,10 +197,9 @@ class DefaultController extends BaseEventTypeController
 		$criteria->params = $params;
 		$criteria->order = 'first_name, last_name';
 
-		$firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id']);
 		$consultant = null;
 		// only want a consultant for medical firms
-		if ($specialty = $firm->getSpecialty()) {
+		if ($specialty = $this->firm->getSpecialty()) {
 			if ($specialty->medical) {
 				$consultant = $firm->consultant;
 			}

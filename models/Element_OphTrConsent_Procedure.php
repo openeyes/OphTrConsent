@@ -138,38 +138,6 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		));
 	}
 
-	/**
-	 * Set default values for forms on create
-	 */
-	public function setDefaultOptions()
-	{
-		if (Yii::app()->getController()->getAction()->id == 'create') {
-			if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
-				throw new Exception("Patient not found: $patient->id");
-			}
-
-			if ($episode = $patient->getEpisodeForCurrentSubspecialty()) {
-				if (isset($_GET['booking_event_id'])) {
-					if (!$event = Event::model()->findByPk($_GET['booking_event_id'])) {
-						throw new Exception("Can't find event: ".$_GET['booking_event_id']);
-					}
-					$this->booking_event_id = $event->id;
-					if ($event->episode_id != $episode->id) {
-						throw new Exception("Selected event is not in the current episode");
-					}
-					if ($api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
-						if ($eo = $api->getOperationForEvent($event->id)) {
-							$this->eye_id = $eo->eye_id;
-							$this->anaesthetic_type_id = $eo->anaesthetic_type_id;
-						}
-					}
-				}
-			}
-
-			$this->booking_event_id = @$_GET['booking_event_id'];
-		}
-	}
-
 	public function getProcedures()
 	{
 		$procedures = array();
@@ -226,11 +194,6 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		}
 
 		return $procedures;
-	}
-
-	protected function beforeSave()
-	{
-		return parent::beforeSave();
 	}
 
 	protected function afterSave()
