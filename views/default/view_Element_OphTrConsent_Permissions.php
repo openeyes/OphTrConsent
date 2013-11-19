@@ -25,7 +25,7 @@
 	<div class="element-data">
 		<div class="row data-row">
 			<div class="large-3 column">
-				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('images_id'))?></div>
+				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('images_id'))?>:</div>
 			</div>
 			<div class="large-9 column">
 				<div class="data-value"><?php echo $element->images ? $element->images->name : 'None'?>
