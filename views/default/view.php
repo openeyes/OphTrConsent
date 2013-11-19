@@ -24,7 +24,7 @@
 	$this->event_actions[] = EventAction::button('Print for visually impaired', 'print_va', array(),array('class'=>'button small'));
 	?>
 
-	<?php  $this->renderDefaultElements($this->action->id); ?>
+	<?php  $this->renderOpenElements($this->action->id); ?>
 	<?php  $this->renderOptionalElements($this->action->id); ?>
 
 	<iframe id="print_iframe" name="print_iframe" style="display: none;"></iframe>

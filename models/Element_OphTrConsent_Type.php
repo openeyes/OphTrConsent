@@ -97,7 +97,7 @@ class Element_OphTrConsent_Type extends BaseEventTypeElement
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-'type_id' => 'Type',
+			'type_id' => 'Type',
 		);
 	}
 
@@ -121,21 +121,4 @@ class Element_OphTrConsent_Type extends BaseEventTypeElement
 		));
 	}
 
-	/**
-	 * Set default values for forms on create
-	 */
-	public function setDefaultOptions()
-	{
-		if (Yii::app()->getController()->getAction()->id == 'create') {
-			if (!$patient = Patient::model()->findByPk($_GET['patient_id'])) {
-				throw new Exception("Can't find patient: ".$_GET['patient_id']);
-			}
-
-			if ($patient->isChild()) {
-				$this->type_id = 2;
-			} else {
-				$this->type_id = 1;
-			}
-		}
-	}
 }
