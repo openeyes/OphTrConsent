@@ -39,10 +39,12 @@ class DefaultController extends BaseEventTypeController
 				if (!$booking_event = Event::model()->findByPk($_GET['booking_event_id'])) {
 					throw new Exception("Can't find event: ".$_GET['booking_event_id']);
 				}
-			}
 
-			if ($booking_event->episode_id != $this->episode->id) {
-				throw new Exception("Selected event is not in the current episode");
+				if ($booking_event->episode_id != $this->episode->id) {
+					throw new Exception("Selected event is not in the current episode");
+				}
+			} else {
+				$booking_event = null;
 			}
 
 			$eo = null;
@@ -64,14 +66,14 @@ class DefaultController extends BaseEventTypeController
 			foreach ($this->open_elements as $element) {
 				switch (get_class($element)) {
 					case 'Element_OphTrConsent_Procedure':
-						$element->booking_event_id = $booking_event->id;
+						if ($booking_event) $element->booking_event_id = $booking_event->id;
 						if ($eo) {
 							$element->eye_id = $eo->eye_id;
 							$element->anaesthetic_type_id = $eo->anaesthetic_type_id;
 						}
 						break;
 					case 'Element_OphTrConsent_BenefitsAndRisks':
-						$element->setBenefitsAndRisksFromProcedures($procedures);
+						if ($procedures) $element->setBenefitsAndRisksFromProcedures($procedures);
 						break;
 					case 'Element_OphTrConsent_Other':
 						if ($this->firm->consultant) {
