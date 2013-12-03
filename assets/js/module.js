@@ -31,6 +31,7 @@ $(document).ready(function() {
 	handleButton($('#et_deleteevent'));
 
 	handleButton($('#et_canceldelete'),function(e) {
+		e.preventDefault();
 		if (m = window.location.href.match(/\/delete\/[0-9]+/)) {
 			window.location.href = window.location.href.replace('/delete/','/view/');
 		} else {
