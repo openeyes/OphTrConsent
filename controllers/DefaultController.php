@@ -20,79 +20,104 @@
 class DefaultController extends BaseEventTypeController
 {
 	public $booking_event;
+	public $booking_operation;
+	public $unbooked = false;
+	/**
+	 * Set up procedures from booking event
+	 *
+	 * @param $element
+	 * @param $action
+	 */
+	protected function setElementDefaultOptions_Element_OphTrConsent_Procedure($element, $action)
+	{
+		if ($action == 'create' && $this->booking_event) {
+			$element->booking_event_id = $this->booking_event->id;
+			if ($this->booking_operation) {
+				$element->eye_id = $this->booking_operation->eye_id;
+				$element->anaesthetic_type_id = $this->booking_operation->anaesthetic_type_id;
+				$element->procedures = $this->booking_operation->procedures;
+				$additional = array();
+				$additional_ids = array();
+				foreach ($element->procedures as $proc) {
+					foreach ($proc->additional as $add) {
+						if (!in_array($add->id, $additional_ids)) {
+							$additional[] = $add;
+							$additional_ids[] = $add->id;
+						}
+					}
+				}
+				$element->additional_procedures = $additional;
+			}
+		}
+	}
+
+
 
 	/**
-	 * Set the default values on each of the open elements.
+	 * Set up benefits and risks from booking event procedures
 	 *
-	 * @param string $action
-	 * @throws Exception
-	 * (non-phpdoc)
-	 * @see BaseEventTypeController::setElementOptions($action)
+	 * @param $element
+	 * @param $action
 	 */
-	protected function setElementOptions($action)
+	protected function setElementDefaultOptions_Element_OphTrConsent_BenefitsAndRisks($element, $action)
 	{
-		parent::setElementOptions($action);
+		if ($action == 'create' && $this->booking_operation) {
+			$element->setBenefitsAndRisksFromProcedures($this->booking_operation->procedures);
+		}
+	}
 
+	/**
+	 * Set the consultant id
+	 *
+	 * @param $element
+	 * @param $action
+	 */
+	protected function setElementDefaultOptions_Element_OphTrConsent_Other($element, $action)
+	{
 		if ($action == 'create') {
-			// TODO: possibly should be setting this as property of the controller
-			if (isset($_GET['booking_event_id'])) {
-				if (!$booking_event = Event::model()->findByPk($_GET['booking_event_id'])) {
-					throw new Exception("Can't find event: ".$_GET['booking_event_id']);
-				}
+			if ($this->firm->consultant) {
+				$element->consultant_id = $this->firm->consultant->id;
+			}
+		}
+	}
 
-				if ($booking_event->episode_id != $this->episode->id) {
-					throw new Exception("Selected event is not in the current episode");
-				}
-			} else {
-				$booking_event = null;
+	/**
+	 * Set the consent type from the child status of the patient
+	 *
+	 * @param $element
+	 * @param $action
+	 */
+	protected function setElementDefaultOptions_Element_OphTrConsent_Type($element, $action)
+	{
+		if ($this->patient->isChild()) {
+			$element->type_id = 2;
+		}
+		else {
+			$element->type_id = 1;
+		}
+	}
+
+	/**
+	 * Process the booking event value setting
+	 *
+	 * @throws Exception
+	 */
+	protected function initActionCreate()
+	{
+		parent::initActionCreate();
+
+		if (isset($_GET['booking_event_id'])) {
+			if (!$api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
+				throw new Exception('invalid request for booking event');
 			}
 
-			$eo = null;
-
-			if ($booking_event && $api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
-				$eo = $api->getOperationForEvent($booking_event->id);
+			if (!($this->booking_event = Event::model()->findByPk($_GET['booking_event_id']))
+				|| (!$this->booking_operation = $api->getOperationForEvent($_GET['booking_event_id']))) {
+				throw new Exception('booking event not found');
 			}
-			$procedures = null;
-			if ($eo) {
-				$procedures = $eo->procedures;
-			}
-			elseif (@$_GET['procedure_id']) {
-				if (!$proc = Procedure::model()->findByPk($_GET['procedure_id'])) {
-					throw new Exception('Procedure not found');
-				}
-				$procedures = array($proc);
-			}
-
-			foreach ($this->open_elements as $element) {
-				switch (get_class($element)) {
-					case 'Element_OphTrConsent_Procedure':
-						if ($booking_event) $element->booking_event_id = $booking_event->id;
-						if ($eo) {
-							$element->eye_id = $eo->eye_id;
-							$element->anaesthetic_type_id = $eo->anaesthetic_type_id;
-						}
-						break;
-					case 'Element_OphTrConsent_BenefitsAndRisks':
-						if ($procedures) $element->setBenefitsAndRisksFromProcedures($procedures);
-						break;
-					case 'Element_OphTrConsent_Other':
-						if ($this->firm->consultant) {
-							$element->consultant_id = $this->firm->consultant->id;
-						}
-						break;
-					case 'Element_OphTrConsent_Procedure':
-						$element->procedures = $procedures;
-						break;
-					case 'Element_OphTrConsent_Type':
-						if ($this->patient->isChild()) {
-							$element->type_id = 2;
-						}
-						else {
-							$element->type_id = 1;
-						}
-				}
-			}
-
+		}
+		elseif (isset($_GET['unbooked'])) {
+			$this->unbooked = true;
 		}
 	}
 
@@ -115,7 +140,7 @@ class DefaultController extends BaseEventTypeController
 			$errors = array('Consent form' => array('Please select a booking or Unbooked procedures'));
 		}
 
-		if (isset($_GET['booking_event_id']) || @$_GET['unbooked']) {
+		if ($this->booking_event || $this->unbooked) {
 			parent::actionCreate();
 		} else {
 			$bookings = array();
