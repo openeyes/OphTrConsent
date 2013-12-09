@@ -26,6 +26,8 @@ class OphTrConsent_API extends BaseAPI
 	 * @param Episode $episode
 	 * @param Procedure $procedure
 	 * @param string $side - left, right or both
+	 * @throws Exception
+	 * @return bool
 	 */
 	public function hasConsentForProcedure($episode, $procedure, $side)
 	{
@@ -42,7 +44,7 @@ class OphTrConsent_API extends BaseAPI
 			$criteria = new CDbCriteria;
 			$criteria->addCondition('event.event_type_id = :eventtype_id');
 			$criteria->addCondition('event.episode_id = :episode_id');
-			$criteria->addCondition('assignedprocedures.id = :proc_id OR assignedadditionalprocedures.id = :proc_id');
+			$criteria->addCondition('procedures.id = :proc_id OR additionalprocedures.id = :proc_id');
 			$criteria->params = array(
 				':eventtype_id' => $event_type->id,
 				':episode_id' => $episode->id,
@@ -63,7 +65,7 @@ class OphTrConsent_API extends BaseAPI
 
 			$criteria->addInCondition('t.eye_id', $eye_ids);
 
-			foreach (Element_OphTrConsent_Procedure::model()->with('event','assignedprocedures', 'assignedadditionalprocedures')->findAll($criteria) as $consent_proc) {
+			foreach (Element_OphTrConsent_Procedure::model()->with('event','procedures', 'additionalprocedures')->findAll($criteria) as $consent_proc) {
 				if ($consent_proc->eye_id == Eye::BOTH || $consent_proc->eye_id == $required_eye) {
 					return true;
 				}

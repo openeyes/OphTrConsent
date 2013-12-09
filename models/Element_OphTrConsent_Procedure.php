@@ -34,7 +34,7 @@
  * @property User $user
  * @property User $usermodified
  * @property Eye $eye
- * @property EtOphtrconsentProcedureProceduresProcedures $proceduress
+ * @property EtOphtrconsentProcedureProceduresProcedures $procedures
  * @property AnaestheticType $anaesthetic_type
  * @property EtOphtrconsentProcedureAddProcsAddProcs $add_procss
  */
@@ -92,10 +92,10 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 			'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
 			'anaesthetic_type' => array(self::BELONGS_TO, 'AnaestheticType', 'anaesthetic_type_id'),
 			'procedure_assignments' => array(self::HAS_MANY, 'EtOphtrconsentProcedureProceduresProcedures' , 'element_id' ),
-			'assignedprocedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
+			'procedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
 				'through' => 'procedure_assignments'),
 			'additionalprocedure_assignments' => array(self::HAS_MANY, 'EtOphtrconsentProcedureAddProcsAddProcs', 'element_id' ),
-			'assignedadditionalprocedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
+			'additional_procedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
 				'through' => 'additionalprocedure_assignments')
 		);
 	}
@@ -138,64 +138,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		));
 	}
 
-	public function getProcedures()
-	{
-		$procedures = array();
-
-		if (Yii::app()->getController()->getAction()->id == 'create') {
-			if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
-				throw new Exception("Patient not found: $patient->id");
-			}
-
-			if ($episode = $patient->getEpisodeForCurrentSubspecialty()) {
-				if (isset($_GET['booking_event_id'])) {
-					if (!$event = Event::model()->findByPk($_GET['booking_event_id'])) {
-						throw new Exception("Can't find event: ".$_GET['booking_event_id']);
-					}
-					if ($event->episode_id != $episode->id) {
-						throw new Exception("Selected event is not in the current episode");
-					}
-					if ($api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
-						if ($eo = $api->getOperationForEvent($event->id)) {
-							$procedures = $eo->procedures;
-						}
-					}
-				}
-			}
-		} else {
-			foreach (EtOphtrconsentProcedureProceduresProcedures::model()->findAll('element_id=?',array($this->id)) as $proc) {
-				$procedures[] = $proc->proc;
-			}
-		}
-
-		return $procedures;
-	}
-
-	public function getAdditional_procedures()
-	{
-		$procedures = array();
-
-		if (Yii::app()->getController()->getAction()->id == 'create') {
-			$procedure_ids = array();
-
-			foreach ($this->procedures as $proc) {
-				foreach ($proc->additional as $additional) {
-					if (!in_array($additional->id, $procedure_ids)) {
-						$procedure_ids[] = $additional->id;
-						$procedures[] = $additional;
-					}
-				}
-			}
-
-		} else {
-			foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?',array($this->id)) as $proc) {
-				$procedures[] = $proc->proc;
-			}
-		}
-
-		return $procedures;
-	}
-
+	//TODO: get POST handling out of here.
 	protected function afterSave()
 	{
 		foreach ($_POST['Procedures_procedures'] as $procedure_id) {
