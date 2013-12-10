@@ -19,8 +19,6 @@
 ?>
 <?php $this->beginContent('//patient/event_container');?>
 
-	<h2 class="event-title"><?php echo $this->event_type->name ?></h2>
-
 	<?php
 	$this->event_actions[] = EventAction::button('Print', 'print', array(),array('class'=>'button small'));
 	$this->event_actions[] = EventAction::button('Print for visually impaired', 'print_va', array(),array('class'=>'button small'));
