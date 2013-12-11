@@ -51,8 +51,6 @@ class DefaultController extends BaseEventTypeController
 		}
 	}
 
-
-
 	/**
 	 * Set up benefits and risks from booking event procedures
 	 *
