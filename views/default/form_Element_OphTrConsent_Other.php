@@ -91,7 +91,7 @@
 		<?php echo $form->textField($element, 'interpreter_name', array('size' => '30','maxLength' => '255', 'hide' => $hideInterpreterName), array(), array_merge($form->layoutColumns, array('field' => 5)))?>
 		<?php $hideGuardian = $element->isAdult();?>
 		<div class="field-row<?php echo $hideGuardian ? ' hide' : '';?>">
-			<?php echo $form->textField($element, 'parent_guardian', array('nowrapper' => true, 'size' => '30','maxlength' => '255', 'hide' => $hideGuardian), array(), array_merge($form->layoutColumns, array('field' => 5)))?>
+			<?php echo $form->textField($element, 'parent_guardian', array('size' => '30','maxlength' => '255', 'hide' => $hideGuardian), array(), array_merge($form->layoutColumns, array('field' => 5)))?>
 		</div>
 		<div class="row field-row">
 			<div class="large-<?php echo $form->layoutColumns['field'];?> large-offset-<?php echo $form->layoutColumns['label'];?> column">
