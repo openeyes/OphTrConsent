@@ -76,8 +76,8 @@ class m130913_000010_consolidation_for_ophtrconsent extends OEMigration
 		$this->execute("CREATE TABLE `et_ophtrconsent_benfitrisk` (
 			  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 			  `event_id` int(10) unsigned NOT NULL,
-			  `benefits` text COLLATE utf8_bin,
-			  `risks` text COLLATE utf8_bin,
+			  `benefits` text,
+			  `risks` text,
 			  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 			  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 			  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
@@ -115,13 +115,13 @@ class m130913_000010_consolidation_for_ophtrconsent extends OEMigration
 			  `information` tinyint(1) unsigned NOT NULL,
 			  `witness_required` tinyint(1) unsigned NOT NULL,
 			  `interpreter_required` tinyint(1) unsigned NOT NULL,
-			  `parent_guardian` varchar(255) COLLATE utf8_bin DEFAULT '',
+			  `parent_guardian` varchar(255) DEFAULT '',
 			  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 			  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 			  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 			  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-			  `witness_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-			  `interpreter_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+			  `witness_name` varchar(255) DEFAULT NULL,
+			  `interpreter_name` varchar(255) DEFAULT NULL,
 			  `anaesthetic_leaflet` tinyint(1) unsigned NOT NULL DEFAULT '0',
 			  `consultant_id` int(10) unsigned NOT NULL,
 			  `include_supplementary_consent` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -159,7 +159,7 @@ class m130913_000010_consolidation_for_ophtrconsent extends OEMigration
 
 		$this->execute("CREATE TABLE `et_ophtrconsent_permissions_images` (
 			  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-			  `name` varchar(128) COLLATE utf8_bin NOT NULL,
+			  `name` varchar(128) NOT NULL,
 			  `display_order` int(10) unsigned NOT NULL DEFAULT '1',
 			  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 			  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -276,7 +276,7 @@ class m130913_000010_consolidation_for_ophtrconsent extends OEMigration
 
 		$this->execute("CREATE TABLE `et_ophtrconsent_type_type` (
 			  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-			  `name` varchar(128) COLLATE utf8_bin NOT NULL,
+			  `name` varchar(128) NOT NULL,
 			  `display_order` int(10) unsigned NOT NULL DEFAULT '1',
 			  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 			  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -292,7 +292,7 @@ class m130913_000010_consolidation_for_ophtrconsent extends OEMigration
 
 		$this->execute("CREATE TABLE `ophtrconsent_leaflet` (
 			  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-			  `name` varchar(1024) COLLATE utf8_bin NOT NULL,
+			  `name` varchar(1024) NOT NULL,
 			  `display_order` int(10) unsigned NOT NULL DEFAULT '1',
 			  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 			  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
