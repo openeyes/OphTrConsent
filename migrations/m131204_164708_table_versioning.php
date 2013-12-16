@@ -492,16 +492,27 @@ CREATE TABLE `ophtrconsent_leaflets_version` (
 		$this->alterColumn('ophtrconsent_leaflets_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
 		$this->addColumn('et_ophtrconsent_benfitrisk','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_benfitrisk_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_leaflets','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_leaflets_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_other','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_other_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_permissions','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_permissions_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_permissions_images','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_permissions_images_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_procedure','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_procedure_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_procedure_add_procs_add_procs','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_procedure_add_procs_add_procs_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_procedure_proc_defaults','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_procedure_proc_defaults_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_procedure_procedures_procedures','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_procedure_procedures_procedures_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_type','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_type_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('et_ophtrconsent_type_type','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_type_type_version','deleted','tinyint(1) unsigned not null');
 
 		$this->addColumn('ophtrconsent_leaflet','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('ophtrconsent_leaflet_version','deleted','tinyint(1) unsigned not null');
