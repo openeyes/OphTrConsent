@@ -33,7 +33,7 @@
  * @property User $usermodified
  */
 
-class Element_OphTrConsent_Permissions_Images extends BaseActiveRecord
+class Element_OphTrConsent_Permissions_Images extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

@@ -34,7 +34,7 @@
  *
  */
 
-class OphTrConsent_Leaflet_Subspecialty extends BaseActiveRecord
+class OphTrConsent_Leaflet_Subspecialty extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

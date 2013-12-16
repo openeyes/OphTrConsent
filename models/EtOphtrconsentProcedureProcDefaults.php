@@ -34,7 +34,7 @@
  *
  */
 
-class EtOphtrconsentProcedureProcDefaults extends BaseActiveRecord
+class EtOphtrconsentProcedureProcDefaults extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
