@@ -6,21 +6,21 @@ class m131204_164708_table_versioning extends CDbMigration
 	{
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_benfitrisk_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `event_id` int(10) unsigned NOT NULL,
-  `benefits` text COLLATE utf8_bin,
-  `risks` text COLLATE utf8_bin,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_benfitrisk_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_benfitrisk_cui_fk` (`created_user_id`),
-  KEY `acv_et_ophtrconsent_benfitrisk_ev_fk` (`event_id`),
-  CONSTRAINT `acv_et_ophtrconsent_benfitrisk_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_benfitrisk_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_benfitrisk_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`event_id` int(10) unsigned NOT NULL,
+	`benefits` text COLLATE utf8_bin,
+	`risks` text COLLATE utf8_bin,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_benfitrisk_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_benfitrisk_cui_fk` (`created_user_id`),
+	KEY `acv_et_ophtrconsent_benfitrisk_ev_fk` (`event_id`),
+	CONSTRAINT `acv_et_ophtrconsent_benfitrisk_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_benfitrisk_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_benfitrisk_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -38,19 +38,19 @@ CREATE TABLE `et_ophtrconsent_benfitrisk_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_leaflets_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `event_id` int(10) unsigned NOT NULL,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_leaflets_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_leaflets_cui_fk` (`created_user_id`),
-  KEY `acv_et_ophtrconsent_leaflets_ev_fk` (`event_id`),
-  CONSTRAINT `acv_et_ophtrconsent_leaflets_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_leaflets_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_leaflets_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`event_id` int(10) unsigned NOT NULL,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_leaflets_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_leaflets_cui_fk` (`created_user_id`),
+	KEY `acv_et_ophtrconsent_leaflets_ev_fk` (`event_id`),
+	CONSTRAINT `acv_et_ophtrconsent_leaflets_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_leaflets_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_leaflets_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -68,30 +68,30 @@ CREATE TABLE `et_ophtrconsent_leaflets_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_other_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `event_id` int(10) unsigned NOT NULL,
-  `information` tinyint(1) unsigned NOT NULL,
-  `witness_required` tinyint(1) unsigned NOT NULL,
-  `interpreter_required` tinyint(1) unsigned NOT NULL,
-  `parent_guardian` varchar(255) COLLATE utf8_bin DEFAULT '',
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `witness_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `interpreter_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `anaesthetic_leaflet` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `consultant_id` int(10) unsigned NOT NULL,
-  `include_supplementary_consent` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_other_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_other_cui_fk` (`created_user_id`),
-  KEY `acv_et_ophtrconsent_other_ev_fk` (`event_id`),
-  KEY `acv_et_ophtrconsent_other_consultant_id_fk` (`consultant_id`),
-  CONSTRAINT `acv_et_ophtrconsent_other_consultant_id_fk` FOREIGN KEY (`consultant_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_other_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_other_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_other_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`event_id` int(10) unsigned NOT NULL,
+	`information` tinyint(1) unsigned NOT NULL,
+	`witness_required` tinyint(1) unsigned NOT NULL,
+	`interpreter_required` tinyint(1) unsigned NOT NULL,
+	`parent_guardian` varchar(255) COLLATE utf8_bin DEFAULT '',
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`witness_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+	`interpreter_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+	`anaesthetic_leaflet` tinyint(1) unsigned NOT NULL DEFAULT '0',
+	`consultant_id` int(10) unsigned NOT NULL,
+	`include_supplementary_consent` tinyint(1) unsigned NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_other_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_other_cui_fk` (`created_user_id`),
+	KEY `acv_et_ophtrconsent_other_ev_fk` (`event_id`),
+	KEY `acv_et_ophtrconsent_other_consultant_id_fk` (`consultant_id`),
+	CONSTRAINT `acv_et_ophtrconsent_other_consultant_id_fk` FOREIGN KEY (`consultant_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_other_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_other_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_other_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -109,22 +109,22 @@ CREATE TABLE `et_ophtrconsent_other_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_permissions_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `event_id` int(10) unsigned NOT NULL,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `images_id` int(10) unsigned NOT NULL DEFAULT '3',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_permissions_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_permissions_cui_fk` (`created_user_id`),
-  KEY `acv_et_ophtrconsent_permissions_ev_fk` (`event_id`),
-  KEY `acv_et_ophtrconsent_permissions_images_fk` (`images_id`),
-  CONSTRAINT `acv_et_ophtrconsent_permissions_images_fk` FOREIGN KEY (`images_id`) REFERENCES `et_ophtrconsent_permissions_images` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_permissions_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_permissions_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_permissions_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`event_id` int(10) unsigned NOT NULL,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`images_id` int(10) unsigned NOT NULL DEFAULT '3',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_permissions_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_permissions_cui_fk` (`created_user_id`),
+	KEY `acv_et_ophtrconsent_permissions_ev_fk` (`event_id`),
+	KEY `acv_et_ophtrconsent_permissions_images_fk` (`images_id`),
+	CONSTRAINT `acv_et_ophtrconsent_permissions_images_fk` FOREIGN KEY (`images_id`) REFERENCES `et_ophtrconsent_permissions_images` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_permissions_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_permissions_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_permissions_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -142,18 +142,18 @@ CREATE TABLE `et_ophtrconsent_permissions_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_permissions_images_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) COLLATE utf8_bin NOT NULL,
-  `display_order` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_permissions_images_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_permissions_images_cui_fk` (`created_user_id`),
-  CONSTRAINT `acv_et_ophtrconsent_permissions_images_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_permissions_images_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`name` varchar(128) COLLATE utf8_bin NOT NULL,
+	`display_order` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_permissions_images_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_permissions_images_cui_fk` (`created_user_id`),
+	CONSTRAINT `acv_et_ophtrconsent_permissions_images_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_permissions_images_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -171,28 +171,28 @@ CREATE TABLE `et_ophtrconsent_permissions_images_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_procedure_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `event_id` int(10) unsigned NOT NULL,
-  `eye_id` int(10) unsigned NOT NULL DEFAULT '2',
-  `anaesthetic_type_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `booking_event_id` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_procedure_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_procedure_cui_fk` (`created_user_id`),
-  KEY `acv_et_ophtrconsent_procedure_ev_fk` (`event_id`),
-  KEY `acv_et_ophtrconsent_procedure_eye_id_fk` (`eye_id`),
-  KEY `acv_et_ophtrconsent_procedure_anaesthetic_type_id_fk` (`anaesthetic_type_id`),
-  KEY `acv_et_ophtrconsent_procedure_booking_event_id_fk` (`booking_event_id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_booking_event_id_fk` FOREIGN KEY (`booking_event_id`) REFERENCES `event` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_anaesthetic_type_id_fk` FOREIGN KEY (`anaesthetic_type_id`) REFERENCES `anaesthetic_type` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_eye_id_fk` FOREIGN KEY (`eye_id`) REFERENCES `eye` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`event_id` int(10) unsigned NOT NULL,
+	`eye_id` int(10) unsigned NOT NULL DEFAULT '2',
+	`anaesthetic_type_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`booking_event_id` int(10) unsigned DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_procedure_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_procedure_cui_fk` (`created_user_id`),
+	KEY `acv_et_ophtrconsent_procedure_ev_fk` (`event_id`),
+	KEY `acv_et_ophtrconsent_procedure_eye_id_fk` (`eye_id`),
+	KEY `acv_et_ophtrconsent_procedure_anaesthetic_type_id_fk` (`anaesthetic_type_id`),
+	KEY `acv_et_ophtrconsent_procedure_booking_event_id_fk` (`booking_event_id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_booking_event_id_fk` FOREIGN KEY (`booking_event_id`) REFERENCES `event` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_anaesthetic_type_id_fk` FOREIGN KEY (`anaesthetic_type_id`) REFERENCES `anaesthetic_type` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_eye_id_fk` FOREIGN KEY (`eye_id`) REFERENCES `eye` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -210,22 +210,22 @@ CREATE TABLE `et_ophtrconsent_procedure_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_procedure_add_procs_add_procs_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `element_id` int(10) unsigned NOT NULL,
-  `proc_id` int(10) unsigned NOT NULL,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_cui_fk` (`created_user_id`),
-  KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_ele_fk` (`element_id`),
-  KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_lku_fk` (`proc_id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_lku_fk` FOREIGN KEY (`proc_id`) REFERENCES `proc` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`element_id` int(10) unsigned NOT NULL,
+	`proc_id` int(10) unsigned NOT NULL,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_cui_fk` (`created_user_id`),
+	KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_ele_fk` (`element_id`),
+	KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_lku_fk` (`proc_id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_lku_fk` FOREIGN KEY (`proc_id`) REFERENCES `proc` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -243,17 +243,17 @@ CREATE TABLE `et_ophtrconsent_procedure_add_procs_add_procs_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_procedure_proc_defaults_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `value_id` int(10) unsigned NOT NULL,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_procedure_proc_defaults_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_procedure_proc_defaults_cui_fk` (`created_user_id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_proc_defaults_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_proc_defaults_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`value_id` int(10) unsigned NOT NULL,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_procedure_proc_defaults_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_procedure_proc_defaults_cui_fk` (`created_user_id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_proc_defaults_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_proc_defaults_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -271,22 +271,22 @@ CREATE TABLE `et_ophtrconsent_procedure_proc_defaults_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_procedure_procedures_procedures_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `element_id` int(10) unsigned NOT NULL,
-  `proc_id` int(10) unsigned NOT NULL,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_procedure_procedures_procedures_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_procedure_procedures_procedures_cui_fk` (`created_user_id`),
-  KEY `acv_et_ophtrconsent_procedure_procedures_procedures_ele_fk` (`element_id`),
-  KEY `acv_et_ophtrconsent_procedure_procedures_procedures_lku_fk` (`proc_id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_lku_fk` FOREIGN KEY (`proc_id`) REFERENCES `proc` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`element_id` int(10) unsigned NOT NULL,
+	`proc_id` int(10) unsigned NOT NULL,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_procedure_procedures_procedures_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_procedure_procedures_procedures_cui_fk` (`created_user_id`),
+	KEY `acv_et_ophtrconsent_procedure_procedures_procedures_ele_fk` (`element_id`),
+	KEY `acv_et_ophtrconsent_procedure_procedures_procedures_lku_fk` (`proc_id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_lku_fk` FOREIGN KEY (`proc_id`) REFERENCES `proc` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -304,22 +304,22 @@ CREATE TABLE `et_ophtrconsent_procedure_procedures_procedures_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_type_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `event_id` int(10) unsigned NOT NULL,
-  `type_id` int(10) unsigned NOT NULL,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_type_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_type_cui_fk` (`created_user_id`),
-  KEY `acv_et_ophtrconsent_type_ev_fk` (`event_id`),
-  KEY `acv_et_ophtrconsent_type_type_fk` (`type_id`),
-  CONSTRAINT `acv_et_ophtrconsent_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_type_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_type_type_fk` FOREIGN KEY (`type_id`) REFERENCES `et_ophtrconsent_type_type` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`event_id` int(10) unsigned NOT NULL,
+	`type_id` int(10) unsigned NOT NULL,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_type_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_type_cui_fk` (`created_user_id`),
+	KEY `acv_et_ophtrconsent_type_ev_fk` (`event_id`),
+	KEY `acv_et_ophtrconsent_type_type_fk` (`type_id`),
+	CONSTRAINT `acv_et_ophtrconsent_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_type_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_type_type_fk` FOREIGN KEY (`type_id`) REFERENCES `et_ophtrconsent_type_type` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -337,18 +337,18 @@ CREATE TABLE `et_ophtrconsent_type_version` (
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_type_type_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) COLLATE utf8_bin NOT NULL,
-  `display_order` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_et_ophtrconsent_type_type_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_et_ophtrconsent_type_type_cui_fk` (`created_user_id`),
-  CONSTRAINT `acv_et_ophtrconsent_type_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_et_ophtrconsent_type_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`name` varchar(128) COLLATE utf8_bin NOT NULL,
+	`display_order` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_et_ophtrconsent_type_type_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_et_ophtrconsent_type_type_cui_fk` (`created_user_id`),
+	CONSTRAINT `acv_et_ophtrconsent_type_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_type_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -366,18 +366,18 @@ CREATE TABLE `et_ophtrconsent_type_type_version` (
 
 		$this->execute("
 CREATE TABLE `ophtrconsent_leaflet_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(1024) COLLATE utf8_bin NOT NULL,
-  `display_order` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_ophtrconsent_leaflet_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_ophtrconsent_leaflet_cui_fk` (`created_user_id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`name` varchar(1024) COLLATE utf8_bin NOT NULL,
+	`display_order` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_ophtrconsent_leaflet_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_ophtrconsent_leaflet_cui_fk` (`created_user_id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -395,22 +395,22 @@ CREATE TABLE `ophtrconsent_leaflet_version` (
 
 		$this->execute("
 CREATE TABLE `ophtrconsent_leaflet_firm_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `leaflet_id` int(10) unsigned NOT NULL,
-  `firm_id` int(10) unsigned DEFAULT NULL,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_ophtrconsent_leaflet_firm_leaflet_id_fk` (`leaflet_id`),
-  KEY `acv_ophtrconsent_leaflet_firm_firm_id_fk` (`firm_id`),
-  KEY `acv_ophtrconsent_leaflet_firm_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_ophtrconsent_leaflet_firm_cui_fk` (`created_user_id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_firm_leaflet_id_fk` FOREIGN KEY (`leaflet_id`) REFERENCES `ophtrconsent_leaflet` (`id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_firm_firm_id_fk` FOREIGN KEY (`firm_id`) REFERENCES `firm` (`id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_firm_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_firm_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`leaflet_id` int(10) unsigned NOT NULL,
+	`firm_id` int(10) unsigned DEFAULT NULL,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_ophtrconsent_leaflet_firm_leaflet_id_fk` (`leaflet_id`),
+	KEY `acv_ophtrconsent_leaflet_firm_firm_id_fk` (`firm_id`),
+	KEY `acv_ophtrconsent_leaflet_firm_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_ophtrconsent_leaflet_firm_cui_fk` (`created_user_id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_firm_leaflet_id_fk` FOREIGN KEY (`leaflet_id`) REFERENCES `ophtrconsent_leaflet` (`id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_firm_firm_id_fk` FOREIGN KEY (`firm_id`) REFERENCES `firm` (`id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_firm_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_firm_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -428,22 +428,22 @@ CREATE TABLE `ophtrconsent_leaflet_firm_version` (
 
 		$this->execute("
 CREATE TABLE `ophtrconsent_leaflet_subspecialty_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `leaflet_id` int(10) unsigned NOT NULL,
-  `subspecialty_id` int(10) unsigned DEFAULT NULL,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_ophtrconsent_leaflet_subspecialty_leaflet_id_fk` (`leaflet_id`),
-  KEY `acv_ophtrconsent_leaflet_subspecialty_subspecialty_id_fk` (`subspecialty_id`),
-  KEY `acv_ophtrconsent_leaflet_subspecialty_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_ophtrconsent_leaflet_subspecialty_cui_fk` (`created_user_id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_leaflet_id_fk` FOREIGN KEY (`leaflet_id`) REFERENCES `ophtrconsent_leaflet` (`id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_subspecialty_id_fk` FOREIGN KEY (`subspecialty_id`) REFERENCES `subspecialty` (`id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`leaflet_id` int(10) unsigned NOT NULL,
+	`subspecialty_id` int(10) unsigned DEFAULT NULL,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_ophtrconsent_leaflet_subspecialty_leaflet_id_fk` (`leaflet_id`),
+	KEY `acv_ophtrconsent_leaflet_subspecialty_subspecialty_id_fk` (`subspecialty_id`),
+	KEY `acv_ophtrconsent_leaflet_subspecialty_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_ophtrconsent_leaflet_subspecialty_cui_fk` (`created_user_id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_leaflet_id_fk` FOREIGN KEY (`leaflet_id`) REFERENCES `ophtrconsent_leaflet` (`id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_subspecialty_id_fk` FOREIGN KEY (`subspecialty_id`) REFERENCES `subspecialty` (`id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -461,21 +461,21 @@ CREATE TABLE `ophtrconsent_leaflet_subspecialty_version` (
 
 		$this->execute("
 CREATE TABLE `ophtrconsent_leaflets_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `element_id` int(10) unsigned NOT NULL,
-  `leaflet_id` int(10) unsigned NOT NULL,
-  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  `created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
-  `created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `acv_ophtrconsent_leaflets_lmui_fk` (`last_modified_user_id`),
-  KEY `acv_ophtrconsent_leaflets_cui_fk` (`created_user_id`),
-  KEY `acv_ophtrconsent_leaflets_el_fk` (`element_id`),
-  KEY `acv_ophtrconsent_leaflets_le_fk` (`leaflet_id`),
-  CONSTRAINT `acv_ophtrconsent_leaflets_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_ophtrconsent_leaflets_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `acv_ophtrconsent_leaflets_le_fk` FOREIGN KEY (`leaflet_id`) REFERENCES `ophtrconsent_leaflet` (`id`)
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`element_id` int(10) unsigned NOT NULL,
+	`leaflet_id` int(10) unsigned NOT NULL,
+	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
+	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
+	PRIMARY KEY (`id`),
+	KEY `acv_ophtrconsent_leaflets_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_ophtrconsent_leaflets_cui_fk` (`created_user_id`),
+	KEY `acv_ophtrconsent_leaflets_el_fk` (`element_id`),
+	KEY `acv_ophtrconsent_leaflets_le_fk` (`leaflet_id`),
+	CONSTRAINT `acv_ophtrconsent_leaflets_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_leaflets_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_leaflets_le_fk` FOREIGN KEY (`leaflet_id`) REFERENCES `ophtrconsent_leaflet` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 		");
 
@@ -490,10 +490,52 @@ CREATE TABLE `ophtrconsent_leaflets_version` (
 		$this->addColumn('ophtrconsent_leaflets_version','version_id','int(10) unsigned NOT NULL');
 		$this->addPrimaryKey('version_id','ophtrconsent_leaflets_version','version_id');
 		$this->alterColumn('ophtrconsent_leaflets_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
+
+		$this->addColumn('et_ophtrconsent_benfitrisk','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_leaflets','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_other','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_permissions','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_permissions_images','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_procedure','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_procedure_add_procs_add_procs','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_procedure_proc_defaults','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_procedure_procedures_procedures','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_type','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('et_ophtrconsent_type_type','deleted','tinyint(1) unsigned not null');
+
+		$this->addColumn('ophtrconsent_leaflet','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_leaflet_version','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_leaflet_firm','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_leaflet_firm_version','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_leaflet_subspecialty','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_leaflet_subspecialty_version','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_leaflets','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_leaflets_version','deleted','tinyint(1) unsigned not null');
 	}
 
 	public function down()
 	{
+		$this->dropColumn('ophtrconsent_leaflet','deleted');
+		$this->dropColumn('ophtrconsent_leaflet_version','deleted');
+		$this->dropColumn('ophtrconsent_leaflet_firm','deleted');
+		$this->dropColumn('ophtrconsent_leaflet_firm_version','deleted');
+		$this->dropColumn('ophtrconsent_leaflet_subspecialty','deleted');
+		$this->dropColumn('ophtrconsent_leaflet_subspecialty_version','deleted');
+		$this->dropColumn('ophtrconsent_leaflets','deleted');
+		$this->dropColumn('ophtrconsent_leaflets_version','deleted');
+
+		$this->dropColumn('et_ophtrconsent_benfitrisk','deleted');
+		$this->dropColumn('et_ophtrconsent_leaflets','deleted');
+		$this->dropColumn('et_ophtrconsent_other','deleted');
+		$this->dropColumn('et_ophtrconsent_permissions','deleted');
+		$this->dropColumn('et_ophtrconsent_permissions_images','deleted');
+		$this->dropColumn('et_ophtrconsent_procedure','deleted');
+		$this->dropColumn('et_ophtrconsent_procedure_add_procs_add_procs','deleted');
+		$this->dropColumn('et_ophtrconsent_procedure_proc_defaults','deleted');
+		$this->dropColumn('et_ophtrconsent_procedure_procedures_procedures','deleted');
+		$this->dropColumn('et_ophtrconsent_type','deleted');
+		$this->dropColumn('et_ophtrconsent_type_type','deleted');
+
 		$this->dropTable('et_ophtrconsent_benfitrisk_version');
 		$this->dropTable('et_ophtrconsent_leaflets_version');
 		$this->dropTable('et_ophtrconsent_other_version');
