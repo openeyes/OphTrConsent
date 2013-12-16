@@ -516,13 +516,9 @@ CREATE TABLE `ophtrconsent_leaflets_version` (
 	public function down()
 	{
 		$this->dropColumn('ophtrconsent_leaflet','deleted');
-		$this->dropColumn('ophtrconsent_leaflet_version','deleted');
 		$this->dropColumn('ophtrconsent_leaflet_firm','deleted');
-		$this->dropColumn('ophtrconsent_leaflet_firm_version','deleted');
 		$this->dropColumn('ophtrconsent_leaflet_subspecialty','deleted');
-		$this->dropColumn('ophtrconsent_leaflet_subspecialty_version','deleted');
 		$this->dropColumn('ophtrconsent_leaflets','deleted');
-		$this->dropColumn('ophtrconsent_leaflets_version','deleted');
 
 		$this->dropColumn('et_ophtrconsent_benfitrisk','deleted');
 		$this->dropColumn('et_ophtrconsent_leaflets','deleted');
