@@ -8,8 +8,8 @@ class m131204_164708_table_versioning extends CDbMigration
 CREATE TABLE `et_ophtrconsent_benfitrisk_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`event_id` int(10) unsigned NOT NULL,
-	`benefits` text COLLATE utf8_bin,
-	`risks` text COLLATE utf8_bin,
+	`benefits` text,
+	`risks` text,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
@@ -21,7 +21,7 @@ CREATE TABLE `et_ophtrconsent_benfitrisk_version` (
 	CONSTRAINT `acv_et_ophtrconsent_benfitrisk_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_benfitrisk_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_benfitrisk_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_benfitrisk_version','id','int(10) unsigned NOT NULL');
@@ -51,7 +51,7 @@ CREATE TABLE `et_ophtrconsent_leaflets_version` (
 	CONSTRAINT `acv_et_ophtrconsent_leaflets_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_leaflets_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_leaflets_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_leaflets_version','id','int(10) unsigned NOT NULL');
@@ -73,13 +73,13 @@ CREATE TABLE `et_ophtrconsent_other_version` (
 	`information` tinyint(1) unsigned NOT NULL,
 	`witness_required` tinyint(1) unsigned NOT NULL,
 	`interpreter_required` tinyint(1) unsigned NOT NULL,
-	`parent_guardian` varchar(255) COLLATE utf8_bin DEFAULT '',
+	`parent_guardian` varchar(255) DEFAULT '',
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-	`witness_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-	`interpreter_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+	`witness_name` varchar(255) DEFAULT NULL,
+	`interpreter_name` varchar(255) DEFAULT NULL,
 	`anaesthetic_leaflet` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	`consultant_id` int(10) unsigned NOT NULL,
 	`include_supplementary_consent` tinyint(1) unsigned NOT NULL DEFAULT '0',
@@ -92,7 +92,7 @@ CREATE TABLE `et_ophtrconsent_other_version` (
 	CONSTRAINT `acv_et_ophtrconsent_other_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_other_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_other_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_other_version','id','int(10) unsigned NOT NULL');
@@ -125,7 +125,7 @@ CREATE TABLE `et_ophtrconsent_permissions_version` (
 	CONSTRAINT `acv_et_ophtrconsent_permissions_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_permissions_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_permissions_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_permissions_version','id','int(10) unsigned NOT NULL');
@@ -143,7 +143,7 @@ CREATE TABLE `et_ophtrconsent_permissions_version` (
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_permissions_images_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(128) COLLATE utf8_bin NOT NULL,
+	`name` varchar(128) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -154,7 +154,7 @@ CREATE TABLE `et_ophtrconsent_permissions_images_version` (
 	KEY `acv_et_ophtrconsent_permissions_images_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_et_ophtrconsent_permissions_images_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_permissions_images_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_permissions_images_version','id','int(10) unsigned NOT NULL');
@@ -193,7 +193,7 @@ CREATE TABLE `et_ophtrconsent_procedure_version` (
 	CONSTRAINT `acv_et_ophtrconsent_procedure_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_procedure_eye_id_fk` FOREIGN KEY (`eye_id`) REFERENCES `eye` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_procedure_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_procedure_version','id','int(10) unsigned NOT NULL');
@@ -226,7 +226,7 @@ CREATE TABLE `et_ophtrconsent_procedure_add_procs_add_procs_version` (
 	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_lku_fk` FOREIGN KEY (`proc_id`) REFERENCES `proc` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_procedure_add_procs_add_procs_version','id','int(10) unsigned NOT NULL');
@@ -254,7 +254,7 @@ CREATE TABLE `et_ophtrconsent_procedure_proc_defaults_version` (
 	KEY `acv_et_ophtrconsent_procedure_proc_defaults_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_et_ophtrconsent_procedure_proc_defaults_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_procedure_proc_defaults_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_procedure_proc_defaults_version','id','int(10) unsigned NOT NULL');
@@ -287,7 +287,7 @@ CREATE TABLE `et_ophtrconsent_procedure_procedures_procedures_version` (
 	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_lku_fk` FOREIGN KEY (`proc_id`) REFERENCES `proc` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_procedure_procedures_procedures_version','id','int(10) unsigned NOT NULL');
@@ -320,7 +320,7 @@ CREATE TABLE `et_ophtrconsent_type_version` (
 	CONSTRAINT `acv_et_ophtrconsent_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_type_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_type_type_fk` FOREIGN KEY (`type_id`) REFERENCES `et_ophtrconsent_type_type` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_type_version','id','int(10) unsigned NOT NULL');
@@ -338,7 +338,7 @@ CREATE TABLE `et_ophtrconsent_type_version` (
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_type_type_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(128) COLLATE utf8_bin NOT NULL,
+	`name` varchar(128) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -349,7 +349,7 @@ CREATE TABLE `et_ophtrconsent_type_type_version` (
 	KEY `acv_et_ophtrconsent_type_type_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_et_ophtrconsent_type_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_type_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophtrconsent_type_type_version','id','int(10) unsigned NOT NULL');
@@ -367,7 +367,7 @@ CREATE TABLE `et_ophtrconsent_type_type_version` (
 		$this->execute("
 CREATE TABLE `ophtrconsent_leaflet_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(1024) COLLATE utf8_bin NOT NULL,
+	`name` varchar(1024) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -378,7 +378,7 @@ CREATE TABLE `ophtrconsent_leaflet_version` (
 	KEY `acv_ophtrconsent_leaflet_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophtrconsent_leaflet_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophtrconsent_leaflet_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophtrconsent_leaflet_version','id','int(10) unsigned NOT NULL');
@@ -411,7 +411,7 @@ CREATE TABLE `ophtrconsent_leaflet_firm_version` (
 	CONSTRAINT `acv_ophtrconsent_leaflet_firm_firm_id_fk` FOREIGN KEY (`firm_id`) REFERENCES `firm` (`id`),
 	CONSTRAINT `acv_ophtrconsent_leaflet_firm_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophtrconsent_leaflet_firm_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophtrconsent_leaflet_firm_version','id','int(10) unsigned NOT NULL');
@@ -444,7 +444,7 @@ CREATE TABLE `ophtrconsent_leaflet_subspecialty_version` (
 	CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_subspecialty_id_fk` FOREIGN KEY (`subspecialty_id`) REFERENCES `subspecialty` (`id`),
 	CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophtrconsent_leaflet_subspecialty_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophtrconsent_leaflet_subspecialty_version','id','int(10) unsigned NOT NULL');
@@ -476,7 +476,7 @@ CREATE TABLE `ophtrconsent_leaflets_version` (
 	CONSTRAINT `acv_ophtrconsent_leaflets_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophtrconsent_leaflets_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophtrconsent_leaflets_le_fk` FOREIGN KEY (`leaflet_id`) REFERENCES `ophtrconsent_leaflet` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophtrconsent_leaflets_version','id','int(10) unsigned NOT NULL');
