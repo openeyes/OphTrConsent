@@ -19,24 +19,130 @@
 
 class DefaultController extends BaseEventTypeController
 {
+	static protected $action_types = array(
+		'users' => self::ACTION_TYPE_FORM,
+	);
+
+	public $booking_event;
+	public $booking_operation;
+	public $unbooked = false;
+	/**
+	 * Set up procedures from booking event
+	 *
+	 * @param $element
+	 * @param $action
+	 */
+	protected function setElementDefaultOptions_Element_OphTrConsent_Procedure($element, $action)
+	{
+		if ($action == 'create' && $this->booking_event) {
+			$element->booking_event_id = $this->booking_event->id;
+			if ($this->booking_operation) {
+				$element->eye_id = $this->booking_operation->eye_id;
+				$element->anaesthetic_type_id = $this->booking_operation->anaesthetic_type_id;
+				$element->procedures = $this->booking_operation->procedures;
+				$additional = array();
+				$additional_ids = array();
+				foreach ($element->procedures as $proc) {
+					foreach ($proc->additional as $add) {
+						if (!in_array($add->id, $additional_ids)) {
+							$additional[] = $add;
+							$additional_ids[] = $add->id;
+						}
+					}
+				}
+				$element->additional_procedures = $additional;
+			}
+		}
+	}
+
+	/**
+	 * Set up benefits and risks from booking event procedures
+	 *
+	 * @param $element
+	 * @param $action
+	 */
+	protected function setElementDefaultOptions_Element_OphTrConsent_BenefitsAndRisks($element, $action)
+	{
+		if ($action == 'create' && $this->booking_operation) {
+			$element->setBenefitsAndRisksFromProcedures($this->booking_operation->procedures);
+		}
+	}
+
+	/**
+	 * Set the consultant id
+	 *
+	 * @param $element
+	 * @param $action
+	 */
+	protected function setElementDefaultOptions_Element_OphTrConsent_Other($element, $action)
+	{
+		if ($action == 'create') {
+			if ($this->firm->consultant) {
+				$element->consultant_id = $this->firm->consultant->id;
+			}
+		}
+	}
+
+	/**
+	 * Set the consent type from the child status of the patient
+	 *
+	 * @param $element
+	 * @param $action
+	 */
+	protected function setElementDefaultOptions_Element_OphTrConsent_Type($element, $action)
+	{
+		if ($this->patient->isChild()) {
+			$element->type_id = 2;
+		}
+		else {
+			$element->type_id = 1;
+		}
+	}
+
+	/**
+	 * Process the booking event value setting
+	 *
+	 * @throws Exception
+	 */
+	protected function initActionCreate()
+	{
+		parent::initActionCreate();
+
+		if (isset($_GET['booking_event_id'])) {
+			if (!$api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
+				throw new Exception('invalid request for booking event');
+			}
+
+			if (!($this->booking_event = Event::model()->findByPk($_GET['booking_event_id']))
+				|| (!$this->booking_operation = $api->getOperationForEvent($_GET['booking_event_id']))) {
+				throw new Exception('booking event not found');
+			}
+		}
+		elseif (isset($_GET['unbooked'])) {
+			$this->unbooked = true;
+		}
+	}
+
+	/**
+	 * Manage picking an extant booking for setting consent form defaults
+	 *
+	 * (non-phpdoc)
+	 * @see BaseEventTypeController::actionCreate()
+	 */
 	public function actionCreate()
 	{
 		$errors = array();
 
-		if (!$this->patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
-			throw new Exception("Patient not found: ".@$_GET['patient_id']);
-		}
-
 		if (!empty($_POST)) {
 			if (@$_POST['SelectBooking'] == 'unbooked') {
-				return $this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&unbooked=1'));
+				$this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&unbooked=1'));
 			} elseif (preg_match('/^booking([0-9]+)$/',@$_POST['SelectBooking'],$m)) {
-				return $this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&booking_event_id='.$m[1]));
+				$this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&booking_event_id='.$m[1]));
 			}
 			$errors = array('Consent form' => array('Please select a booking or Unbooked procedures'));
 		}
 
-		if (isset($_GET['booking_event_id']) || @$_GET['unbooked']) {
+		if ($this->booking_event || $this->unbooked) {
 			parent::actionCreate();
 		} else {
 			$bookings = array();
@@ -47,7 +153,6 @@ class DefaultController extends BaseEventTypeController
 				}
 			}
 
-			$this->event_type = EventType::model()->find('class_name=?',array('OphTrConsent'));
 			$this->title = "Please select booking";
 			$this->event_tabs = array(
 					array(
@@ -69,16 +174,6 @@ class DefaultController extends BaseEventTypeController
 				'bookings' => $bookings,
 			), false, true);
 		}
-	}
-
-	public function actionUpdate($id)
-	{
-		parent::actionUpdate($id);
-	}
-
-	public function actionView($id)
-	{
-		parent::actionView($id);
 	}
 
 	/**
@@ -113,6 +208,9 @@ class DefaultController extends BaseEventTypeController
 		$this->printPDF($id, $elements, $template, array('vi' => (boolean) @$_GET['vi']));
 	}
 
+	/**
+	 * Ajax action for getting list of users (json-encoded)
+	 */
 	public function actionUsers()
 	{
 		$users = array();
@@ -128,10 +226,9 @@ class DefaultController extends BaseEventTypeController
 		$criteria->params = $params;
 		$criteria->order = 'first_name, last_name';
 
-		$firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id']);
 		$consultant = null;
 		// only want a consultant for medical firms
-		if ($specialty = $firm->getSpecialty()) {
+		if ($specialty = $this->firm->getSpecialty()) {
 			if ($specialty->medical) {
 				$consultant = $firm->consultant;
 			}

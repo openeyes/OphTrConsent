@@ -172,7 +172,7 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 		return parent::beforeSave();
 	}
 
-	public function setDefaultOptions()
+	public function _setDefaultOptions()
 	{
 		if (Yii::app()->getController()->action->id == 'create') {
 			if (empty($_POST)) {

@@ -122,90 +122,67 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 		));
 	}
 
-	public function getProcedures()
+	/**
+	 * Use the procedures to determine what the benefit and risk strings should be for this
+	 * element
+	 *
+	 * @param Procedure[] $procedures
+	 */
+	public function setBenefitsAndRisksFromProcedures($procedures)
 	{
-		$procedures = array();
+		$all_procedure_ids = array();
+		$all_procedures = array();
 
-		if (!$patient = Patient::model()->findByPk(@$_GET['patient_id'])) {
-			throw new Exception("Patient not found: $patient->id");
-		}
-
-		if ($episode = $patient->getEpisodeForCurrentSubspecialty()) {
-			if (isset($_GET['booking_event_id'])) {
-				if (!$event = Event::model()->findByPk($_GET['booking_event_id'])) {
-					throw new Exception("Can't find event: ".$_GET['booking_event_id']);
-				}
-				if ($event->episode_id != $episode->id) {
-					throw new Exception("Selected event is not in the current episode");
-				}
-				if ($api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
-					if ($eo = $api->getOperationForEvent($event->id)) {
-						$procedures = $eo->procedures;
-					}
-				}
-			} elseif (isset($_GET['procedure_id'])) {
-				$procedures[] = Procedure::model()->findByPk($_GET['procedure_id']);
+		// merge given procedures with their additional procedures
+		foreach ($procedures as $proc) {
+			if (!in_array($proc->id, $all_procedure_ids)) {
+				$all_procedure_ids[] = $proc->id;
+				$all_procedures[] = $proc;
 			}
-		}
-
-		return $procedures;
-	}
-
-	public function getAdditional_procedures()
-	{
-		$procedures = array();
-		$procedure_ids = array();
-
-		foreach ($this->procedures as $proc) {
 			foreach ($proc->additional as $additional) {
-				if (!in_array($additional->id, $procedure_ids)) {
-					$procedure_ids[] = $additional->id;
-					$procedures[] = $additional;
+				if (!in_array($additional->id, $all_procedure_ids)) {
+					$all_procedure_ids[] = $additional->id;
+					$all_procedures[] = $additional;
 				}
 			}
 		}
 
-		return $procedures;
-	}
+		$complication_ids = array();
+		$complications = array();
+		$benefit_ids = array();
+		$benefits = array();
 
-	public function setDefaultOptions()
-	{
-		if (Yii::app()->getController()->getAction()->id == 'create') {
-			$complication_ids = array();
-			$complications = array();
-			$benefit_ids = array();
-			$benefits = array();
-
-			foreach (array_merge($this->procedures,$this->additional_procedures) as $proc) {
-				foreach ($proc->complications as $complication) {
-					if (!in_array($complication->id,$complication_ids)) {
-						$complications[] = $complication;
-						$complication_ids[] = $complication->id;
-					}
-				}
-				foreach ($proc->benefits as $benefit) {
-					if (!in_array($benefit->id,$benefit_ids)) {
-						$benefits[] = $benefit;
-						$benefit_ids[] = $benefit->id;
-					}
+		// iterate through full set of procedures to get complications/benefits
+		foreach ($all_procedures as $proc) {
+			foreach ($proc->complications as $complication) {
+				if (!in_array($complication->id,$complication_ids)) {
+					$complications[] = $complication;
+					$complication_ids[] = $complication->id;
 				}
 			}
-
-			foreach ($benefits as $i => $benefit) {
-				if ($i==0) {
-					$this->benefits = ucfirst($benefit->name);
-				} else {
-					$this->benefits .= ", ".$benefit->name;
-				}
-			}
-
-			foreach ($complications as $i => $complication) {
-				if ($i==0) {
-					$this->risks = ucfirst($complication->name);
-				} else {
-					$this->risks .= ", ".$complication->name;
+			foreach ($proc->benefits as $benefit) {
+				if (!in_array($benefit->id,$benefit_ids)) {
+					$benefits[] = $benefit;
+					$benefit_ids[] = $benefit->id;
 				}
 			}
 		}
+
+		foreach ($benefits as $i => $benefit) {
+			if ($i==0) {
+				$this->benefits = ucfirst($benefit->name);
+			} else {
+				$this->benefits .= ", ".$benefit->name;
+			}
+		}
+
+		foreach ($complications as $i => $complication) {
+			if ($i==0) {
+				$this->risks = ucfirst($complication->name);
+			} else {
+				$this->risks .= ", ".$complication->name;
+			}
+		}
 	}
+
 }
