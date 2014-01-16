@@ -17,7 +17,13 @@
  */
 
 $(document).ready(function() {
-	handleButton($('#et_save'));
+	handleButton($('#et_save_draft'),function() {
+		$('#Element_OphTrConsent_Type_draft').val(1);
+	});
+
+	handleButton($('#et_save_print'),function() {
+		$('#Element_OphTrConsent_Type_draft').val(0);
+	});
 
 	handleButton($('#et_cancel'),function(e) {
 		if (m = window.location.href.match(/\/update\/[0-9]+/)) {
@@ -72,16 +78,46 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#et_print').unbind('click').click(function() {
-		var m = window.location.href.match(/\/view\/([0-9]+)/);
-		printIFrameUrl(baseUrl+'/OphTrConsent/default/print/'+m[1],null);
-		return false;
+	$('#et_print').unbind('click').click(function(e) {
+		if ($('#OphTrConsent_draft').val() == 1) {
+			$.ajax({
+				'type': 'GET',
+				'url': baseUrl+'/OphTrConsent/default/doPrint/'+OE_event_id,
+				'success': function(html) {
+					if (html == "1") {
+						window.location.reload();
+					} else {
+						new OpenEyes.UI.Dialog.Alert({
+							content: "Something went wrong trying to print the consent form, please try again or contact support for assistance."
+						}).open();
+					}
+				}
+			});
+		} else {
+			OphTrConsent_do_print(false);
+			e.preventDefault();
+		}
 	});
 
-	$('#et_print_va').unbind('click').click(function() {
-		var m = window.location.href.match(/\/view\/([0-9]+)/);
-		printIFrameUrl(baseUrl+'/OphTrConsent/default/print/'+m[1],{"vi":true});
-		return false;
+	$('#et_print_va').unbind('click').click(function(e) {
+		if ($('#OphTrConsent_draft').val() == 1) {
+			$.ajax({
+				'type': 'GET',
+				'url': baseUrl+'/OphTrConsent/default/doPrint/'+OE_event_id,
+				'success': function(html) {
+					if (html == "1") {
+						window.location.reload();
+					} else {
+						new OpenEyes.UI.Dialog.Alert({
+							content: "Something went wrong trying to print the consent form, please try again or contact support for assistance."
+						}).open();
+					}
+				}
+			});
+		} else {
+			OphTrConsent_do_print(true);
+			e.preventDefault();
+		}
 	});
 
 	$('tr.clickable').disableSelection();
@@ -89,6 +125,10 @@ $(document).ready(function() {
 	$('tr.clickable').click(function() {
 		$(this).children('td:first').children('input[type="radio"]').attr('checked',true);
 	});
+
+	if ($('#OphTrConsent_print').val() == 1) {
+		setTimeout("OphTrConsent_do_print();",1000);
+	}
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
@@ -156,4 +196,21 @@ function OphTrConsent_ucfirst(str) {
 }
 
 function callbackRemoveProcedure(procedure_id) {
+}
+
+function OphTrConsent_do_print(va) {
+	if (va) {
+		var va = {"vi":true};
+	} else {
+		var va = null;
+	}
+
+	$.ajax({
+		'type': 'GET',
+		'url': baseUrl+'/OphTrConsent/default/markPrinted/'+OE_event_id,
+		'success': function(html) {
+			printIFrameUrl(OE_print_url, va);
+			enableButtons();
+		}
+	});
 }

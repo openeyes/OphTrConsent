@@ -159,4 +159,41 @@ class DefaultController extends BaseEventTypeController
 
 		echo json_encode($users);
 	}
+
+	public function actionDoPrint($id)
+	{
+		if (!$type = Element_OphTrConsent_Type::model()->find('event_id=?',array($id))) {
+			throw new Exception("Consent form not found for event id: $id");
+		}
+
+		$type->print = 1;
+		$type->draft = 0;
+
+		if (!$type->save()) {
+			throw new Exception("Unable to save consent form: ".print_r($type->getErrors(),true));
+		}
+
+		if (!$event = Event::model()->findByPk($id)) {
+			throw new Exception("Event not found: $id");
+		}
+
+		$event->info = '';
+
+		if (!$event->save()) {
+			throw new Exception("Unable to save event: ".print_r($event->getErrors(),true));
+		}
+
+		echo "1";
+	}
+
+	public function actionMarkPrinted($id)
+	{
+		if ($type = Element_OphTrConsent_Type::model()->find('event_id=?',array($id))) {
+			$type->print = 0;
+			$type->draft = 0;
+			if (!$type->save()) {
+				throw new Exception('Unable to mark consent form printed: '.print_r($type->getErrors(),true));
+			}
+		}
+	}
 }

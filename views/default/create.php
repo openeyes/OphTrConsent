@@ -27,7 +27,8 @@
 			'enableAjaxValidation'=>false,
 		));
 
-		$this->event_actions[] = EventAction::button('Save', 'save', array('level' => 'save'), array('form'=>'clinical-create'));
+		$this->event_actions[] = EventAction::button('Save draft', 'savedraft', array('level' => 'secondary'), array('id' => 'et_save_draft', 'class' => 'button small', 'form'=>'clinical-create'));
+		$this->event_actions[] = EventAction::button('Save and print', 'saveprint', array('level' => 'secondary'), array('id' => 'et_save_print', 'class' => 'button small', 'form'=>'clinical-create'));
 		?>
 
 		<?php  $this->displayErrors($errors)?>
