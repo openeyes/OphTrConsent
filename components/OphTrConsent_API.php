@@ -71,4 +71,11 @@ class OphTrConsent_API extends BaseAPI
 		}
 		return false;
 	}
+
+	public function canUpdate($event_id)
+	{
+		$type = Element_OphTrConsent_Type::model()->find('event_id=?',array($event_id));
+
+		return $type->isEditable();
+	}
 }
