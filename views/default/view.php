@@ -25,6 +25,12 @@ if ($this->canPrint()) {
 
 	<h2 class="event-title"><?php echo $this->event_type->name ?></h2>
 
+	<?php if (Element_OphTrConsent_Type::model()->find('event_id=?',array($this->event->id))->draft) {?>
+		<div class="alert-box alert with-icon">
+			This consent form is a draft and can still be edited
+		</div>
+	<?php }?>
+
 	<?php  $this->renderDefaultElements($this->action->id); ?>
 	<?php  $this->renderOptionalElements($this->action->id); ?>
 

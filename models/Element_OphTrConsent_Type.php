@@ -151,4 +151,9 @@ class Element_OphTrConsent_Type extends BaseEventTypeElement
 
 		return parent::beforeSave();
 	}
+
+	public function isEditable()
+	{
+		return $this->draft;
+	}
 }
