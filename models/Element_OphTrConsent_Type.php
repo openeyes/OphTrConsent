@@ -64,7 +64,7 @@ class Element_OphTrConsent_Type extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, type_id, ', 'safe'),
+			array('event_id, type_id, draft', 'safe'),
 			array('type_id, ', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -121,4 +121,39 @@ class Element_OphTrConsent_Type extends BaseEventTypeElement
 		));
 	}
 
+	/**
+	 * Set default values for forms on create
+	 */
+	public function setDefaultOptions()
+	{
+		if (Yii::app()->getController()->getAction()->id == 'create') {
+			if (!$patient = Patient::model()->findByPk($_GET['patient_id'])) {
+				throw new Exception("Can't find patient: ".$_GET['patient_id']);
+			}
+
+			if ($patient->isChild()) {
+				$this->type_id = 2;
+			} else {
+				$this->type_id = 1;
+			}
+
+			$this->draft = 1;
+		}
+	}
+
+	public function beforeSave()
+	{
+		if (in_array(Yii::app()->getController()->getAction()->id,array('create','update'))) {
+			if (!$this->draft) {
+				$this->print = 1;
+			}
+		}
+
+		return parent::beforeSave();
+	}
+
+	public function isEditable()
+	{
+		return $this->draft;
+	}
 }

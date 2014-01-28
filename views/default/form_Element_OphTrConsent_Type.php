@@ -27,6 +27,7 @@
 	</header>
 
 	<div class="element-fields">
+		<?php echo $form->hiddenField($element, 'draft')?>
 		<?php echo $form->dropDownList($element, 'type_id', CHtml::listData(Element_OphTrConsent_Type_Type::model()->findAll(array('order'=> 'display_order asc')),'id','name'),array(),false,array('field'=>4))?>
 	</div>
 </section>
