@@ -34,4 +34,5 @@
 		</div>
 	</div>
 </section>
-
+<input type="hidden" name="OphTrConsent_draft" id="OphTrConsent_draft" value="<?php echo $element->draft?>" />
+<input type="hidden" name="OphTrConsent_print" id="OphTrConsent_print" value="<?php echo $element->print?>" />
