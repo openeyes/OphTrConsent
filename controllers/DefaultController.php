@@ -78,6 +78,8 @@ class DefaultController extends BaseEventTypeController
 
 	public function actionView($id)
 	{
+		$this->extraViewProperties['print'] = Yii::app()->session['printConsent'];
+		unset(Yii::app()->session['printConsent']);
 		parent::actionView($id);
 	}
 
@@ -172,17 +174,14 @@ class DefaultController extends BaseEventTypeController
 		if (!$type->save()) {
 			throw new Exception("Unable to save consent form: ".print_r($type->getErrors(),true));
 		}
-
 		if (!$event = Event::model()->findByPk($id)) {
 			throw new Exception("Event not found: $id");
 		}
-
 		$event->info = '';
-
 		if (!$event->save()) {
 			throw new Exception("Unable to save event: ".print_r($event->getErrors(),true));
 		}
-
+		Yii::app()->session['printConsent'] = isset($_GET['vi']) ? 2 : 1;
 		echo "1";
 	}
 

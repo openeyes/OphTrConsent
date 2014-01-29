@@ -35,7 +35,7 @@ if ($this->canPrint()) {
 		</div>
 	<?php }?>
 
-	<?php  $this->renderDefaultElements($this->action->id); ?>
+	<?php  $this->renderDefaultElements($this->action->id, false, array('print' => $print)); ?>
 	<?php  $this->renderOptionalElements($this->action->id); ?>
 
 	<iframe id="print_iframe" name="print_iframe" style="display: none;"></iframe>
