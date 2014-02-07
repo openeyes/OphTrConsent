@@ -34,7 +34,7 @@
  *
  */
 
-class OphTrConsent_Leaflet extends BaseActiveRecordVersioned
+class OphTrConsent_Leaflet extends BaseActiveRecordVersionedSoftDelete
 {
 	/**
 	 * Returns the static model of the specified AR class.
