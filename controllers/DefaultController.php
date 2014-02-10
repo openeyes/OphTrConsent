@@ -136,6 +136,10 @@ class DefaultController extends BaseEventTypeController
 		$errors = array();
 
 		if (!empty($_POST)) {
+			// Save and print clicked, stash print flag
+			if (isset($_POST['saveprint'])) {
+				Yii::app()->session['printConsent'] = 1;
+			}
 			if (@$_POST['SelectBooking'] == 'unbooked') {
 				$this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&unbooked=1'));
 			} elseif (preg_match('/^booking([0-9]+)$/',@$_POST['SelectBooking'],$m)) {

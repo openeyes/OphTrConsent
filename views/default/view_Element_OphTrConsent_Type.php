@@ -36,5 +36,3 @@
 </section>
 
 <input type="hidden" name="OphTrConsent_draft" id="OphTrConsent_draft" value="<?php echo $element->draft?>" />
-<?php // The "print" value is set by the controller and comes from the user session ?>
-<input type="hidden" name="OphTrConsent_print" id="OphTrConsent_print" value="<?php echo $data['print']?>" />
