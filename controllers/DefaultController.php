@@ -21,6 +21,8 @@ class DefaultController extends BaseEventTypeController
 {
 	static protected $action_types = array(
 		'users' => self::ACTION_TYPE_FORM,
+		'doPrint' => self::ACTION_TYPE_PRINT,
+		'markPrinted' => self::ACTION_TYPE_PRINT
 	);
 
 	public $booking_event;
