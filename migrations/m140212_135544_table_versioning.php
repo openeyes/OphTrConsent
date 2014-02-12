@@ -1,6 +1,6 @@
 <?php
 
-class m131204_164708_table_versioning extends CDbMigration
+class m140212_135544_table_versioning extends CDbMigration
 {
 	public function up()
 	{
@@ -28,7 +28,6 @@ CREATE TABLE `et_ophtrconsent_benfitrisk_version` (
 		$this->dropPrimaryKey('id','et_ophtrconsent_benfitrisk_version');
 
 		$this->createIndex('et_ophtrconsent_benfitrisk_aid_fk','et_ophtrconsent_benfitrisk_version','id');
-		$this->addForeignKey('et_ophtrconsent_benfitrisk_aid_fk','et_ophtrconsent_benfitrisk_version','id','et_ophtrconsent_benfitrisk','id');
 
 		$this->addColumn('et_ophtrconsent_benfitrisk_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -58,7 +57,6 @@ CREATE TABLE `et_ophtrconsent_leaflets_version` (
 		$this->dropPrimaryKey('id','et_ophtrconsent_leaflets_version');
 
 		$this->createIndex('et_ophtrconsent_leaflets_aid_fk','et_ophtrconsent_leaflets_version','id');
-		$this->addForeignKey('et_ophtrconsent_leaflets_aid_fk','et_ophtrconsent_leaflets_version','id','et_ophtrconsent_leaflets','id');
 
 		$this->addColumn('et_ophtrconsent_leaflets_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -99,7 +97,6 @@ CREATE TABLE `et_ophtrconsent_other_version` (
 		$this->dropPrimaryKey('id','et_ophtrconsent_other_version');
 
 		$this->createIndex('et_ophtrconsent_other_aid_fk','et_ophtrconsent_other_version','id');
-		$this->addForeignKey('et_ophtrconsent_other_aid_fk','et_ophtrconsent_other_version','id','et_ophtrconsent_other','id');
 
 		$this->addColumn('et_ophtrconsent_other_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -121,7 +118,7 @@ CREATE TABLE `et_ophtrconsent_permissions_version` (
 	KEY `acv_et_ophtrconsent_permissions_cui_fk` (`created_user_id`),
 	KEY `acv_et_ophtrconsent_permissions_ev_fk` (`event_id`),
 	KEY `acv_et_ophtrconsent_permissions_images_fk` (`images_id`),
-	CONSTRAINT `acv_et_ophtrconsent_permissions_images_fk` FOREIGN KEY (`images_id`) REFERENCES `et_ophtrconsent_permissions_images` (`id`),
+	CONSTRAINT `acv_et_ophtrconsent_permissions_images_fk` FOREIGN KEY (`images_id`) REFERENCES `ophtrconsent_permissions_images` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_permissions_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_permissions_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_permissions_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
@@ -132,7 +129,6 @@ CREATE TABLE `et_ophtrconsent_permissions_version` (
 		$this->dropPrimaryKey('id','et_ophtrconsent_permissions_version');
 
 		$this->createIndex('et_ophtrconsent_permissions_aid_fk','et_ophtrconsent_permissions_version','id');
-		$this->addForeignKey('et_ophtrconsent_permissions_aid_fk','et_ophtrconsent_permissions_version','id','et_ophtrconsent_permissions','id');
 
 		$this->addColumn('et_ophtrconsent_permissions_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -141,7 +137,7 @@ CREATE TABLE `et_ophtrconsent_permissions_version` (
 		$this->alterColumn('et_ophtrconsent_permissions_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
 		$this->execute("
-CREATE TABLE `et_ophtrconsent_permissions_images_version` (
+CREATE TABLE `ophtrconsent_permissions_images_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`name` varchar(128) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL DEFAULT '1',
@@ -150,24 +146,24 @@ CREATE TABLE `et_ophtrconsent_permissions_images_version` (
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	PRIMARY KEY (`id`),
-	KEY `acv_et_ophtrconsent_permissions_images_lmui_fk` (`last_modified_user_id`),
-	KEY `acv_et_ophtrconsent_permissions_images_cui_fk` (`created_user_id`),
-	CONSTRAINT `acv_et_ophtrconsent_permissions_images_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_et_ophtrconsent_permissions_images_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
+	KEY `acv_ophtrconsent_permissions_images_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_ophtrconsent_permissions_images_cui_fk` (`created_user_id`),
+	CONSTRAINT `acv_ophtrconsent_permissions_images_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_permissions_images_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
-		$this->alterColumn('et_ophtrconsent_permissions_images_version','id','int(10) unsigned NOT NULL');
-		$this->dropPrimaryKey('id','et_ophtrconsent_permissions_images_version');
+		$this->alterColumn('ophtrconsent_permissions_images_version','id','int(10) unsigned NOT NULL');
+		$this->dropPrimaryKey('id','ophtrconsent_permissions_images_version');
 
-		$this->createIndex('et_ophtrconsent_permissions_images_aid_fk','et_ophtrconsent_permissions_images_version','id');
-		$this->addForeignKey('et_ophtrconsent_permissions_images_aid_fk','et_ophtrconsent_permissions_images_version','id','et_ophtrconsent_permissions_images','id');
+		$this->createIndex('ophtrconsent_permissions_images_aid_fk','ophtrconsent_permissions_images_version','id');
+		$this->addForeignKey('ophtrconsent_permissions_images_aid_fk','ophtrconsent_permissions_images_version','id','ophtrconsent_permissions_images','id');
 
-		$this->addColumn('et_ophtrconsent_permissions_images_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
+		$this->addColumn('ophtrconsent_permissions_images_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
-		$this->addColumn('et_ophtrconsent_permissions_images_version','version_id','int(10) unsigned NOT NULL');
-		$this->addPrimaryKey('version_id','et_ophtrconsent_permissions_images_version','version_id');
-		$this->alterColumn('et_ophtrconsent_permissions_images_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
+		$this->addColumn('ophtrconsent_permissions_images_version','version_id','int(10) unsigned NOT NULL');
+		$this->addPrimaryKey('version_id','ophtrconsent_permissions_images_version','version_id');
+		$this->alterColumn('ophtrconsent_permissions_images_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_procedure_version` (
@@ -200,7 +196,6 @@ CREATE TABLE `et_ophtrconsent_procedure_version` (
 		$this->dropPrimaryKey('id','et_ophtrconsent_procedure_version');
 
 		$this->createIndex('et_ophtrconsent_procedure_aid_fk','et_ophtrconsent_procedure_version','id');
-		$this->addForeignKey('et_ophtrconsent_procedure_aid_fk','et_ophtrconsent_procedure_version','id','et_ophtrconsent_procedure','id');
 
 		$this->addColumn('et_ophtrconsent_procedure_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -209,7 +204,7 @@ CREATE TABLE `et_ophtrconsent_procedure_version` (
 		$this->alterColumn('et_ophtrconsent_procedure_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
 		$this->execute("
-CREATE TABLE `et_ophtrconsent_procedure_add_procs_add_procs_version` (
+CREATE TABLE `ophtrconsent_procedure_add_procs_add_procs_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`element_id` int(10) unsigned NOT NULL,
 	`proc_id` int(10) unsigned NOT NULL,
@@ -218,31 +213,30 @@ CREATE TABLE `et_ophtrconsent_procedure_add_procs_add_procs_version` (
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	PRIMARY KEY (`id`),
-	KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_lmui_fk` (`last_modified_user_id`),
-	KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_cui_fk` (`created_user_id`),
-	KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_ele_fk` (`element_id`),
-	KEY `acv_et_ophtrconsent_procedure_add_procs_add_procs_lku_fk` (`proc_id`),
-	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
-	CONSTRAINT `acv_et_ophtrconsent_procedure_add_procs_add_procs_lku_fk` FOREIGN KEY (`proc_id`) REFERENCES `proc` (`id`)
+	KEY `acv_ophtrconsent_procedure_add_procs_add_procs_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_ophtrconsent_procedure_add_procs_add_procs_cui_fk` (`created_user_id`),
+	KEY `acv_ophtrconsent_procedure_add_procs_add_procs_ele_fk` (`element_id`),
+	KEY `acv_ophtrconsent_procedure_add_procs_add_procs_lku_fk` (`proc_id`),
+	CONSTRAINT `acv_ophtrconsent_procedure_add_procs_add_procs_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_procedure_add_procs_add_procs_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_procedure_add_procs_add_procs_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
+	CONSTRAINT `acv_ophtrconsent_procedure_add_procs_add_procs_lku_fk` FOREIGN KEY (`proc_id`) REFERENCES `proc` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
-		$this->alterColumn('et_ophtrconsent_procedure_add_procs_add_procs_version','id','int(10) unsigned NOT NULL');
-		$this->dropPrimaryKey('id','et_ophtrconsent_procedure_add_procs_add_procs_version');
+		$this->alterColumn('ophtrconsent_procedure_add_procs_add_procs_version','id','int(10) unsigned NOT NULL');
+		$this->dropPrimaryKey('id','ophtrconsent_procedure_add_procs_add_procs_version');
 
-		$this->createIndex('et_ophtrconsent_procedure_add_procs_add_procs_aid_fk','et_ophtrconsent_procedure_add_procs_add_procs_version','id');
-		$this->addForeignKey('et_ophtrconsent_procedure_add_procs_add_procs_aid_fk','et_ophtrconsent_procedure_add_procs_add_procs_version','id','et_ophtrconsent_procedure_add_procs_add_procs','id');
+		$this->createIndex('ophtrconsent_procedure_add_procs_add_procs_aid_fk','ophtrconsent_procedure_add_procs_add_procs_version','id');
 
-		$this->addColumn('et_ophtrconsent_procedure_add_procs_add_procs_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
+		$this->addColumn('ophtrconsent_procedure_add_procs_add_procs_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
-		$this->addColumn('et_ophtrconsent_procedure_add_procs_add_procs_version','version_id','int(10) unsigned NOT NULL');
-		$this->addPrimaryKey('version_id','et_ophtrconsent_procedure_add_procs_add_procs_version','version_id');
-		$this->alterColumn('et_ophtrconsent_procedure_add_procs_add_procs_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
+		$this->addColumn('ophtrconsent_procedure_add_procs_add_procs_version','version_id','int(10) unsigned NOT NULL');
+		$this->addPrimaryKey('version_id','ophtrconsent_procedure_add_procs_add_procs_version','version_id');
+		$this->alterColumn('ophtrconsent_procedure_add_procs_add_procs_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
 		$this->execute("
-CREATE TABLE `et_ophtrconsent_procedure_proc_defaults_version` (
+CREATE TABLE `ophtrconsent_procedure_proc_defaults_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`value_id` int(10) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
@@ -250,27 +244,26 @@ CREATE TABLE `et_ophtrconsent_procedure_proc_defaults_version` (
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	PRIMARY KEY (`id`),
-	KEY `acv_et_ophtrconsent_procedure_proc_defaults_lmui_fk` (`last_modified_user_id`),
-	KEY `acv_et_ophtrconsent_procedure_proc_defaults_cui_fk` (`created_user_id`),
-	CONSTRAINT `acv_et_ophtrconsent_procedure_proc_defaults_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_et_ophtrconsent_procedure_proc_defaults_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
+	KEY `acv_ophtrconsent_procedure_proc_defaults_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_ophtrconsent_procedure_proc_defaults_cui_fk` (`created_user_id`),
+	CONSTRAINT `acv_ophtrconsent_procedure_proc_defaults_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_procedure_proc_defaults_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
-		$this->alterColumn('et_ophtrconsent_procedure_proc_defaults_version','id','int(10) unsigned NOT NULL');
-		$this->dropPrimaryKey('id','et_ophtrconsent_procedure_proc_defaults_version');
+		$this->alterColumn('ophtrconsent_procedure_proc_defaults_version','id','int(10) unsigned NOT NULL');
+		$this->dropPrimaryKey('id','ophtrconsent_procedure_proc_defaults_version');
 
-		$this->createIndex('et_ophtrconsent_procedure_proc_defaults_aid_fk','et_ophtrconsent_procedure_proc_defaults_version','id');
-		$this->addForeignKey('et_ophtrconsent_procedure_proc_defaults_aid_fk','et_ophtrconsent_procedure_proc_defaults_version','id','et_ophtrconsent_procedure_proc_defaults','id');
+		$this->createIndex('ophtrconsent_procedure_proc_defaults_aid_fk','ophtrconsent_procedure_proc_defaults_version','id');
 
-		$this->addColumn('et_ophtrconsent_procedure_proc_defaults_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
+		$this->addColumn('ophtrconsent_procedure_proc_defaults_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
-		$this->addColumn('et_ophtrconsent_procedure_proc_defaults_version','version_id','int(10) unsigned NOT NULL');
-		$this->addPrimaryKey('version_id','et_ophtrconsent_procedure_proc_defaults_version','version_id');
-		$this->alterColumn('et_ophtrconsent_procedure_proc_defaults_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
+		$this->addColumn('ophtrconsent_procedure_proc_defaults_version','version_id','int(10) unsigned NOT NULL');
+		$this->addPrimaryKey('version_id','ophtrconsent_procedure_proc_defaults_version','version_id');
+		$this->alterColumn('ophtrconsent_procedure_proc_defaults_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
 		$this->execute("
-CREATE TABLE `et_ophtrconsent_procedure_procedures_procedures_version` (
+CREATE TABLE `ophtrconsent_procedure_procedures_procedures_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`element_id` int(10) unsigned NOT NULL,
 	`proc_id` int(10) unsigned NOT NULL,
@@ -279,28 +272,27 @@ CREATE TABLE `et_ophtrconsent_procedure_procedures_procedures_version` (
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	PRIMARY KEY (`id`),
-	KEY `acv_et_ophtrconsent_procedure_procedures_procedures_lmui_fk` (`last_modified_user_id`),
-	KEY `acv_et_ophtrconsent_procedure_procedures_procedures_cui_fk` (`created_user_id`),
-	KEY `acv_et_ophtrconsent_procedure_procedures_procedures_ele_fk` (`element_id`),
-	KEY `acv_et_ophtrconsent_procedure_procedures_procedures_lku_fk` (`proc_id`),
-	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
+	KEY `acv_ophtrconsent_procedure_procedures_procedures_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_ophtrconsent_procedure_procedures_procedures_cui_fk` (`created_user_id`),
+	KEY `acv_ophtrconsent_procedure_procedures_procedures_ele_fk` (`element_id`),
+	KEY `acv_ophtrconsent_procedure_procedures_procedures_lku_fk` (`proc_id`),
+	CONSTRAINT `acv_ophtrconsent_procedure_procedures_procedures_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_procedure_procedures_procedures_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_procedure_procedures_procedures_ele_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophtrconsent_procedure` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_procedure_procedures_procedures_lku_fk` FOREIGN KEY (`proc_id`) REFERENCES `proc` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
-		$this->alterColumn('et_ophtrconsent_procedure_procedures_procedures_version','id','int(10) unsigned NOT NULL');
-		$this->dropPrimaryKey('id','et_ophtrconsent_procedure_procedures_procedures_version');
+		$this->alterColumn('ophtrconsent_procedure_procedures_procedures_version','id','int(10) unsigned NOT NULL');
+		$this->dropPrimaryKey('id','ophtrconsent_procedure_procedures_procedures_version');
 
-		$this->createIndex('et_ophtrconsent_procedure_procedures_procedures_aid_fk','et_ophtrconsent_procedure_procedures_procedures_version','id');
-		$this->addForeignKey('et_ophtrconsent_procedure_procedures_procedures_aid_fk','et_ophtrconsent_procedure_procedures_procedures_version','id','et_ophtrconsent_procedure_procedures_procedures','id');
+		$this->createIndex('ophtrconsent_procedure_procedures_procedures_aid_fk','ophtrconsent_procedure_procedures_procedures_version','id');
 
-		$this->addColumn('et_ophtrconsent_procedure_procedures_procedures_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
+		$this->addColumn('ophtrconsent_procedure_procedures_procedures_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
-		$this->addColumn('et_ophtrconsent_procedure_procedures_procedures_version','version_id','int(10) unsigned NOT NULL');
-		$this->addPrimaryKey('version_id','et_ophtrconsent_procedure_procedures_procedures_version','version_id');
-		$this->alterColumn('et_ophtrconsent_procedure_procedures_procedures_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
+		$this->addColumn('ophtrconsent_procedure_procedures_procedures_version','version_id','int(10) unsigned NOT NULL');
+		$this->addPrimaryKey('version_id','ophtrconsent_procedure_procedures_procedures_version','version_id');
+		$this->alterColumn('ophtrconsent_procedure_procedures_procedures_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
 		$this->execute("
 CREATE TABLE `et_ophtrconsent_type_version` (
@@ -319,7 +311,7 @@ CREATE TABLE `et_ophtrconsent_type_version` (
 	CONSTRAINT `acv_et_ophtrconsent_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophtrconsent_type_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
-	CONSTRAINT `acv_et_ophtrconsent_type_type_fk` FOREIGN KEY (`type_id`) REFERENCES `et_ophtrconsent_type_type` (`id`)
+	CONSTRAINT `acv_et_ophtrconsent_type_type_fk` FOREIGN KEY (`type_id`) REFERENCES `ophtrconsent_type_type` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
@@ -327,7 +319,6 @@ CREATE TABLE `et_ophtrconsent_type_version` (
 		$this->dropPrimaryKey('id','et_ophtrconsent_type_version');
 
 		$this->createIndex('et_ophtrconsent_type_aid_fk','et_ophtrconsent_type_version','id');
-		$this->addForeignKey('et_ophtrconsent_type_aid_fk','et_ophtrconsent_type_version','id','et_ophtrconsent_type','id');
 
 		$this->addColumn('et_ophtrconsent_type_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -336,7 +327,7 @@ CREATE TABLE `et_ophtrconsent_type_version` (
 		$this->alterColumn('et_ophtrconsent_type_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
 		$this->execute("
-CREATE TABLE `et_ophtrconsent_type_type_version` (
+CREATE TABLE `ophtrconsent_type_type_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`name` varchar(128) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL DEFAULT '1',
@@ -345,24 +336,24 @@ CREATE TABLE `et_ophtrconsent_type_type_version` (
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	PRIMARY KEY (`id`),
-	KEY `acv_et_ophtrconsent_type_type_lmui_fk` (`last_modified_user_id`),
-	KEY `acv_et_ophtrconsent_type_type_cui_fk` (`created_user_id`),
-	CONSTRAINT `acv_et_ophtrconsent_type_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_et_ophtrconsent_type_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
+	KEY `acv_ophtrconsent_type_type_lmui_fk` (`last_modified_user_id`),
+	KEY `acv_ophtrconsent_type_type_cui_fk` (`created_user_id`),
+	CONSTRAINT `acv_ophtrconsent_type_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
+	CONSTRAINT `acv_ophtrconsent_type_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
-		$this->alterColumn('et_ophtrconsent_type_type_version','id','int(10) unsigned NOT NULL');
-		$this->dropPrimaryKey('id','et_ophtrconsent_type_type_version');
+		$this->alterColumn('ophtrconsent_type_type_version','id','int(10) unsigned NOT NULL');
+		$this->dropPrimaryKey('id','ophtrconsent_type_type_version');
 
-		$this->createIndex('et_ophtrconsent_type_type_aid_fk','et_ophtrconsent_type_type_version','id');
-		$this->addForeignKey('et_ophtrconsent_type_type_aid_fk','et_ophtrconsent_type_type_version','id','et_ophtrconsent_type_type','id');
+		$this->createIndex('ophtrconsent_type_type_aid_fk','ophtrconsent_type_type_version','id');
+		$this->addForeignKey('ophtrconsent_type_type_aid_fk','ophtrconsent_type_type_version','id','ophtrconsent_type_type','id');
 
-		$this->addColumn('et_ophtrconsent_type_type_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
+		$this->addColumn('ophtrconsent_type_type_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
-		$this->addColumn('et_ophtrconsent_type_type_version','version_id','int(10) unsigned NOT NULL');
-		$this->addPrimaryKey('version_id','et_ophtrconsent_type_type_version','version_id');
-		$this->alterColumn('et_ophtrconsent_type_type_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
+		$this->addColumn('ophtrconsent_type_type_version','version_id','int(10) unsigned NOT NULL');
+		$this->addPrimaryKey('version_id','ophtrconsent_type_type_version','version_id');
+		$this->alterColumn('ophtrconsent_type_type_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
 		$this->execute("
 CREATE TABLE `ophtrconsent_leaflet_version` (
@@ -418,7 +409,6 @@ CREATE TABLE `ophtrconsent_leaflet_firm_version` (
 		$this->dropPrimaryKey('id','ophtrconsent_leaflet_firm_version');
 
 		$this->createIndex('ophtrconsent_leaflet_firm_aid_fk','ophtrconsent_leaflet_firm_version','id');
-		$this->addForeignKey('ophtrconsent_leaflet_firm_aid_fk','ophtrconsent_leaflet_firm_version','id','ophtrconsent_leaflet_firm','id');
 
 		$this->addColumn('ophtrconsent_leaflet_firm_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -451,7 +441,6 @@ CREATE TABLE `ophtrconsent_leaflet_subspecialty_version` (
 		$this->dropPrimaryKey('id','ophtrconsent_leaflet_subspecialty_version');
 
 		$this->createIndex('ophtrconsent_leaflet_subspecialty_aid_fk','ophtrconsent_leaflet_subspecialty_version','id');
-		$this->addForeignKey('ophtrconsent_leaflet_subspecialty_aid_fk','ophtrconsent_leaflet_subspecialty_version','id','ophtrconsent_leaflet_subspecialty','id');
 
 		$this->addColumn('ophtrconsent_leaflet_subspecialty_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -483,7 +472,6 @@ CREATE TABLE `ophtrconsent_leaflets_version` (
 		$this->dropPrimaryKey('id','ophtrconsent_leaflets_version');
 
 		$this->createIndex('ophtrconsent_leaflets_aid_fk','ophtrconsent_leaflets_version','id');
-		$this->addForeignKey('ophtrconsent_leaflets_aid_fk','ophtrconsent_leaflets_version','id','ophtrconsent_leaflets','id');
 
 		$this->addColumn('ophtrconsent_leaflets_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -491,69 +479,33 @@ CREATE TABLE `ophtrconsent_leaflets_version` (
 		$this->addPrimaryKey('version_id','ophtrconsent_leaflets_version','version_id');
 		$this->alterColumn('ophtrconsent_leaflets_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
-		$this->addColumn('et_ophtrconsent_benfitrisk','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_benfitrisk_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_leaflets','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_leaflets_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_other','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_other_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_permissions','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_permissions_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_permissions_images','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_permissions_images_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_procedure','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_procedure_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_procedure_add_procs_add_procs','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_procedure_add_procs_add_procs_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_procedure_proc_defaults','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_procedure_proc_defaults_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_procedure_procedures_procedures','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_procedure_procedures_procedures_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_type','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_type_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_type_type','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophtrconsent_type_type_version','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_permissions_images','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_permissions_images_version','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_type_type','deleted','tinyint(1) unsigned not null');
+		$this->addColumn('ophtrconsent_type_type_version','deleted','tinyint(1) unsigned not null');
 
 		$this->addColumn('ophtrconsent_leaflet','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('ophtrconsent_leaflet_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('ophtrconsent_leaflet_firm','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('ophtrconsent_leaflet_firm_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('ophtrconsent_leaflet_subspecialty','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('ophtrconsent_leaflet_subspecialty_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('ophtrconsent_leaflets','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('ophtrconsent_leaflets_version','deleted','tinyint(1) unsigned not null');
 	}
 
 	public function down()
 	{
 		$this->dropColumn('ophtrconsent_leaflet','deleted');
-		$this->dropColumn('ophtrconsent_leaflet_firm','deleted');
-		$this->dropColumn('ophtrconsent_leaflet_subspecialty','deleted');
-		$this->dropColumn('ophtrconsent_leaflets','deleted');
 
-		$this->dropColumn('et_ophtrconsent_benfitrisk','deleted');
-		$this->dropColumn('et_ophtrconsent_leaflets','deleted');
-		$this->dropColumn('et_ophtrconsent_other','deleted');
-		$this->dropColumn('et_ophtrconsent_permissions','deleted');
-		$this->dropColumn('et_ophtrconsent_permissions_images','deleted');
-		$this->dropColumn('et_ophtrconsent_procedure','deleted');
-		$this->dropColumn('et_ophtrconsent_procedure_add_procs_add_procs','deleted');
-		$this->dropColumn('et_ophtrconsent_procedure_proc_defaults','deleted');
-		$this->dropColumn('et_ophtrconsent_procedure_procedures_procedures','deleted');
-		$this->dropColumn('et_ophtrconsent_type','deleted');
-		$this->dropColumn('et_ophtrconsent_type_type','deleted');
+		$this->dropColumn('ophtrconsent_permissions_images','deleted');
+		$this->dropColumn('ophtrconsent_type_type','deleted');
 
 		$this->dropTable('et_ophtrconsent_benfitrisk_version');
 		$this->dropTable('et_ophtrconsent_leaflets_version');
 		$this->dropTable('et_ophtrconsent_other_version');
 		$this->dropTable('et_ophtrconsent_permissions_version');
-		$this->dropTable('et_ophtrconsent_permissions_images_version');
+		$this->dropTable('ophtrconsent_permissions_images_version');
 		$this->dropTable('et_ophtrconsent_procedure_version');
-		$this->dropTable('et_ophtrconsent_procedure_add_procs_add_procs_version');
-		$this->dropTable('et_ophtrconsent_procedure_proc_defaults_version');
-		$this->dropTable('et_ophtrconsent_procedure_procedures_procedures_version');
+		$this->dropTable('ophtrconsent_procedure_add_procs_add_procs_version');
+		$this->dropTable('ophtrconsent_procedure_proc_defaults_version');
+		$this->dropTable('ophtrconsent_procedure_procedures_procedures_version');
 		$this->dropTable('et_ophtrconsent_type_version');
-		$this->dropTable('et_ophtrconsent_type_type_version');
+		$this->dropTable('ophtrconsent_type_type_version');
 		$this->dropTable('ophtrconsent_leaflet_version');
 		$this->dropTable('ophtrconsent_leaflet_firm_version');
 		$this->dropTable('ophtrconsent_leaflet_subspecialty_version');
