@@ -136,6 +136,10 @@ class DefaultController extends BaseEventTypeController
 		$errors = array();
 
 		if (!empty($_POST)) {
+			// Save and print clicked, stash print flag
+			if (isset($_POST['saveprint'])) {
+				Yii::app()->session['printConsent'] = 1;
+			}
 			if (@$_POST['SelectBooking'] == 'unbooked') {
 				$this->redirect(array('/OphTrConsent/Default/create?patient_id='.$this->patient->id.'&unbooked=1'));
 			} elseif (preg_match('/^booking([0-9]+)$/',@$_POST['SelectBooking'],$m)) {
@@ -176,6 +180,18 @@ class DefaultController extends BaseEventTypeController
 				'bookings' => $bookings,
 			), false, true);
 		}
+	}
+
+	public function actionUpdate($id)
+	{
+		parent::actionUpdate($id);
+	}
+
+	public function actionView($id)
+	{
+		$this->extraViewProperties['print'] = Yii::app()->session['printConsent'];
+		unset(Yii::app()->session['printConsent']);
+		parent::actionView($id);
 	}
 
 	/**
@@ -271,17 +287,14 @@ class DefaultController extends BaseEventTypeController
 		if (!$type->save()) {
 			throw new Exception("Unable to save consent form: ".print_r($type->getErrors(),true));
 		}
-
 		if (!$event = Event::model()->findByPk($id)) {
 			throw new Exception("Event not found: $id");
 		}
-
 		$event->info = '';
-
 		if (!$event->save()) {
 			throw new Exception("Unable to save event: ".print_r($event->getErrors(),true));
 		}
-
+		Yii::app()->session['printConsent'] = isset($_GET['vi']) ? 2 : 1;
 		echo "1";
 	}
 

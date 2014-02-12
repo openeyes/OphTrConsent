@@ -97,6 +97,9 @@ $(document).ready(function() {
 			$.ajax({
 				'type': 'GET',
 				'url': baseUrl+'/OphTrConsent/default/doPrint/'+OE_event_id,
+				'data': {
+					vi: 1
+				},
 				'success': function(html) {
 					if (html == "1") {
 						window.location.reload();
@@ -119,8 +122,13 @@ $(document).ready(function() {
 		$(this).children('td:first').children('input[type="radio"]').attr('checked',true);
 	});
 
+	// Normal print
 	if ($('#OphTrConsent_print').val() == 1) {
-		setTimeout("OphTrConsent_do_print();",1000);
+		setTimeout(OphTrConsent_do_print, 1000);
+	}
+	// Print for visually impaired.
+	else if ($('#OphTrConsent_print').val() == 2) {
+		setTimeout(OphTrConsent_do_print.bind(null, true), 1000);
 	}
 });
 

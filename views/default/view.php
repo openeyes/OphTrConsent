@@ -36,6 +36,8 @@ if ($this->checkPrintAccess()) {
 	<?php  $this->renderOpenElements($this->action->id); ?>
 	<?php  $this->renderOptionalElements($this->action->id); ?>
 
+	<?php // The "print" value is set by the controller and comes from the user session ?>
+	<input type="hidden" name="OphTrConsent_print" id="OphTrConsent_print" value="<?php echo $print;?>" />
 	<iframe id="print_iframe" name="print_iframe" style="display: none;"></iframe>
 
 <?php $this->endContent(); ?>
