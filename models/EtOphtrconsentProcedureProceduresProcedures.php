@@ -18,7 +18,7 @@
  */
 
 /**
- * This is the model class for table "et_ophtrconsent_procedure_procedures_procedures".
+ * This is the model class for table "ophtrconsent_procedure_procedures_procedures".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -49,7 +49,7 @@ class EtOphtrconsentProcedureProceduresProcedures extends BaseActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'et_ophtrconsent_procedure_procedures_procedures';
+		return 'ophtrconsent_procedure_procedures_procedures';
 	}
 
 	/**

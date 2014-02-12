@@ -18,7 +18,7 @@
  */
 
 /**
- * This is the model class for table "et_ophtrconsent_procedure_proc_defaults".
+ * This is the model class for table "ophtrconsent_procedure_proc_defaults".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -50,7 +50,7 @@ class EtOphtrconsentProcedureProcDefaults extends BaseActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'et_ophtrconsent_procedure_proc_defaults';
+		return 'ophtrconsent_procedure_proc_defaults';
 	}
 
 	/**

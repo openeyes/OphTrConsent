@@ -18,7 +18,7 @@
  */
 
 /**
- * This is the model class for table "et_ophtrconsent_type_type".
+ * This is the model class for table "ophtrconsent_type_type".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -49,7 +49,7 @@ class Element_OphTrConsent_Type_Type extends BaseActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'et_ophtrconsent_type_type';
+		return 'ophtrconsent_type_type';
 	}
 
 	/**
