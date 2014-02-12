@@ -18,7 +18,7 @@
  */
 
 /**
- * This is the model class for table "et_ophtrconsent_permissions_images".
+ * This is the model class for table "ophtrconsent_permissions_images".
  *
  * The followings are the available columns in table:
  * @property string $id
@@ -49,7 +49,7 @@ class Element_OphTrConsent_Permissions_Images extends BaseActiveRecordVersionedS
 	 */
 	public function tableName()
 	{
-		return 'et_ophtrconsent_permissions_images';
+		return 'ophtrconsent_permissions_images';
 	}
 
 	/**
