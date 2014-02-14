@@ -39,7 +39,7 @@
 			'restrict' => 'unbooked',
 			'restrict_common' => 'unbooked',
 		))?>
-		<?php echo $form->radioButtons($element, 'anaesthetic_type_id', CHtml::listData(AnaestheticType::model()->active()->findAll(array('order'=>'display_order asc')),'id','name'))?>
+		<?php echo $form->radioButtons($element, 'anaesthetic_type_id', CHtml::listData(AnaestheticType::model()->activeOrPk($element->anaesthetic_type_id)->findAll(array('order'=>'display_order asc')),'id','name'))?>
 		<?php $form->widget('application.widgets.ProcedureSelection',array(
 			'element' => $element,
 			'durations' => false,
