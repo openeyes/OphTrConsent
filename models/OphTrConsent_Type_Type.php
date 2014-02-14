@@ -33,7 +33,7 @@
  * @property User $usermodified
  */
 
-class Element_OphTrConsent_Type_Type extends BaseActiveRecordVersionedSoftDelete
+class OphTrConsent_Type_Type extends BaseActiveRecordVersionedSoftDelete
 {
 	/**
 	 * Returns the static model of the specified AR class.

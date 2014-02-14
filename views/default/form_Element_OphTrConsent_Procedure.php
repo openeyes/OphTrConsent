@@ -30,7 +30,7 @@
 
 		<?php echo $form->hiddenField($element, 'booking_event_id')?>
 
-		<?php echo $form->radioButtons($element, 'eye_id', 'eye')?>
+		<?php echo $form->radioButtons($element, 'eye_id', CHtml::listData(Eye::model()->findAll(array('order'=>'id asc')),'id','name'))?>
 		<?php $form->widget('application.widgets.ProcedureSelection',array(
 			'element' => $element,
 			'durations' => false,
@@ -39,7 +39,7 @@
 			'restrict' => 'unbooked',
 			'restrict_common' => 'unbooked',
 		))?>
-		<?php echo $form->radioButtons($element, 'anaesthetic_type_id', 'anaesthetic_type')?>
+		<?php echo $form->radioButtons($element, 'anaesthetic_type_id', CHtml::listData(AnaestheticType::model()->findAll(array('order'=>'id asc')),'id','name'))?>
 		<?php $form->widget('application.widgets.ProcedureSelection',array(
 			'element' => $element,
 			'durations' => false,
