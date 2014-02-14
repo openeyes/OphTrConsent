@@ -30,7 +30,7 @@
 
 		<?php echo $form->hiddenField($element, 'booking_event_id')?>
 
-		<?php echo $form->radioButtons($element, 'eye_id', CHtml::listData(Eye::model()->findAll(array('order'=>'id asc')),'id','name'))?>
+		<?php echo $form->radioButtons($element, 'eye_id', CHtml::listData(Eye::model()->findAll(array('order'=>'display_order asc')),'id','name'))?>
 		<?php $form->widget('application.widgets.ProcedureSelection',array(
 			'element' => $element,
 			'durations' => false,
