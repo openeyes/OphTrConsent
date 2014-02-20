@@ -27,7 +27,7 @@
 	</header>
 
 	<div class="element-fields">
-		<?php echo $form->radioButtons($element, 'images_id', CHtml::listData(OphTrConsent_Permissions_Images::model()->findAll(array('order'=>'display_order asc')),'id','name'),null,false,false,false,false)?>
+		<?php echo $form->radioButtons($element, 'images_id', CHtml::listData(OphTrConsent_Permissions_Images::model()->notDeletedOrPk($element->images_id)->findAll(array('order'=>'display_order asc')),'id','name'),null,false,false,false,false)?>
 	</div>
 
 </section>
