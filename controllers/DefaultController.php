@@ -19,6 +19,11 @@
 
 class DefaultController extends BaseEventTypeController
 {
+	public function printActions()
+	{
+		return array('print', 'doPrint', 'markPrinted');
+	}
+	
 	public function actionCreate()
 	{
 		$errors = array();
