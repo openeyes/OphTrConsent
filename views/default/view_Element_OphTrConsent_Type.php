@@ -17,22 +17,16 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
  ?>
-
-<section class="element">
-	<header class="element-header">
-		<h3 class="element-title"><?php  echo $element->elementType->name ?></h3>
-	</header>
-	<div class="element-data">
-		<div class="row data-row">
-			<div class="large-3 column">
-				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('type_id'))?>:</div>
-			</div>
-			<div class="large-9 column">
-				<div class="data-value"><?php echo $element->type ? $element->type->name : 'None'?>
-				</div>
+<div class="element-data">
+	<div class="row data-row">
+		<div class="large-3 column">
+			<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('type_id'))?>:</div>
+		</div>
+		<div class="large-9 column">
+			<div class="data-value"><?php echo $element->type ? $element->type->name : 'None'?>
 			</div>
 		</div>
 	</div>
-</section>
+</div>
 
 <input type="hidden" name="OphTrConsent_draft" id="OphTrConsent_draft" value="<?php echo $element->draft?>" />
