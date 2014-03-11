@@ -281,19 +281,31 @@ class DefaultController extends BaseEventTypeController
 			throw new Exception("Consent form not found for event id: $id");
 		}
 
+		$transaction = Yii::app()->db->beginTransaction('Print','Consent form');
+
 		$type->print = 1;
 		$type->draft = 0;
 
 		if (!$type->save()) {
+			$transaction->rollback();
+
 			throw new Exception("Unable to save consent form: ".print_r($type->getErrors(),true));
 		}
 		if (!$event = Event::model()->findByPk($id)) {
+			$transaction->rollback();
+
 			throw new Exception("Event not found: $id");
 		}
 		$event->info = '';
+
 		if (!$event->save()) {
+			$transaction->rollback();
+
 			throw new Exception("Unable to save event: ".print_r($event->getErrors(),true));
 		}
+
+		$transaction->commit();
+
 		Yii::app()->session['printConsent'] = isset($_GET['vi']) ? 2 : 1;
 		echo "1";
 	}
@@ -301,10 +313,17 @@ class DefaultController extends BaseEventTypeController
 	public function actionMarkPrinted($id)
 	{
 		if ($type = Element_OphTrConsent_Type::model()->find('event_id=?',array($id))) {
+			$transaction = Yii::app()->db->beginTransaction('Mark printed','Consent form');
+
 			$type->print = 0;
 			$type->draft = 0;
+
 			if (!$type->save()) {
+				$transaction->rollback();
+
 				throw new Exception('Unable to mark consent form printed: '.print_r($type->getErrors(),true));
+			} else {
+				$transaction->commit();
 			}
 		}
 	}
