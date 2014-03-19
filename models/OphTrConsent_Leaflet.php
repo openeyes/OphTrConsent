@@ -34,7 +34,7 @@
  *
  */
 
-class OphTrConsent_Leaflet extends BaseActiveRecordVersionedSoftDelete
+class OphTrConsent_Leaflet extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -51,6 +51,11 @@ class OphTrConsent_Leaflet extends BaseActiveRecordVersionedSoftDelete
 	public function tableName()
 	{
 		return 'ophtrconsent_leaflet';
+	}
+
+	public function defaultScope()
+	{
+		return array('order' => $this->getTableAlias(true, false) . '.display_order');
 	}
 
 	/**
@@ -110,6 +115,13 @@ class OphTrConsent_Leaflet extends BaseActiveRecordVersionedSoftDelete
 			));
 	}
 
+	public function behaviors()
+	{
+		return array(
+			'LookupTable' => 'LookupTable',
+		);
+	}
+
 	public function findAllByCurrentFirm($leaflet_values)
 	{
 		$firm = Firm::model()->findByPk(Yii::app()->session['selected_firm_id']);
@@ -122,12 +134,12 @@ class OphTrConsent_Leaflet extends BaseActiveRecordVersionedSoftDelete
 			$criteria->addCondition('subspecialty_id=:subspecialty_id');
 			$criteria->params[':subspecialty_id'] = $subspecialty_id;
 			$criteria->order = 'name asc';
-			return OphTrConsent_Leaflet::model()->with('subspecialties')->notDeletedOrPk($leaflet_values)->findAll($criteria);
+			return OphTrConsent_Leaflet::model()->with('subspecialties')->activeOrPk($leaflet_values)->findAll($criteria);
 		} else {
 			$criteria->addCondition('firm_id=:firm_id');
 			$criteria->params[':firm_id'] = $firm->id;
 			$criteria->order = 'name asc';
-			return OphTrConsent_Leaflet::model()->with('firms')->notDeletedOrPk($leaflet_values)->findAll($criteria);
+			return OphTrConsent_Leaflet::model()->with('firms')->activeOrPk($leaflet_values)->findAll($criteria);
 		}
 	}
 }
