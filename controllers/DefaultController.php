@@ -248,7 +248,7 @@ class DefaultController extends BaseEventTypeController
 		// only want a consultant for medical firms
 		if ($specialty = $this->firm->getSpecialty()) {
 			if ($specialty->medical) {
-				$consultant = $firm->consultant;
+				$consultant = $this->firm->consultant;
 			}
 		}
 
