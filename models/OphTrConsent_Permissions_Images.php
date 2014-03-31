@@ -33,7 +33,7 @@
  * @property User $usermodified
  */
 
-class OphTrConsent_Permissions_Images extends BaseActiveRecordVersionedSoftDelete
+class OphTrConsent_Permissions_Images extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -50,6 +50,11 @@ class OphTrConsent_Permissions_Images extends BaseActiveRecordVersionedSoftDelet
 	public function tableName()
 	{
 		return 'ophtrconsent_permissions_images';
+	}
+
+	public function defaultScope()
+	{
+		return array('order' => $this->getTableAlias(true, false) . '.display_order');
 	}
 
 	/**

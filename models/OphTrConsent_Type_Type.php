@@ -33,7 +33,7 @@
  * @property User $usermodified
  */
 
-class OphTrConsent_Type_Type extends BaseActiveRecordVersionedSoftDelete
+class OphTrConsent_Type_Type extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -50,6 +50,11 @@ class OphTrConsent_Type_Type extends BaseActiveRecordVersionedSoftDelete
 	public function tableName()
 	{
 		return 'ophtrconsent_type_type';
+	}
+
+	public function defaultScope()
+	{
+		return array('order' => $this->getTableAlias(true, false) . '.display_order');
 	}
 
 	/**
@@ -92,6 +97,13 @@ class OphTrConsent_Type_Type extends BaseActiveRecordVersionedSoftDelete
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+		);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'LookupTable' => 'LookupTable',
 		);
 	}
 

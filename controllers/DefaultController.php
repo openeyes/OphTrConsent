@@ -248,11 +248,11 @@ class DefaultController extends BaseEventTypeController
 		// only want a consultant for medical firms
 		if ($specialty = $this->firm->getSpecialty()) {
 			if ($specialty->medical) {
-				$consultant = $firm->consultant;
+				$consultant = $this->firm->consultant;
 			}
 		}
 
-		foreach (User::model()->active()->findAll($criteria) as $user) {
+		foreach (User::model()->findAll($criteria) as $user) {
 			if ($contact = $user->contact) {
 
 				$consultant_name = false;

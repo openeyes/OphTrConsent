@@ -18,6 +18,6 @@
  */
  ?>
 <div class="element-fields">
-	<?php echo $form->hiddenField($element, 'draft')?>
-	<?php echo $form->dropDownList($element, 'type_id', CHtml::listData(OphTrConsent_Type_Type::model()->notDeletedOrPk($element->type_id)->findAll(array('order'=> 'display_order asc')),'id','name'),array(),false,array('field'=>4))?>
+	<?= $form->hiddenField($element, 'draft') ?>
+	<?= $form->dropDownList($element, 'type_id', 'OphTrConsent_Type_Type', array(), false, array('field' => 4)) ?>
 </div>
