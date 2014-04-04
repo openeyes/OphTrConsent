@@ -25,7 +25,7 @@ if (@$vi) {
 }
 ?>
 <h2>Consent form 3</h2>
-<h2><?php echo $this->patient->fullName?>, Hospital no: <?php echo $this->patient->hos_num?></h2>
+<h2><?php echo $this->patient->fullName?>, <?php echo $this->patient->getAttributeLabel('hos_num')?>: <?php echo $this->patient->hos_num?></h2>
 <h3>Patient/parental agreement to investigation or treatment (procedures where consciousness not impaired)</h3>
 <p>
 	<strong>Procedure(s):</strong>

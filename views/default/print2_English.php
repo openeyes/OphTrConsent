@@ -34,27 +34,27 @@ if (@$vi) {
 <p><strong>Patient details (or pre-printed label)</strong></p>
 <table>
 	<tr>
-		<th>Patient's surname/family name</th>
+		<th><?php echo $this->patient->getAttributeLabel('consent_last_name')?></th>
 		<td><?php echo $this->patient->last_name?></td>
 	</tr>
 	<tr>
-		<th>Patient's first names</th>
+		<th><?php echo $this->patient->getAttributeLabel('consent_first_name')?></th>
 		<td><?php echo $this->patient->first_name?></td>
 	</tr>
 	<tr>
-		<th>Date of birth</th>
+		<th><?php echo $this->patient->getAttributeLabel('dob')?></th>
 		<td><?php echo $this->patient->NHSDate('dob')?></td>
 	</tr>
 	<tr>
-		<th>Hospital no</th>
+		<th><?php echo $this->patient->getAttributeLabel('hos_num')?></th>
 		<td><?php echo $this->patient->hos_num?></td>
 	</tr>
 	<tr>
-		<th>NHS number</th>
+		<th><?php echo $this->patient->getAttributeLabel('nhs_num')?></th>
 		<td><?php echo $this->patient->nhs_num?></td>
 	</tr>
 	<tr>
-		<th>Gender</th>
+		<th><?php echo $this->patient->getAttributeLabel('gender')?></th>
 		<td><?php echo $this->patient->genderString?></td>
 	</tr>
 	<tr>
