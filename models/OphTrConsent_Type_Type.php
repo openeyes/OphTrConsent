@@ -33,7 +33,7 @@
  * @property User $usermodified
  */
 
-class Element_OphTrConsent_Type_Type extends BaseActiveRecord
+class OphTrConsent_Type_Type extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -50,6 +50,11 @@ class Element_OphTrConsent_Type_Type extends BaseActiveRecord
 	public function tableName()
 	{
 		return 'ophtrconsent_type_type';
+	}
+
+	public function defaultScope()
+	{
+		return array('order' => $this->getTableAlias(true, false) . '.display_order');
 	}
 
 	/**
@@ -92,6 +97,13 @@ class Element_OphTrConsent_Type_Type extends BaseActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+		);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'LookupTable' => 'LookupTable',
 		);
 	}
 

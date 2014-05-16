@@ -33,7 +33,7 @@
  * @property User $usermodified
  */
 
-class EtOphtrconsentProcedureAddProcsAddProcs extends BaseActiveRecord
+class EtOphtrconsentProcedureAddProcsAddProcs extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

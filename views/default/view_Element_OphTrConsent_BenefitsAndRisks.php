@@ -18,26 +18,21 @@
  */
  ?>
 
-<section class="element">
-	<header class="element-header">
-		<h3 class="element-title"><?php  echo $element->elementType->name ?></h3>
-	</header>
-	<div class="element-data">
-		<div class="row data-row">
-			<div class="large-3 column">
-				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('benefits'))?>:</div>
-			</div>
-			<div class="large-9 column">
-				<div class="data-value"><?php echo CHtml::encode($element->benefits)?></div>
-			</div>
+<div class="element-data">
+	<div class="row data-row">
+		<div class="large-3 column">
+			<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('benefits'))?>:</div>
 		</div>
-		<div class="row data-row">
-			<div class="large-3 column">
-				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('risks'))?>:</div>
-			</div>
-			<div class="large-9 column">
-				<div class="data-value"><?php echo CHtml::encode($element->risks)?></div>
-			</div>
+		<div class="large-9 column">
+			<div class="data-value"><?php echo CHtml::encode($element->benefits)?></div>
 		</div>
 	</div>
-</section>
+	<div class="row data-row">
+		<div class="large-3 column">
+			<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('risks'))?>:</div>
+		</div>
+		<div class="large-9 column">
+			<div class="data-value"><?php echo CHtml::encode($element->risks)?></div>
+		</div>
+	</div>
+</div>
