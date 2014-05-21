@@ -93,11 +93,13 @@ class DefaultController extends BaseEventTypeController
 	 */
 	protected function setElementDefaultOptions_Element_OphTrConsent_Type($element, $action)
 	{
-		if ($this->patient->isChild()) {
-			$element->type_id = 2;
-		}
-		else {
-			$element->type_id = 1;
+		if ($action == 'create') {
+			if ($this->patient->isChild()) {
+				$element->type_id = 2;
+			}
+			else {
+				$element->type_id = 1;
+			}
 		}
 	}
 
