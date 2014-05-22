@@ -35,7 +35,7 @@
 
 class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 {
-	public $service;
+	public $auto_update_relations = true;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -62,7 +62,7 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id', 'safe'),
+			array('event_id, leaflets', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, event_id', 'safe', 'on' => 'search'),
@@ -83,7 +83,8 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'consultant' => array(self::BELONGS_TO, 'User', 'consultant_id'),
-			'leaflets' => array(self::HAS_MANY, 'OphTrConsent_Leaflets', 'element_id'),
+			'leaflets' => array(self::HAS_MANY, 'OphTrConsent_Leaflet', 'leaflet_id', 'through' => 'leaflets_assignment'),
+			'leaflets_assignment' => array(self::HAS_MANY, 'OphTrConsent_Leaflets', 'element_id'),
 		);
 	}
 
@@ -124,39 +125,6 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 		));
 	}
 
-	protected function afterSave()
-	{
-		$existing_leaflet_ids = array();
-
-		foreach ($this->leaflets as $leaflet) {
-			$existing_leaflet_ids[] = $leaflet->leaflet_id;
-		}
-
-		if (isset($_POST['OphTrConsent_Leaflet'])) {
-			foreach ($_POST['OphTrConsent_Leaflet'] as $id) {
-				if (!in_array($id,$existing_leaflet_ids)) {
-					$leaflet = new OphTrConsent_Leaflets;
-					$leaflet->element_id = $this->id;
-					$leaflet->leaflet_id = $id;
-					if (!$leaflet->save()) {
-						throw new Exception("Unable to save leaflet: ".print_r($leaflet->getErrors(),true));
-					}
-				}
-			}
-		}
-
-		foreach ($existing_leaflet_ids as $id) {
-			if (!isset($_POST['OphTrConsent_Leaflet']) || !in_array($id,$_POST['OphTrConsent_Leaflet'])) {
-				$leaflet = OphTrConsent_Leaflets::model()->find('element_id=:element_id and leaflet_id=:leaflet_id',array(':element_id'=>$this->id,':leaflet_id'=>$id));
-				if (!$leaflet->delete()) {
-					throw new Exception("Unable to delete leaflet: ".print_r($leaflet->getErrors(),true));
-				}
-			}
-		}
-
-		return parent::afterSave();
-	}
-
 	/**
 	 * Get ids of leaflets currently associated with the element
 	 */
@@ -165,7 +133,7 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 		$leaflet_values = array();
 
 		foreach ($this->leaflets as $leaflet) {
-			$leaflet_values[] = $leaflet->leaflet_id;
+			$leaflet_values[] = $leaflet->id;
 		}
 
 		return $leaflet_values;

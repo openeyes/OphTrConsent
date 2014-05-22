@@ -27,7 +27,7 @@
 					None
 				<?php } else {?>
 					<?php foreach ($element->leaflets as $leaflet) {?>
-						<?php echo $leaflet->leaflet->name?><br/>
+						<?php echo $leaflet->name?><br/>
 					<?php }?>
 				<?php }?>
 			</div>
