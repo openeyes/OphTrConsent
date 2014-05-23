@@ -149,10 +149,6 @@ class Element_OphTrConsent_Other extends BaseEventTypeElement
 
 	protected function afterValidate()
 	{
-		if (empty($_POST['Procedures_procedures'])) {
-			$this->addError('procedures', 'At least one procedure must be entered');
-		}
-
 		if ($this->witness_required && strlen($this->witness_name) <1) {
 			$this->addError('witness_name', 'Witness name must be entered');
 		}
