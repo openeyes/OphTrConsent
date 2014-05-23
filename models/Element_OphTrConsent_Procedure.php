@@ -41,7 +41,7 @@
 
 class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 {
-	public $service;
+	public $auto_update_relations = true;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -68,7 +68,7 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, eye_id, anaesthetic_type_id, booking_event_id', 'safe'),
+			array('event_id, eye_id, anaesthetic_type_id, booking_event_id, procedures, additional_procedures', 'safe'),
 			array('eye_id, anaesthetic_type_id, ', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -136,57 +136,5 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	//TODO: get POST handling out of here.
-	protected function afterSave()
-	{
-		foreach ($_POST['Procedures_procedures'] as $procedure_id) {
-			if (!EtOphtrconsentProcedureProceduresProcedures::model()->find('element_id=? and proc_id=?',array($this->id,$procedure_id))) {
-				$p = new EtOphtrconsentProcedureProceduresProcedures;
-				$p->element_id = $this->id;
-				$p->proc_id = $procedure_id;
-				if (!$p->save()) {
-					throw new Exception("Unable to save procedure item: ".print_r($p->getErrors(),true));
-				}
-			}
-		}
-
-		foreach (EtOphtrconsentProcedureProceduresProcedures::model()->findAll('element_id=?',array($this->id)) as $p) {
-			if (!in_array($p->proc_id,$_POST['Procedures_procedures'])) {
-				if (!$p->delete()) {
-					throw new Exception("Unable to delete procedure item: ".print_r($p->getErrors(),true));
-				}
-			}
-		}
-
-		if (isset($_POST['Procedures_additional'])) {
-			foreach ($_POST['Procedures_additional'] as $procedure_id) {
-				if (!EtOphtrconsentProcedureAddProcsAddProcs::model()->find('element_id=? and proc_id=?',array($this->id,$procedure_id))) {
-					$p = new EtOphtrconsentProcedureAddProcsAddProcs;
-					$p->element_id = $this->id;
-					$p->proc_id = $procedure_id;
-					if (!$p->save()) {
-						throw new Exception("Unable to save additional procedure item: ".print_r($p->getErrors(),true));
-					}
-				}
-			}
-
-			foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?',array($this->id)) as $p) {
-				if (!in_array($p->proc_id,$_POST['Procedures_additional'])) {
-					if (!$p->delete()) {
-						throw new Exception("Unable to delete additional procedure item: ".print_r($p->getErrors(),true));
-					}
-				}
-			}
-		} else {
-			foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?',array($this->id)) as $p) {
-				if (!$p->delete()) {
-					throw new Exception("Unable to delete additional procedure item: ".print_r($p->getErrors(),true));
-				}
-			}
-		}
-
-		return parent::afterSave();
 	}
 }

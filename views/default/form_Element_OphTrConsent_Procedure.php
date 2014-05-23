@@ -24,8 +24,8 @@
 	<?php echo $form->radioButtons($element, 'eye_id', CHtml::listData(Eye::model()->findAll(array('order'=>'display_order asc')),'id','name'))?>
 	<?php $form->widget('application.widgets.ProcedureSelection',array(
 		'element' => $element,
+		'field' => 'procedures',
 		'durations' => false,
-		'identifier' => 'procedures',
 		'read_only' => !@$_GET['unbooked'],
 		'restrict' => 'unbooked',
 		'restrict_common' => 'unbooked',
@@ -33,10 +33,9 @@
 	<?php echo $form->radioButtons($element, 'anaesthetic_type_id', 'AnaestheticType')?>
 	<?php $form->widget('application.widgets.ProcedureSelection',array(
 		'element' => $element,
+		'field' => 'additional_procedures',
 		'durations' => false,
-		'relation' => 'additional_procedures',
 		'label' => 'Additional procedures',
-		'identifier' => 'additional',
 		'headertext' => 'Any extra procedures which may become necessary during the procedure.',
 	))?>
 </div>
