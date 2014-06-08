@@ -57,7 +57,7 @@
 				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('witness_name'))?>:</div>
 			</div>
 			<div class="large-9 column">
-				<div class="data-value"><?php echo $element->witness_name?></div>
+				<div class="data-value"><?php echo CHtml::encode($element->witness_name)?></div>
 			</div>
 		</div>
 	<?php }?>
@@ -75,7 +75,7 @@
 				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('interpreter_name'))?>:</div>
 			</div>
 			<div class="large-9 column">
-				<div class="data-value"><?php echo $element->interpreter_name?></div>
+				<div class="data-value"><?php echo CHtml::encode($element->interpreter_name)?></div>
 			</div>
 		</div>
 	<?php }?>
