@@ -27,7 +27,7 @@
 	</header>
 
 	<div class="element-fields">
-		<?php echo $form->radioButtons($element, 'images_id', 'Element_OphTrConsent_Permissions_Images',null,false,false,false,false)?>
+		<?php echo $form->radioButtons($element, 'images_id', 'ophtrconsent_permissions_images',null,false,false,false,false)?>
 	</div>
 
 </section>

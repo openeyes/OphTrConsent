@@ -215,7 +215,7 @@ class DefaultController extends BaseEventTypeController
 			$language = Language::model()->find('name=?',array('English'));
 		//}
 
-		foreach ($this->getEventElements() as $element) {
+		foreach ($this->getDefaultElements('print') as $element) {
 			$elements[get_class($element)] = $element;
 		}
 
