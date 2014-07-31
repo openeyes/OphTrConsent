@@ -32,7 +32,7 @@
  * @property Event $event
  * @property User $user
  * @property User $usermodified
- * @property Element_OphTrConsent_Type_Type $type
+ * @property OphTrConsent_Type_Type $type
  */
 
 class Element_OphTrConsent_Type extends BaseEventTypeElement
@@ -85,7 +85,7 @@ class Element_OphTrConsent_Type extends BaseEventTypeElement
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'type' => array(self::BELONGS_TO, 'Element_OphTrConsent_Type_Type', 'type_id'),
+			'type' => array(self::BELONGS_TO, 'OphTrConsent_Type_Type', 'type_id'),
 		);
 	}
 

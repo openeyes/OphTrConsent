@@ -1,6 +1,0 @@
-element_type_id  => element_type.class_name,anaesthetic_type_id,display_order
-Element_OphTrConsent_Procedure,1,10
-Element_OphTrConsent_Procedure,3,20
-Element_OphTrConsent_Procedure,2,30
-Element_OphTrConsent_Procedure,4,40
-Element_OphTrConsent_Procedure,5,50

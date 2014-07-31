@@ -156,4 +156,18 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 
 		return parent::afterSave();
 	}
+
+	/**
+	 * Get ids of leaflets currently associated with the element
+	 */
+	public function getLeafletValues()
+	{
+		$leaflet_values = array();
+
+		foreach ($this->leaflets as $leaflet) {
+			$leaflet_values[] = $leaflet->leaflet_id;
+		}
+
+		return $leaflet_values;
+	}
 }
