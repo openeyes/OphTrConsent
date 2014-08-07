@@ -137,9 +137,9 @@ if (@$vi) {
 </p>
 <p>
 	<strong>The intended benefits:</strong>
-	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->benefits?><br/>
+	<?php echo CHtml::encode($elements['Element_OphTrConsent_BenefitsAndRisks']->benefits)?><br/>
 	<strong>Serious, frequently occurring or unavoidable risks:</strong>
-	<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->risks?>
+	<?php echo CHtml::encode($elements['Element_OphTrConsent_BenefitsAndRisks']->risks)?>
 </p>
 <?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
 	<p>Any extra procedures which may become necessary during the procedure(s)</p>
