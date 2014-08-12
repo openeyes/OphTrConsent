@@ -51,7 +51,7 @@
 				?>
 			</div>
 			<div class="field-row">
-				<?php echo CHtml::textField('consultant',$element->consultant ? $element->consultant->fullNameAndTitleAndQualifications: '',array('readonly'=>'readonly'))?>
+				<?php echo CHtml::textField('consultant',$element->consultant ? $element->consultant->fullNameAndTitleAndQualifications: '',array('autocomplete' => Yii::app()->params['html_autocomplete'], 'readonly'=>'readonly'))?>
 			</div>
 		</div>
 	</div>
@@ -72,17 +72,17 @@
 		</div>
 	</div>
 	<?php $hideWitnessName = (!@$_POST['Element_OphTrConsent_Other']['witness_required'] && !$element->witness_name);?>
-	<?php echo $form->textField($element, 'witness_name', array('size' => '30','maxLength' => '255', 'hide' => $hideWitnessName), array(), array_merge($form->layoutColumns, array('field' => 5)));?>
+	<?php echo $form->textField($element, 'witness_name', array('autocomplete' => Yii::app()->params['html_autocomplete'], 'size' => '30','maxLength' => '255', 'hide' => $hideWitnessName), array(), array_merge($form->layoutColumns, array('field' => 5)));?>
 	<div class="row field-row">
 		<div class="large-<?php echo $form->layoutColumns['field'];?> large-offset-<?php echo $form->layoutColumns['label'];?> column">
 			<?php echo $form->checkBox($element, 'interpreter_required', array('nowrapper'=>true))?>
 		</div>
 	</div>
 	<?php $hideInterpreterName = (!@$_POST['Element_OphTrConsent_Other']['interpreter_required'] && !$element->interpreter_name);?>
-	<?php echo $form->textField($element, 'interpreter_name', array('size' => '30','maxLength' => '255', 'hide' => $hideInterpreterName), array(), array_merge($form->layoutColumns, array('field' => 5)))?>
+	<?php echo $form->textField($element, 'interpreter_name', array('autocomplete' => Yii::app()->params['html_autocomplete'], 'size' => '30','maxLength' => '255', 'hide' => $hideInterpreterName), array(), array_merge($form->layoutColumns, array('field' => 5)))?>
 	<?php $hideGuardian = $element->isAdult();?>
 	<div class="field-row<?php echo $hideGuardian ? ' hide' : '';?>">
-		<?php echo $form->textField($element, 'parent_guardian', array('size' => '30','maxlength' => '255', 'hide' => $hideGuardian), array(), array_merge($form->layoutColumns, array('field' => 5)))?>
+		<?php echo $form->textField($element, 'parent_guardian', array('autocomplete' => Yii::app()->params['html_autocomplete'], 'size' => '30','maxlength' => '255', 'hide' => $hideGuardian), array(), array_merge($form->layoutColumns, array('field' => 5)))?>
 	</div>
 	<div class="row field-row">
 		<div class="large-<?php echo $form->layoutColumns['field'];?> large-offset-<?php echo $form->layoutColumns['label'];?> column">
