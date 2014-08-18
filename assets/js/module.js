@@ -154,7 +154,7 @@ function callbackAddProcedure(procedure_id) {
 		'type': 'GET',
 		'dataType': 'json',
 		'success': function(data) {
-			var benefits = $('#Element_OphTrConsent_BenefitsAndRisks_benefits').text().split(/,\s*/);
+			var benefits = $('#Element_OphTrConsent_BenefitsAndRisks_benefits').val().split(/,\s*/);
 			for (var i in benefits) {
 				if (benefits[i].length <1) {
 					benefits.splice(i,1);
@@ -165,7 +165,7 @@ function callbackAddProcedure(procedure_id) {
 					benefits.push(data[i]);
 				}
 			}
-			$('#Element_OphTrConsent_BenefitsAndRisks_benefits').text(OphTrConsent_ucfirst(benefits.join(", ")));
+			$('#Element_OphTrConsent_BenefitsAndRisks_benefits').val(OphTrConsent_ucfirst(benefits.join(", ")));
 		}
 	});
 
@@ -174,7 +174,7 @@ function callbackAddProcedure(procedure_id) {
 		'type': 'GET',
 		'dataType': 'json',
 		'success': function(data) {
-			var complications = $('#Element_OphTrConsent_BenefitsAndRisks_risks').text().split(/,\s*/);
+			var complications = $('#Element_OphTrConsent_BenefitsAndRisks_risks').val().split(/,\s*/);
 			for (var i in complications) {
 				if (complications[i].length <1) {
 					complications.splice(i,1);
@@ -185,7 +185,7 @@ function callbackAddProcedure(procedure_id) {
 					complications.push(data[i]);
 				}
 			}
-			$('#Element_OphTrConsent_BenefitsAndRisks_risks').text(OphTrConsent_ucfirst(complications.join(", ")));
+			$('#Element_OphTrConsent_BenefitsAndRisks_risks').val(OphTrConsent_ucfirst(complications.join(", ")));
 		}
 	});
 }
