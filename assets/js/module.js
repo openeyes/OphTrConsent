@@ -210,7 +210,7 @@ function OphTrConsent_do_print(va) {
 		'type': 'GET',
 		'url': baseUrl+'/OphTrConsent/default/markPrinted/'+OE_event_id,
 		'success': function(html) {
-			printIFrameUrl(OE_print_url, va);
+			printEvent(va);
 			enableButtons();
 		}
 	});
