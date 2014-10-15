@@ -206,11 +206,13 @@ function OphTrConsent_do_print(va) {
 		var va = null;
 	}
 
+	OE_print_url = baseUrl+'/OphTrConsent/default/print/'+OE_event_id;
+
 	$.ajax({
 		'type': 'GET',
 		'url': baseUrl+'/OphTrConsent/default/markPrinted/'+OE_event_id,
 		'success': function(html) {
-			printEvent(va);
+			printIFrameUrl(OE_print_url, va);
 			enableButtons();
 		}
 	});
