@@ -56,30 +56,30 @@
 						<fieldset class="row field-row">
 							<legend class="large-2 column">Select:</legend>
 							<div class="large-6 column end">
-								<?php foreach ($bookings as $booking) {?>
+								<?php foreach ($bookings as $operation) {?>
 									<label class="highlight booking">
 										<span class="row">
 											<span class="large-1 column">
-												<input type="radio" value="booking<?php echo $booking->operation->event_id?>" name="SelectBooking" />
+												<input type="radio" value="booking<?php echo $operation->event_id?>" name="SelectBooking" />
 											</span>
 											<span class="large-1 column">
 												<img src="<?php echo Yii::app()->assetManager->createUrl('img/small.png', $assetAliasPath)?>" alt="op" width="19" height="19" />
 											</span>
 											<span class="large-3 column">
-												<?php echo $booking->operation->booking ? $booking->operation->booking->session->NHSDate('date') : 'UNSCHEDULED'?>
+												<?php echo $operation->booking ? $operation->booking->session->NHSDate('date') : 'UNSCHEDULED'?>
 											</span>
 											<span class="large-3 column">
 												Operation
 											</span>
 											<span class="large-4 column">
-												<?php foreach ($booking->operation->procedures as $i => $procedure) {
+												<?php foreach ($operation->procedures as $i => $procedure) {
 													if ($i >0) { echo "<br/>"; }
 													echo $booking->operation->eye->name . ' ' . $procedure->term;
 												}?>
 											</span>
 										</span>
 									</label>
-									<?php if (Element_OphTrConsent_Procedure::model()->find('booking_event_id=?',array($booking->operation->event_id))) {?>
+									<?php if (Element_OphTrConsent_Procedure::model()->find('booking_event_id=?',array($operation->event_id))) {?>
 										<div class="alert-box alert with-icon">
 											Warning: this booking already has a consent form
 										</div>
