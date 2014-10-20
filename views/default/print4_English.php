@@ -98,7 +98,7 @@ if (@$vi) {
 <h3>All sections to be completed by health professional proposing the procedure</h3>
 <div class="spacer"></div>
 <h3>A. Details of procedure or course of treatment proposed</h3>
-<?php echo $this->renderPartial('_proposed_procedures',array('vi'=>@$vi,'procedures'=>$elements['Element_OphTrConsent_Procedure']->procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
+<?php echo $this->renderPartial('_proposed_procedures',array('css_class'=>$css_class,'procedures'=>$elements['Element_OphTrConsent_Procedure']->procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
 <p>
 	(NB see guidance to health professionals overleaf for details of situations where court approval must first be sought)
 </p>

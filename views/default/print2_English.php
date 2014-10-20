@@ -130,7 +130,7 @@ if (@$vi) {
 <br pagebreak="true"/>
 <h2>Moorfields Eye Hospital NHS Trust</h2>
 <h3>Name of proposed procedure or course of treatment</h3>
-<?php echo $this->renderPartial('_proposed_procedures',array('vi'=>@$vi,'procedures'=>$elements['Element_OphTrConsent_Procedure']->procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
+<?php echo $this->renderPartial('_proposed_procedures',array('css_class'=>$css_class,'procedures'=>$elements['Element_OphTrConsent_Procedure']->procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
 <h3>Statement of health professional <span class="noth3">(to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)</span></h3>
 <p>
 	<strong>I have explained the procedure to the patient. In particular, I have explained:</strong>
@@ -143,7 +143,7 @@ if (@$vi) {
 </p>
 <?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
 	<p>Any extra procedures which may become necessary during the procedure(s)</p>
-	<?php echo $this->renderPartial('_proposed_procedures',array('vi'=>@$vi,'procedures'=>$elements['Element_OphTrConsent_Procedure']->additional_procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
+	<?php echo $this->renderPartial('_proposed_procedures',array('css_class'=>$css_class,'procedures'=>$elements['Element_OphTrConsent_Procedure']->additional_procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
 <?php }?>
 <p>
 	I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of this patient and <?php echo $this->patient->pos?> parents.

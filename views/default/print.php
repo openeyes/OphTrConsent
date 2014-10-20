@@ -17,8 +17,4 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<ul class="<?php echo $css_class?>">
-	<?php foreach ($procedures as $proc) {?>
-		<li><?php echo $eye?> <?php echo $proc->term?></li>
-	<?php }?>
-</ul>
+<?php echo $this->renderPartial('print_ElementLetter',array('element' => $element))?>
