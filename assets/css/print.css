@@ -122,7 +122,7 @@ body {
 }
 
 .pageBreak {
-	page-break-after: always;
+	page-break-before: always;
 }
 
 .banner {
@@ -186,18 +186,6 @@ body {
 	margin-top: 6em;
 }
 
-.form-statement1 {
-	page-break-before: always;
-}
-
-.form-consent1 {
-	page-break-before: always;
-}
-
-.mainContent {
-	page-break-before: always;
-}
-
 .impaired h2 {
 	font-size: 26pt !important;
 }
@@ -231,4 +219,8 @@ body {
 }
 .impaired ul {
 	margin-bottom: 3em;
+}
+
+.form-statementofparent {
+	page-break-before: always;
 }

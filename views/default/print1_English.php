@@ -75,7 +75,7 @@
 		<h2>To be retained in patient's notes</h2>
 	</div>
 	<?php for ($i=0; $i<2; $i++) {?>
-		<div class="mainContent">
+		<div class="pageBreak">
 			<h3>Name of proposed procedure or course of treatment</h3>
 			<?php echo $this->renderPartial('_proposed_procedures',array('css_class'=>$css_class,'procedures' => $elements['Element_OphTrConsent_Procedure']->procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
 			<h3>Statement of health professional <span class="noth3">(to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)</span></h3>
@@ -120,7 +120,7 @@
 			<?php }?>
 			<br/>
 		<?php }?>
-		<div class="form-statement1">
+		<div class="pageBreak">
 			<div class="topCopy">Top copy accepted by patient: yes/no (please ring)</div>
 			<h3>Statement of patient</h3>
 			<p>
@@ -158,7 +158,7 @@
 			</p>
 		</div>
 		<?php if ($elements['Element_OphTrConsent_Other']->include_supplementary_consent) {?>
-			<div class="form-consent1">
+			<div class="pageBreak">
 				<h2>Form 1: Supplementary consent</h2>
 				<h3>Images</h3>
 				<p>
