@@ -74,7 +74,7 @@
 											<span class="large-4 column">
 												<?php foreach ($operation->procedures as $i => $procedure) {
 													if ($i >0) { echo "<br/>"; }
-													echo $procedure->term;
+													echo $operation->eye->name . ' ' . $procedure->term;
 												}?>
 											</span>
 										</span>
