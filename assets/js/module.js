@@ -72,6 +72,8 @@ $(document).ready(function() {
 	});
 
 	$('#et_print').unbind('click').click(function(e) {
+		disableButtons();
+
 		if ($('#OphTrConsent_draft').val() == 1) {
 			$.ajax({
 				'type': 'GET',
@@ -93,6 +95,8 @@ $(document).ready(function() {
 	});
 
 	$('#et_print_va').unbind('click').click(function(e) {
+		disableButtons();
+
 		if ($('#OphTrConsent_draft').val() == 1) {
 			$.ajax({
 				'type': 'GET',
