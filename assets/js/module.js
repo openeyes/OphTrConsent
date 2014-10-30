@@ -197,6 +197,10 @@ function OphTrConsent_ucfirst(str) {
 }
 
 function callbackRemoveProcedure(procedure_id) {
+	$('textarea[name^=Element_OphTrConsent_BenefitsAndRisks]').val('')
+	$.each($('input[name^=Procedures_procedures]'),function() {
+		callbackAddProcedure($(this).val());
+	});
 }
 
 function OphTrConsent_do_print(va) {
