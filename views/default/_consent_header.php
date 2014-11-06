@@ -16,17 +16,12 @@
  * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
- ?>
-<style>
-	h1,h2,h4 { display: inline; margin: 0 auto; width: 400px; text-align: center; }
-	h3 { font-size: 24pt; }
-	.noth3 { font-size: 24pt; font-weight: normal; }
-	.spacer { height: 2em; }
-	table { border-spacing: 0; border-collapse: collapse; }
-	table.signature { margin-left: 0; }
-	table.signature td,th { margin-left: 0; padding-left: 0; width: 300px; }
-	p,li,td,th,span { font-size: 22pt; }
-	/*.mainContent { line-height: 3px; }*/
-	.topCopy { font-size: 10pt; line-height: 1px !important; }
-	ul.ul_vi li { line-height: 2pt; }
-</style>
+?>
+<div class="banner clearfix">
+	<div class="seal">
+		<img src="<?php echo Yii::app()->assetManager->createUrl('img/_print/letterhead_seal.jpg')?>" alt="letterhead_seal" />
+	</div>
+	<div class="logo">
+		<img src="<?php echo Yii::app()->assetManager->createUrl('img/_print/letterhead_Moorfields_NHS.jpg')?>" alt="letterhead_Moorfields_NHS" />
+	</div>
+</div>
