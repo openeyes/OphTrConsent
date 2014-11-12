@@ -17,11 +17,8 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<ul<?php if (@$vi) {?> class="ul_vi"<?php }?>>
+<ul class="<?php echo $css_class?>">
 	<?php foreach ($procedures as $proc) {?>
 		<li><?php echo $eye?> <?php echo $proc->term?></li>
 	<?php }?>
 </ul>
-<?php if (@$vi) {?>
-	<div class="spacer"></div>
-<?php }?>
