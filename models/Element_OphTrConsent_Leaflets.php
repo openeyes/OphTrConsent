@@ -132,12 +132,16 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 			$existing_leaflet_ids[] = $leaflet->leaflet_id;
 		}
 
+		$new_ids = array();
+
 		if (isset($_POST['OphTrConsent_Leaflet'])) {
 			foreach ($_POST['OphTrConsent_Leaflet'] as $id) {
+				$new_ids[] = $id['id'];
+
 				if (!in_array($id,$existing_leaflet_ids)) {
 					$leaflet = new OphTrConsent_Leaflets;
 					$leaflet->element_id = $this->id;
-					$leaflet->leaflet_id = $id;
+					$leaflet->leaflet_id = $id['id'];
 					if (!$leaflet->save()) {
 						throw new Exception("Unable to save leaflet: ".print_r($leaflet->getErrors(),true));
 					}
@@ -146,7 +150,7 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 		}
 
 		foreach ($existing_leaflet_ids as $id) {
-			if (!isset($_POST['OphTrConsent_Leaflet']) || !in_array($id,$_POST['OphTrConsent_Leaflet'])) {
+			if (!isset($_POST['OphTrConsent_Leaflet']) || !in_array($id,$new_ids)) {
 				$leaflet = OphTrConsent_Leaflets::model()->find('element_id=:element_id and leaflet_id=:leaflet_id',array(':element_id'=>$this->id,':leaflet_id'=>$id));
 				if (!$leaflet->delete()) {
 					throw new Exception("Unable to delete leaflet: ".print_r($leaflet->getErrors(),true));
