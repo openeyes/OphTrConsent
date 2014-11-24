@@ -134,7 +134,7 @@ class Element_OphTrConsent_Leaflets extends BaseEventTypeElement
 
 		$new_ids = array();
 
-		if (isset($_POST['OphTrConsent_Leaflet'])) {
+		if (isset($_POST['OphTrConsent_Leaflet']) && is_array($_POST['OphTrConsent_Leaflet'])) {
 			foreach ($_POST['OphTrConsent_Leaflet'] as $id) {
 				$new_ids[] = $id['id'];
 
