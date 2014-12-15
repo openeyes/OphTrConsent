@@ -77,6 +77,13 @@
 				<td><?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
 			</tr>
 		<?php }?>
+		<tr>
+			<th>Procedure(s)</th>
+			<td><?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $i => $procedure) {
+					if ($i >0) echo ', ';
+					echo $procedure->term;
+				}?></td>
+		</tr>
 	</table>
 	<div class="form-subtitle1">
 		<h2>To be retained in patient's notes</h2>
