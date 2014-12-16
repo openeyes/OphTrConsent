@@ -74,7 +74,7 @@
 			<th>Procedure(s)</th>
 			<td><?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $i => $procedure) {
 					if ($i >0) echo ', ';
-					echo $procedure->term;
+					echo \CHtml::encode($procedure->term);
 				}?></td>
 		</tr>
 		<tr>
