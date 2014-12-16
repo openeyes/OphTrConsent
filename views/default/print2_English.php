@@ -50,8 +50,8 @@
 			<td><?php echo $this->patient->genderString?></td>
 		</tr>
 		<tr>
-			<th>Special requirements</th>
-			<td>......................................</td>
+			<th>&nbsp;<br />Special requirements</th>
+			<td>&nbsp;<br />......................................</td>
 		</tr>
 		<tr>
 			<td></td>
@@ -81,7 +81,7 @@
 			<th>Procedure(s)</th>
 			<td><?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $i => $procedure) {
 					if ($i >0) echo ', ';
-					echo $procedure->term;
+					echo \CHtml::encode($procedure->term);
 				}?></td>
 		</tr>
 		<tr>
