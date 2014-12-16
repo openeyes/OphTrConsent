@@ -84,6 +84,10 @@
 					echo $procedure->term;
 				}?></td>
 		</tr>
+		<tr>
+			<th>&nbsp;<br />Consent date</th>
+			<td>&nbsp;<br />.............................................</td>
+		</tr>
 	</table>
 	<div class="form-subtitle1">
 		<h2>To be retained in patient's notes</h2>
