@@ -53,24 +53,24 @@
 	<p>
 		[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] The following informational leaflets have been provided: .............................................<br/>
 	</p>
-	<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
+	<?php echo $this->renderPartial('signature_table1',array('vi'=>($css_class == 'impaired'),'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
 	<div class="pageBreak">
 		<?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
 			<h3>Statement of interpreter</h3>
 			<p>
 				I have interpreted the information above to the patient/parent to the best of my ability and in a way in which I believe s/he/they can understand.
 			</p>
-			<?php echo $this->renderPartial('signature_table3',array('vi'=>@$vi,'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
+			<?php echo $this->renderPartial('signature_table3',array('vi'=>($css_class == 'impaired'),'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
 		<?php }?>
 		<h3>Statement of patient/person with parental responsibility for patient I agree to the procedure described above.</h3>
 		<p>
 			I understand that you cannot give me a guarantee that a particular person will perform the procedure. The person will, however, have appropriate experience. I understand that the procedure will/will not involve local anaesthesia.
 		</p>
-		<?php echo $this->renderPartial('signature_table2',array('vi'=>@$vi))?>
+		<?php echo $this->renderPartial('signature_table2',array('vi'=>($css_class == 'impaired')))?>
 		<p>
 			Confirmation of consent (to be completed by a health professional when the patient is admitted for the procedure, if the patient/parent has signed the form in advance) I have confirmed that the patient/parent has no further questions and wishes the procedure to go ahead.
 		</p>
-		<?php echo $this->renderPartial('signature_table1',array('vi'=>@$vi,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant, 'mask_consultant' => true))?>
+		<?php echo $this->renderPartial('signature_table1',array('vi'=>($css_class == 'impaired'),'consultant'=>$elements['Element_OphTrConsent_Other']->consultant, 'mask_consultant' => true))?>
 		<h3>Top copy accepted by patient: yes/no <span class="noth3">(please ring)</span></h3>
 	</div>
 </div>
