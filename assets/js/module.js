@@ -72,6 +72,8 @@ $(document).ready(function() {
 	});
 
 	$('#et_print').unbind('click').click(function(e) {
+		disableButtons();
+
 		if ($('#OphTrConsent_draft').val() == 1) {
 			$.ajax({
 				'type': 'GET',
@@ -93,6 +95,8 @@ $(document).ready(function() {
 	});
 
 	$('#et_print_va').unbind('click').click(function(e) {
+		disableButtons();
+
 		if ($('#OphTrConsent_draft').val() == 1) {
 			$.ajax({
 				'type': 'GET',
@@ -197,6 +201,10 @@ function OphTrConsent_ucfirst(str) {
 }
 
 function callbackRemoveProcedure(procedure_id) {
+	$('textarea[name^=Element_OphTrConsent_BenefitsAndRisks]').val('')
+	$.each($('input[name^=Procedures_]'),function() {
+		callbackAddProcedure($(this).val());
+	});
 }
 
 function OphTrConsent_do_print(va) {
@@ -210,7 +218,7 @@ function OphTrConsent_do_print(va) {
 		'type': 'GET',
 		'url': baseUrl+'/OphTrConsent/default/markPrinted/'+OE_event_id,
 		'success': function(html) {
-			printIFrameUrl(OE_print_url, va);
+			printEvent(va);
 			enableButtons();
 		}
 	});

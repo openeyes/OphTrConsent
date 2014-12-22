@@ -80,4 +80,29 @@ class OphTrConsent_API extends BaseAPI
 
 		return $type->isEditable();
 	}
+
+	public function getFooterProcedures($event_id)
+	{
+		if (!$event = Event::model()->findByPk($event_id)) {
+			throw new Exception("Event not found: $event_id");
+		}
+
+		if (!$element = Element_OphTrConsent_Procedure::model()->find('event_id=?',array($event->id))) {
+			throw new Exception("Procedure element not found, possibly not a consent event: $event_id");
+		}
+
+		$return = 'Procedure(s): ';
+
+		foreach ($element->procedures as $i => $proc) {
+			if ($i >= 2) {
+				$return .= '...';
+				break;
+			} elseif ($i) {
+				$return .= ', ';
+			}
+			$return .= $proc->term;
+		}
+
+		return $return;
+	}
 }

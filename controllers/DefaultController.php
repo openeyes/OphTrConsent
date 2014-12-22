@@ -157,7 +157,7 @@ class DefaultController extends BaseEventTypeController
 
 			if ($api = Yii::app()->moduleAPI->get('OphTrOperationbooking')) {
 				if ($episode = $this->patient->getEpisodeForCurrentSubspecialty()) {
-					$bookings = $api->getBookingsForEpisode($episode->id);
+					$bookings = $api->getOperationsForEpisode($episode->id);
 				}
 			}
 
@@ -203,29 +203,29 @@ class DefaultController extends BaseEventTypeController
 	public function actionPrint($id)
 	{
 		$this->printInit($id);
+		$this->layout = '//layouts/print';
+
 		$elements = array();
 
-		$template = 'print';
-
-		/*if (isset($_GET['lang_id'])) {
-			if (!$language = Language::model()->findByPK($_GET['lang_id'])) {
-				throw new Exception("Language not found: ".print_r($language->getErrors(),true));
-			}
-		} else {*/
-			$language = Language::model()->find('name=?',array('English'));
-		//}
-
-			foreach ($this->getEventElements() as $element) {
+		foreach ($this->getEventElements() as $element) {
 			$elements[get_class($element)] = $element;
 		}
 
 		preg_match('/^([0-9]+)/',$elements['Element_OphTrConsent_Type']->type->name,$m);
 		$template_id = $m[1];
 
-		$template = "print{$template_id}_$language->name";
+		$template = "print{$template_id}_English";
 
-		$this->printLog($id, true);
-		$this->printPDF($id, $elements, $template, array('vi' => (boolean) @$_GET['vi']));
+		$this->render($template, array('elements' => $elements, 'css_class' => @$_GET['vi'] ? 'impaired' : 'normal'));
+	}
+
+	public function actionPDFPrint($id)
+	{
+		if (@$_GET['vi']) {
+			$this->pdf_print_suffix = 'vi';
+		}
+
+		return parent::actionPDFPrint($id);
 	}
 
 	/**
