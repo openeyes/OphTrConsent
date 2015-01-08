@@ -50,8 +50,8 @@
 			<td><?php echo $this->patient->genderString?></td>
 		</tr>
 		<tr>
-			<th>Special requirements</th>
-			<td>........................................</td>
+			<th>&nbsp;<br />Special requirements</th>
+			<td>&nbsp;<br />........................................</td>
 		</tr>
 		<tr>
 			<td></td>
@@ -77,6 +77,17 @@
 				<td><?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
 			</tr>
 		<?php }?>
+		<tr>
+			<th>Procedure(s)</th>
+			<td><?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $i => $procedure) {
+					if ($i >0) echo ', ';
+					echo \CHtml::encode($procedure->term);
+				}?></td>
+		</tr>
+		<tr>
+			<th>&nbsp;<br />Consent date</th>
+			<td>&nbsp;<br />.............................................</td>
+		</tr>
 	</table>
 	<div class="form-subtitle1">
 		<h2>To be retained in patient's notes</h2>
@@ -147,7 +158,7 @@
 		</span>
 		<br/>
 			.................................................................................................................................<br/><br/>
-		<?php echo $this->renderPartial('signature_table2',array('css_class'=>$css_class,'address'=>true))?>
+		<?php echo $this->renderPartial('signature_table2',array('vi'=>($css_class == 'impaired'),'address'=>true))?>
 		<p>
 			If a person close to the patient was not available in person, has this matter been discussed in any other way (eg over the telephone?)	Yes&nbsp;&nbsp;&nbsp;No<br/><br/>
 			<?php if ($css_class == 'impaired') {?>
@@ -163,12 +174,12 @@
 			The above procedure is, in my clinical judgement, in the best interests of the patient, who lacks capacity to consent for himself or herself.  Where possible and appropriate I have discussed the patient’s condition with those close to him or her, and taken their knowledge of the patient’s past and present wishes, feelings, views and beliefs and values into account in determining his or her best interests.
 		</p>
 		<div class="spacer"></div>
-		<?php echo $this->renderPartial('signature_table1',array('css_class'=>$css_class,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
+		<?php echo $this->renderPartial('signature_table1',array('vi'=>($css_class == 'impaired'),'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
 		<div class="spacer"></div>
 		<p>
 			Where second opinion sought, s/he should sign below to confirm agreement:
 		</p>
-		<?php echo $this->renderPartial('signature_table1',array('css_class'=>$css_class,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
+		<?php echo $this->renderPartial('signature_table1',array('vi'=>($css_class == 'impaired'),'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
 	</div>
 	<div class="pageBreak">
 		<p>

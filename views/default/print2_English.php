@@ -50,8 +50,8 @@
 			<td><?php echo $this->patient->genderString?></td>
 		</tr>
 		<tr>
-			<th>Special requirements</th>
-			<td>......................................</td>
+			<th>&nbsp;<br />Special requirements</th>
+			<td>&nbsp;<br />......................................</td>
 		</tr>
 		<tr>
 			<td></td>
@@ -77,6 +77,17 @@
 				<td><?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
 			</tr>
 		<?php }?>
+		<tr>
+			<th>Procedure(s)</th>
+			<td><?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $i => $procedure) {
+					if ($i >0) echo ', ';
+					echo \CHtml::encode($procedure->term);
+				}?></td>
+		</tr>
+		<tr>
+			<th>&nbsp;<br />Consent date</th>
+			<td>&nbsp;<br />.............................................</td>
+		</tr>
 	</table>
 	<div class="form-subtitle1">
 		<h2>To be retained in patient's notes</h2>
@@ -93,19 +104,19 @@
 			<strong>I understand that any</strong> procedure in addition to those described on this form will only be carried out if it is necessary to save the life of my child or to prevent serious harm to his or her health.<br/>
 			<strong>I have been told about</strong> additional procedures which may become necessary during my child's treatment. I have listed below any procedures which I do not wish to be carried out without further discussion: ................................................................................................................................
 		</p>
-		<?php echo $this->renderPartial('signature_table5',array('css_class'=>$css_class))?>
+		<?php echo $this->renderPartial('signature_table5',array('vi'=>($css_class == 'impaired')))?>
 	</div>
 	<div class="pageBreak">
 		<h3>Child's agreement to treatment (if child wishes to sign)</h3>
 		<p>
 			I agree to have the treatment I have been told about.
 		</p>
-		<?php echo $this->renderPartial('signature_table3',array('css_class'=>$css_class,'name'=>$this->patient->first_name.' '.$this->patient->last_name))?>
+		<?php echo $this->renderPartial('signature_table3',array('vi'=>($css_class == 'impaired'),'name'=>$this->patient->first_name.' '.$this->patient->last_name))?>
 		<h3>Confirmation of consent <span class="noth3">(to be completed by a health professional when the child is admitted for the procedure, if the parent/child have signed the form in advance)</span></h3>
 		<p>
 			On behalf of the team treating the patient, I have confirmed with the child and his or her parent(s) that they have no further questions and wish the procedure to go ahead.
 		</p>
-		<?php echo $this->renderPartial('signature_table1',array('css_class'=>$css_class,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant, 'mask_consultant' => true))?>
+		<?php echo $this->renderPartial('signature_table1',array('vi'=>($css_class == 'impaired'),'consultant'=>$elements['Element_OphTrConsent_Other']->consultant, 'mask_consultant' => true))?>
 		<h3>Important notes: (tick if applicable)</h3>
 		<p>
 			See also advance directive/living will (eg Jehovah's Witness form)
@@ -141,7 +152,7 @@
 			<strong>This procedure will involve:</strong>
 			[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia<br/>[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] sedation
 		</p>
-		<?php echo $this->renderPartial('signature_table1',array('css_class'=>$css_class,'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
+		<?php echo $this->renderPartial('signature_table1',array('vi'=>($css_class == 'impaired'),'consultant'=>$elements['Element_OphTrConsent_Other']->consultant))?>
 		<p>
 			Contact details (if child/parent wishes to discuss options later) .....................
 		</p>
@@ -149,9 +160,9 @@
 		<?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
 			<h3>Statement of interpreter</h3>
 			<span>I have interpreted the information above to the child and <?php echo $this->patient->pos?> parents to the best of my ability and in a way in which I believe they can understand.</span><br/><br/>
-			<?php echo $this->renderPartial('signature_table3',array('css_class'=>$css_class,'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
+			<?php echo $this->renderPartial('signature_table3',array('vi'=>($css_class == 'impaired'),'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
 		<?php }?>
-		<span class="topCopy">Top copy accepted by patient: yes/no (please ring)</span>
+		<div class="topCopy">Top copy accepted by patient: yes/no (please ring)</div>
 	</div>
 	<?php if ($elements['Element_OphTrConsent_Other']->include_supplementary_consent) {?>
 		<div class="pageBreak">
