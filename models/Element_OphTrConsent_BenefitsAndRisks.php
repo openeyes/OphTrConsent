@@ -155,13 +155,13 @@ class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 		// iterate through full set of procedures to get complications/benefits
 		foreach ($all_procedures as $proc) {
 			foreach ($proc->complications as $complication) {
-				if (!in_array($complication->id,$complication_ids)) {
+				if (!in_array($complication->id,$complication_ids) && $complication->active) {
 					$complications[] = $complication;
 					$complication_ids[] = $complication->id;
 				}
 			}
 			foreach ($proc->benefits as $benefit) {
-				if (!in_array($benefit->id,$benefit_ids)) {
+				if (!in_array($benefit->id,$benefit_ids) && $benefit->active) {
 					$benefits[] = $benefit;
 					$benefit_ids[] = $benefit->id;
 				}
