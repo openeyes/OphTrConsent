@@ -77,6 +77,7 @@ class OphTrConsent_Leaflet_Firm extends BaseActiveRecordVersioned
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+			'leaflet' => array(self::BELONGS_TO, 'OphTrConsent_Leaflet', 'leaflet_id'),
 		);
 	}
 
