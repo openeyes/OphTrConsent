@@ -128,18 +128,23 @@ class OphTrConsent_Leaflet extends BaseActiveRecordVersioned
 
 		$subspecialty_id = $firm->serviceSubspecialtyAssignment ? $firm->serviceSubspecialtyAssignment->subspecialty_id : null;
 
-		$criteria = new CDbCriteria;
+		$criteria1 = new CDbCriteria;
 
 		if ($firm->serviceSubspecialtyAssignment) {
-			$criteria->addCondition('subspecialty_id=:subspecialty_id');
-			$criteria->params[':subspecialty_id'] = $subspecialty_id;
-			$criteria->order = 'name asc';
-			return OphTrConsent_Leaflet::model()->with('subspecialties')->activeOrPk($leaflet_values)->findAll($criteria);
-		} else {
-			$criteria->addCondition('firm_id=:firm_id');
-			$criteria->params[':firm_id'] = $firm->id;
-			$criteria->order = 'name asc';
-			return OphTrConsent_Leaflet::model()->with('firms')->activeOrPk($leaflet_values)->findAll($criteria);
+			$criteria1->addCondition('subspecialty_id=:subspecialty_id');
+			$criteria1->params[':subspecialty_id'] = $subspecialty_id;
+			$criteria1->order = 'name asc';
+			$return1 = OphTrConsent_Leaflet::model()->with('subspecialties')->activeOrPk($leaflet_values)->findAll($criteria1);
+		}
+		$criteria2 = new CDbCriteria;
+		$criteria2->addCondition('firm_id=:firm_id');
+		$criteria2->params[':firm_id'] = $firm->id;
+		$criteria2->order = 'name asc';
+		$return2 = OphTrConsent_Leaflet::model()->with('firms')->activeOrPk($leaflet_values)->findAll($criteria2);
+		if(is_array($return1)){
+			return array_merge($return1, $return2);
+		}else{
+			return $return2;
 		}
 	}
 }
