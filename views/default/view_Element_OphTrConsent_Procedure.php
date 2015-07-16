@@ -31,15 +31,21 @@
 			<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('procedures'))?>:</div>
 		</div>
 		<div class="large-9 column">
-			<div class="data-value"><?php if (!$element->procedures) {?>
+			<div class="data-value"><?php if (!$element->procedures) {
+    ?>
 					<h4>None</h4>
-				<?php } else {?>
+				<?php 
+} else {
+    ?>
 					<h4>
 						<?php foreach ($element->procedures as $item) {
-							echo $item->term?><br/>
-						<?php }?>
+    echo $item->term?><br/>
+						<?php 
+}
+    ?>
 					</h4>
-				<?php }?></div>
+				<?php 
+}?></div>
 		</div>
 	</div>
 	<div class="row data-row">
@@ -57,15 +63,21 @@
 		</div>
 		<div class="large-9 column">
 			<div class="data-value">
-				<?php if (!$element->additional_procedures) {?>
+				<?php if (!$element->additional_procedures) {
+    ?>
 					<h4>None</h4>
-				<?php } else {?>
+				<?php 
+} else {
+    ?>
 					<h4>
 						<?php foreach ($element->additional_procedures as $item) {
-							echo $item->term?><br/>
-						<?php }?>
+    echo $item->term?><br/>
+						<?php 
+}
+    ?>
 					</h4>
-				<?php }?>
+				<?php 
+}?>
 			</div>
 		</div>
 	</div>

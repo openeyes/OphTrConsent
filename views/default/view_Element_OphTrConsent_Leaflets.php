@@ -23,13 +23,20 @@
 			<div class="data-label">Leaflets provided:</div>
 		</div>
 		<div class="large-9 column">
-			<div class="data-value"><?php if (empty($element->leaflets)) {?>
+			<div class="data-value"><?php if (empty($element->leaflets)) {
+    ?>
 					None
-				<?php } else {?>
-					<?php foreach ($element->leaflets as $leaflet) {?>
+				<?php 
+} else {
+    ?>
+					<?php foreach ($element->leaflets as $leaflet) {
+    ?>
 						<?php echo $leaflet->leaflet->name?><br/>
-					<?php }?>
-				<?php }?>
+					<?php 
+}
+    ?>
+				<?php 
+}?>
 			</div>
 		</div>
 	</div>

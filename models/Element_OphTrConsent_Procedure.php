@@ -41,152 +41,152 @@
 
 class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 {
-	public $service;
+    public $service;
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return the static model class
-	 */
-	public static function model($className = __CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'et_ophtrconsent_procedure';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'et_ophtrconsent_procedure';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('event_id, eye_id, anaesthetic_type_id, booking_event_id', 'safe'),
-			array('eye_id, anaesthetic_type_id, ', 'required'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, event_id, eye_id, anaesthetic_type_id, ', 'safe', 'on' => 'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('event_id, eye_id, anaesthetic_type_id, booking_event_id', 'safe'),
+            array('eye_id, anaesthetic_type_id, ', 'required'),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, event_id, eye_id, anaesthetic_type_id, ', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'element_type' => array(self::HAS_ONE, 'ElementType', 'id','on' => "element_type.class_name='".get_class($this)."'"),
-			'eventType' => array(self::BELONGS_TO, 'EventType', 'event_type_id'),
-			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
-			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
-			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
-			'anaesthetic_type' => array(self::BELONGS_TO, 'AnaestheticType', 'anaesthetic_type_id'),
-			'procedure_assignments' => array(self::HAS_MANY, 'EtOphtrconsentProcedureProceduresProcedures' , 'element_id' ),
-			'procedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
-				'through' => 'procedure_assignments'),
-			'additionalprocedure_assignments' => array(self::HAS_MANY, 'EtOphtrconsentProcedureAddProcsAddProcs', 'element_id' ),
-			'additional_procedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
-				'through' => 'additionalprocedure_assignments')
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'element_type' => array(self::HAS_ONE, 'ElementType', 'id','on' => "element_type.class_name='".get_class($this)."'"),
+            'eventType' => array(self::BELONGS_TO, 'EventType', 'event_type_id'),
+            'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
+            'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+            'eye' => array(self::BELONGS_TO, 'Eye', 'eye_id'),
+            'anaesthetic_type' => array(self::BELONGS_TO, 'AnaestheticType', 'anaesthetic_type_id'),
+            'procedure_assignments' => array(self::HAS_MANY, 'EtOphtrconsentProcedureProceduresProcedures' , 'element_id' ),
+            'procedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
+                'through' => 'procedure_assignments'),
+            'additionalprocedure_assignments' => array(self::HAS_MANY, 'EtOphtrconsentProcedureAddProcsAddProcs', 'element_id' ),
+            'additional_procedures' => array(self::HAS_MANY, 'Procedure', 'proc_id',
+                'through' => 'additionalprocedure_assignments')
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'event_id' => 'Event',
-			'eye_id' => 'Eye',
-			'procedures' => 'Procedures',
-			'anaesthetic_type_id' => 'Anaesthetic type',
-			'add_procs' => 'Additional procedures',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'event_id' => 'Event',
+            'eye_id' => 'Eye',
+            'procedures' => 'Procedures',
+            'anaesthetic_type_id' => 'Anaesthetic type',
+            'add_procs' => 'Additional procedures',
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria = new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('id', $this->id, true);
-		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('eye_id', $this->eye_id);
-		$criteria->compare('procedures', $this->procedures);
-		$criteria->compare('anaesthetic_type_id', $this->anaesthetic_type_id);
-		$criteria->compare('add_procs', $this->add_procs);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('event_id', $this->event_id, true);
+        $criteria->compare('eye_id', $this->eye_id);
+        $criteria->compare('procedures', $this->procedures);
+        $criteria->compare('anaesthetic_type_id', $this->anaesthetic_type_id);
+        $criteria->compare('add_procs', $this->add_procs);
 
-		return new CActiveDataProvider(get_class($this), array(
-			'criteria' => $criteria,
-		));
-	}
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+        ));
+    }
 
-	//TODO: get POST handling out of here.
-	protected function afterSave()
-	{
-		foreach ($_POST['Procedures_procedures'] as $procedure_id) {
-			if (!EtOphtrconsentProcedureProceduresProcedures::model()->find('element_id=? and proc_id=?',array($this->id,$procedure_id))) {
-				$p = new EtOphtrconsentProcedureProceduresProcedures;
-				$p->element_id = $this->id;
-				$p->proc_id = $procedure_id;
-				if (!$p->save()) {
-					throw new Exception("Unable to save procedure item: ".print_r($p->getErrors(),true));
-				}
-			}
-		}
+    //TODO: get POST handling out of here.
+    protected function afterSave()
+    {
+        foreach ($_POST['Procedures_procedures'] as $procedure_id) {
+            if (!EtOphtrconsentProcedureProceduresProcedures::model()->find('element_id=? and proc_id=?', array($this->id, $procedure_id))) {
+                $p = new EtOphtrconsentProcedureProceduresProcedures;
+                $p->element_id = $this->id;
+                $p->proc_id = $procedure_id;
+                if (!$p->save()) {
+                    throw new Exception("Unable to save procedure item: ".print_r($p->getErrors(), true));
+                }
+            }
+        }
 
-		foreach (EtOphtrconsentProcedureProceduresProcedures::model()->findAll('element_id=?',array($this->id)) as $p) {
-			if (!in_array($p->proc_id,$_POST['Procedures_procedures'])) {
-				if (!$p->delete()) {
-					throw new Exception("Unable to delete procedure item: ".print_r($p->getErrors(),true));
-				}
-			}
-		}
+        foreach (EtOphtrconsentProcedureProceduresProcedures::model()->findAll('element_id=?', array($this->id)) as $p) {
+            if (!in_array($p->proc_id, $_POST['Procedures_procedures'])) {
+                if (!$p->delete()) {
+                    throw new Exception("Unable to delete procedure item: ".print_r($p->getErrors(), true));
+                }
+            }
+        }
 
-		if (isset($_POST['Procedures_additional'])) {
-			foreach ($_POST['Procedures_additional'] as $procedure_id) {
-				if (!EtOphtrconsentProcedureAddProcsAddProcs::model()->find('element_id=? and proc_id=?',array($this->id,$procedure_id))) {
-					$p = new EtOphtrconsentProcedureAddProcsAddProcs;
-					$p->element_id = $this->id;
-					$p->proc_id = $procedure_id;
-					if (!$p->save()) {
-						throw new Exception("Unable to save additional procedure item: ".print_r($p->getErrors(),true));
-					}
-				}
-			}
+        if (isset($_POST['Procedures_additional'])) {
+            foreach ($_POST['Procedures_additional'] as $procedure_id) {
+                if (!EtOphtrconsentProcedureAddProcsAddProcs::model()->find('element_id=? and proc_id=?', array($this->id, $procedure_id))) {
+                    $p = new EtOphtrconsentProcedureAddProcsAddProcs;
+                    $p->element_id = $this->id;
+                    $p->proc_id = $procedure_id;
+                    if (!$p->save()) {
+                        throw new Exception("Unable to save additional procedure item: ".print_r($p->getErrors(), true));
+                    }
+                }
+            }
 
-			foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?',array($this->id)) as $p) {
-				if (!in_array($p->proc_id,$_POST['Procedures_additional'])) {
-					if (!$p->delete()) {
-						throw new Exception("Unable to delete additional procedure item: ".print_r($p->getErrors(),true));
-					}
-				}
-			}
-		} else {
-			foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?',array($this->id)) as $p) {
-				if (!$p->delete()) {
-					throw new Exception("Unable to delete additional procedure item: ".print_r($p->getErrors(),true));
-				}
-			}
-		}
+            foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?', array($this->id)) as $p) {
+                if (!in_array($p->proc_id, $_POST['Procedures_additional'])) {
+                    if (!$p->delete()) {
+                        throw new Exception("Unable to delete additional procedure item: ".print_r($p->getErrors(), true));
+                    }
+                }
+            }
+        } else {
+            foreach (EtOphtrconsentProcedureAddProcsAddProcs::model()->findAll('element_id=?', array($this->id)) as $p) {
+                if (!$p->delete()) {
+                    throw new Exception("Unable to delete additional procedure item: ".print_r($p->getErrors(), true));
+                }
+            }
+        }
 
-		return parent::afterSave();
-	}
+        return parent::afterSave();
+    }
 }

@@ -18,9 +18,9 @@
  */
  ?>
 <?php
-	$this->beginContent('//patient/event_container');
-	$assetAliasPath = 'application.modules.OphTrOperationbooking.assets';
-	$this->moduleNameCssClass .= ' edit';
+    $this->beginContent('//patient/event_container');
+    $assetAliasPath = 'application.modules.OphTrOperationbooking.assets';
+    $this->moduleNameCssClass .= ' edit';
 ?>
 	<div class="row">
 		<div class="large-12 column">
@@ -28,13 +28,13 @@
 			<section class="element">
 
 				<?php $form = $this->beginWidget('BaseEventTypeCActiveForm', array(
-						'id'=>'consent-form',
-						'enableAjaxValidation'=>false,
-						// 'focus'=>'#procedure_id'
-					));
-					// Event actions
-					$this->event_actions[] = EventAction::button('Create Consent Form', 'save', array('level' => 'secondary'), array('class'=>'small','form'=>'consent-form'));
-				?>
+                        'id'=>'consent-form',
+                        'enableAjaxValidation'=>false,
+                        // 'focus'=>'#procedure_id'
+                    ));
+                    // Event actions
+                    $this->event_actions[] = EventAction::button('Create Consent Form', 'save', array('level' => 'secondary'), array('class'=>'small', 'form'=>'consent-form'));
+                ?>
 					<?php $this->displayErrors($errors)?>
 
 					<header class="element-header">
@@ -45,18 +45,23 @@
 
 						<div class="field-row">
 							<div class="field-info">
-								<?php if (count($bookings) >0) {?>
+								<?php if (count($bookings) >0) {
+    ?>
 									Please indicate whether this Consent Form is for an existing booking or for unbooked procedures:
-								<?php } else {?>
+								<?php 
+} else {
+    ?>
 									There are no open bookings in the current episode so you can only create a consent form for unbooked procedures.
-								<?php }?>
+								<?php 
+}?>
 							</div>
 						</div>
 
 						<fieldset class="row field-row">
 							<legend class="large-2 column">Select:</legend>
 							<div class="large-6 column end">
-								<?php foreach ($bookings as $operation) {?>
+								<?php foreach ($bookings as $operation) {
+    ?>
 									<label class="highlight booking">
 										<span class="row">
 											<span class="large-1 column">
@@ -73,22 +78,31 @@
 											</span>
 											<span class="large-4 column">
 												<?php foreach ($operation->procedures as $i => $procedure) {
-													if ($i >0) { echo "<br/>"; }
-													echo $operation->eye->name . ' ' . $procedure->term;
-												}?>
+    if ($i >0) {
+        echo "<br/>";
+    }
+    echo $operation->eye->name . ' ' . $procedure->term;
+}
+    ?>
 											</span>
 										</span>
 									</label>
-									<?php if (Element_OphTrConsent_Procedure::model()->find('booking_event_id=?',array($operation->event_id))) {?>
+									<?php if (Element_OphTrConsent_Procedure::model()->find('booking_event_id=?', array($operation->event_id))) {
+    ?>
 										<div class="alert-box alert with-icon">
 											Warning: this booking already has a consent form
 										</div>
-									<?php }?>
-								<?php }?>
+									<?php 
+}
+    ?>
+								<?php 
+}?>
 								<label class="highlight booking">
 									<span class="row">
 										<span class="large-1 column">
-											<input type="radio" value="unbooked" name="SelectBooking" <?php if (count($bookings)==0) {?>checked="checked" <?php }?>/>
+											<input type="radio" value="unbooked" name="SelectBooking" <?php if (count($bookings)==0) {
+    ?>checked="checked" <?php 
+}?>/>
 										</span>
 										<span class="large-11 column">
 											Unbooked procedures

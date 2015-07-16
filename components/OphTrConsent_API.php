@@ -19,90 +19,88 @@
 
 class OphTrConsent_API extends BaseAPI
 {
+    /**
+     * checks if there is a consent form for the given episode and the given procedure and eye
+     *
+     * @param Episode $episode
+     * @param Procedure $procedure
+     * @param string $side - left, right or both
+     * @throws Exception
+     * @return bool
+     */
+    public function hasConsentForProcedure($episode, $procedure, $side)
+    {
+        if ($episode) {
+            $required_eye = Eye::BOTH;
 
-	/**
-	 * checks if there is a consent form for the given episode and the given procedure and eye
-	 *
-	 * @param Episode $episode
-	 * @param Procedure $procedure
-	 * @param string $side - left, right or both
-	 * @throws Exception
-	 * @return bool
-	 */
-	public function hasConsentForProcedure($episode, $procedure, $side)
-	{
-		if ($episode) {
+            if (!in_array($side, array('left', 'right', 'both'))) {
+                throw new Exception('unrecognised side value ' . $side);
+            }
 
-			$required_eye = Eye::BOTH;
+            $event_type = $this->getEventType();
 
-			if (!in_array($side, array('left', 'right', 'both'))) {
-				throw new Exception('unrecognised side value ' . $side);
-			}
+            $criteria = new CDbCriteria;
+            $criteria->addCondition('event.event_type_id = :eventtype_id');
+            $criteria->addCondition('event.episode_id = :episode_id');
+            $criteria->addCondition('procedures.id = :proc_id OR additional_procedures.id = :proc_id');
+            $criteria->params = array(
+                ':eventtype_id' => $event_type->id,
+                ':episode_id' => $episode->id,
+                ':proc_id' => $procedure->id
+            );
 
-			$event_type = $this->getEventType();
+            $criteria->order = 't.created_date desc';
 
-			$criteria = new CDbCriteria;
-			$criteria->addCondition('event.event_type_id = :eventtype_id');
-			$criteria->addCondition('event.episode_id = :episode_id');
-			$criteria->addCondition('procedures.id = :proc_id OR additional_procedures.id = :proc_id');
-			$criteria->params = array(
-				':eventtype_id' => $event_type->id,
-				':episode_id' => $episode->id,
-				':proc_id' => $procedure->id
-			);
+            $eye_ids = array('eye_id' => Eye::BOTH);
 
-			$criteria->order = 't.created_date desc';
+            if ($side == 'left') {
+                $eye_ids[] = Eye::LEFT;
+                $required_eye = Eye::LEFT;
+            } elseif ($side == 'right') {
+                $eye_ids[] = Eye::RIGHT;
+                $required_eye = Eye::RIGHT;
+            }
 
-			$eye_ids = array('eye_id' => Eye::BOTH);
+            $criteria->addInCondition('t.eye_id', $eye_ids);
 
-			if ($side == 'left') {
-				$eye_ids[] = Eye::LEFT;
-				$required_eye = Eye::LEFT;
-			} elseif ($side == 'right') {
-				$eye_ids[] = Eye::RIGHT;
-				$required_eye = Eye::RIGHT;
-			}
+            foreach (Element_OphTrConsent_Procedure::model()->with('event', 'procedures', 'additional_procedures')->findAll($criteria) as $consent_proc) {
+                if ($consent_proc->eye_id == Eye::BOTH || $consent_proc->eye_id == $required_eye) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-			$criteria->addInCondition('t.eye_id', $eye_ids);
+    public function canUpdate($event_id)
+    {
+        $type = Element_OphTrConsent_Type::model()->find('event_id=?', array($event_id));
 
-			foreach (Element_OphTrConsent_Procedure::model()->with('event','procedures', 'additional_procedures')->findAll($criteria) as $consent_proc) {
-				if ($consent_proc->eye_id == Eye::BOTH || $consent_proc->eye_id == $required_eye) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+        return $type->isEditable();
+    }
 
-	public function canUpdate($event_id)
-	{
-		$type = Element_OphTrConsent_Type::model()->find('event_id=?',array($event_id));
+    public function getFooterProcedures($event_id)
+    {
+        if (!$event = Event::model()->findByPk($event_id)) {
+            throw new Exception("Event not found: $event_id");
+        }
 
-		return $type->isEditable();
-	}
+        if (!$element = Element_OphTrConsent_Procedure::model()->find('event_id=?', array($event->id))) {
+            throw new Exception("Procedure element not found, possibly not a consent event: $event_id");
+        }
 
-	public function getFooterProcedures($event_id)
-	{
-		if (!$event = Event::model()->findByPk($event_id)) {
-			throw new Exception("Event not found: $event_id");
-		}
+        $return = 'Procedure(s): ';
 
-		if (!$element = Element_OphTrConsent_Procedure::model()->find('event_id=?',array($event->id))) {
-			throw new Exception("Procedure element not found, possibly not a consent event: $event_id");
-		}
+        foreach ($element->procedures as $i => $proc) {
+            if ($i >= 2) {
+                $return .= '...';
+                break;
+            } elseif ($i) {
+                $return .= ', ';
+            }
+            $return .= $proc->term;
+        }
 
-		$return = 'Procedure(s): ';
-
-		foreach ($element->procedures as $i => $proc) {
-			if ($i >= 2) {
-				$return .= '...';
-				break;
-			} elseif ($i) {
-				$return .= ', ';
-			}
-			$return .= $proc->term;
-		}
-
-		return $return;
-	}
+        return $return;
+    }
 }

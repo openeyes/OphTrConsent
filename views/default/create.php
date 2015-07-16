@@ -20,14 +20,14 @@
 <?php $this->beginContent('//patient/event_container');?>
 
 	<?php
-	$form = $this->beginWidget('BaseEventTypeCActiveForm', array(
-			'id'=>'clinical-create',
-			'enableAjaxValidation'=>false,
-		));
+    $form = $this->beginWidget('BaseEventTypeCActiveForm', array(
+            'id'=>'clinical-create',
+            'enableAjaxValidation'=>false,
+        ));
 
-		$this->event_actions[] = EventAction::button('Save draft', 'savedraft', array('level' => 'secondary'), array('id' => 'et_save_draft', 'class' => 'button small', 'form'=>'clinical-create'));
-		$this->event_actions[] = EventAction::button('Save and print', 'saveprint', array('level' => 'secondary'), array('id' => 'et_save_print', 'class' => 'button small', 'form'=>'clinical-create'));
-		?>
+        $this->event_actions[] = EventAction::button('Save draft', 'savedraft', array('level' => 'secondary'), array('id' => 'et_save_draft', 'class' => 'button small', 'form'=>'clinical-create'));
+        $this->event_actions[] = EventAction::button('Save and print', 'saveprint', array('level' => 'secondary'), array('id' => 'et_save_print', 'class' => 'button small', 'form'=>'clinical-create'));
+        ?>
 
 		<?php  $this->displayErrors($errors)?>
 		<?php  $this->renderOpenElements($this->action->id, $form); ?>

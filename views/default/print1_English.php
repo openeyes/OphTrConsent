@@ -54,28 +54,34 @@
 			<th>Witness required</th>
 			<td><?php echo $elements['Element_OphTrConsent_Other']->witness_required ? 'Yes' : 'No'?></td>
 		</tr>
-		<?php if ($elements['Element_OphTrConsent_Other']->witness_required) {?>
+		<?php if ($elements['Element_OphTrConsent_Other']->witness_required) {
+    ?>
 			<tr>
 				<th>Witness name</th>
 				<td><?php echo $elements['Element_OphTrConsent_Other']->witness_name?></td>
 			</tr>
-		<?php }?>
+		<?php 
+}?>
 		<tr>
 			<th>Interpreter required</th>
 			<td><?php echo $elements['Element_OphTrConsent_Other']->interpreter_required ? 'Yes' : 'No'?></td>
 		</tr>
-		<?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
+		<?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {
+    ?>
 			<tr>
 				<th>Interpreter name</th>
 				<td><?php echo $elements['Element_OphTrConsent_Other']->interpreter_name?></td>
 			</tr>
-		<?php }?>
+		<?php 
+}?>
 		<tr>
 			<th>Procedure(s)</th>
 			<td><?php foreach ($elements['Element_OphTrConsent_Procedure']->procedures as $i => $procedure) {
-					if ($i >0) echo ', ';
-					echo \CHtml::encode($procedure->term);
-				}?></td>
+    if ($i >0) {
+        echo ', ';
+    }
+    echo \CHtml::encode($procedure->term);
+}?></td>
 		</tr>
 		<tr>
 			<th>&nbsp;<br />Consent date</th>
@@ -85,10 +91,11 @@
 	<div class="form-subtitle1">
 		<h2>To be retained in patient's notes</h2>
 	</div>
-	<?php for ($i=0; $i<2; $i++) {?>
+	<?php for ($i=0; $i<2; $i++) {
+    ?>
 		<div class="pageBreak">
 			<h3>Name of proposed procedure or course of treatment</h3>
-			<?php echo $this->renderPartial('_proposed_procedures',array('css_class'=>$css_class,'procedures' => $elements['Element_OphTrConsent_Procedure']->procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
+			<?php echo $this->renderPartial('_proposed_procedures', array('css_class'=>$css_class, 'procedures' => $elements['Element_OphTrConsent_Procedure']->procedures, 'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
 			<h3>Statement of health professional <span class="noth3">(to be filled in by a health professional with appropriate knowledge of the proposed procedure(s), as specified in the consent policy)</span></h3>
 			<p>
 				<strong>I have explained the procedure to the patient. In particular, I have explained:</strong>
@@ -101,36 +108,68 @@
 				<strong>Serious, frequently occurring or unavoidable risks:</strong>
 				<?php echo $elements['Element_OphTrConsent_BenefitsAndRisks']->risks?>
 			</p>
-			<?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {?>
+			<?php if (!empty($elements['Element_OphTrConsent_Procedure']->additional_procedures)) {
+    ?>
 				<p>Any extra procedures which may become necessary during the procedure(s)</p>
-				<?php echo $this->renderPartial('_proposed_procedures',array('css_class'=>$css_class,'procedures'=>$elements['Element_OphTrConsent_Procedure']->additional_procedures,'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
-			<?php }?>
+				<?php echo $this->renderPartial('_proposed_procedures', array('css_class'=>$css_class, 'procedures'=>$elements['Element_OphTrConsent_Procedure']->additional_procedures, 'eye'=>$elements['Element_OphTrConsent_Procedure']->eye->adjective))?>
+			<?php 
+}
+    ?>
 			<p>
 				I have also discussed what the procedure is likely to involve, the benefits and risks of any available alternative treatments (including no treatment) and any particular concerns of this patient. I assess that this patient has the capacity to give valid consent.
 			</p>
 			<p>
-				[<?php if ($elements['Element_OphTrConsent_Other']->information) {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] The following informational leaflets have been provided: .............................................<br/>
-				[<?php if ($elements['Element_OphTrConsent_Other']->anaesthetic_leaflet) {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] "Anaesthesia at Moorfields Eye Hospital" leaflet has been provided
+				[<?php if ($elements['Element_OphTrConsent_Other']->information) {
+    ?>x<?php 
+} else {
+    ?>&nbsp;&nbsp;<?php 
+}
+    ?>] The following informational leaflets have been provided: .............................................<br/>
+				[<?php if ($elements['Element_OphTrConsent_Other']->anaesthetic_leaflet) {
+    ?>x<?php 
+} else {
+    ?>&nbsp;&nbsp;<?php 
+}
+    ?>] "Anaesthesia at Moorfields Eye Hospital" leaflet has been provided
 			</p>
 			<p>
 				This procedure will involve:
-				[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] general and/or regional anaesthesia<br/>[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name,array('Topical','LAC','LA','LAS'))) {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] sedation
+				[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {
+    ?>x<?php 
+} else {
+    ?>&nbsp;&nbsp;<?php 
+}
+    ?>] general and/or regional anaesthesia<br/>[<?php if (in_array($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name, array('Topical', 'LAC', 'LA', 'LAS'))) {
+    ?>x<?php 
+} else {
+    ?>&nbsp;&nbsp;<?php 
+}
+    ?>] local anaesthesia&nbsp;&nbsp;[<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'LAS') {
+    ?>x<?php 
+} else {
+    ?>&nbsp;&nbsp;<?php 
+}
+    ?>] sedation
 			</p>
-			<?php echo $this->renderPartial('signature_table1',array('vi'=>($css_class == 'impaired'),'consultant'=>$elements['Element_OphTrConsent_Other']->consultant,'lastmodified'=>$elements['Element_OphTrConsent_Other']->usermodified))?>
+			<?php echo $this->renderPartial('signature_table1', array('vi'=>($css_class == 'impaired'), 'consultant'=>$elements['Element_OphTrConsent_Other']->consultant, 'lastmodified'=>$elements['Element_OphTrConsent_Other']->usermodified))?>
 			<div class="spacer"></div>
 			<p>
 				Contact details (if patient wishes to discuss options later): 0207 253 3411
 			</p>
-			<?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {?>
+			<?php if ($elements['Element_OphTrConsent_Other']->interpreter_required) {
+    ?>
 				<h3>Statement of interpreter</h3>
 				<p>
 					I have interpreted the information above to the patient to the best of my ability and in a way in which I believe s/he can understand.
 				</p>
-				<?php echo $this->renderPartial('signature_table3',array('vi'=>($css_class == 'impaired'),'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
+				<?php echo $this->renderPartial('signature_table3', array('vi'=>($css_class == 'impaired'), 'name'=>$elements['Element_OphTrConsent_Other']->interpreter_name))?>
 				<div class="spacer"></div>
-			<?php }?>
+			<?php 
+}
+    ?>
 			<br/>
-		<?php }?>
+		<?php 
+}?>
 		<div class="pageBreak">
 			<div class="topCopy">Top copy accepted by patient: yes/no (please ring)</div>
 			<h3>Statement of patient</h3>
@@ -140,25 +179,29 @@
 			<p>
 				<strong>I agree</strong> to the procedure or course of treatment described on this form.<br/>
 				<strong>I understand</strong> that you cannot give me a guarantee that a particular person will perform the procedure. The person will, however, have appropriate experience.<br/>
-				<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {?>
+				<?php if ($elements['Element_OphTrConsent_Procedure']->anaesthetic_type->name == 'GA') {
+    ?>
 					<strong>I understand</strong> that I will have the opportunity to discuss the details of anaesthesia before the procedure, unless the urgency of my situation prevents this.<br/>
-				<?php }?>
+				<?php 
+}?>
 				<strong>I understand</strong> that any procedure in addition to those described on this form will only be carried out if it is necessary to save my life or to prevent serious harm to my health.
 			</p>
 			<span>I have been told <strong>about additional procedures which may become necessary during my treatment. I have listed below any procedures</strong> which I do not wish to be carried out <strong>without further discussion.</strong></span><br/>
 			<span>................................................................................................................................</span><br/><br/>
-			<?php echo $this->renderPartial('signature_table4',array('vi'=>($css_class == 'impaired'),'name'=>$this->patient->fullName))?>
-			<?php if ($elements['Element_OphTrConsent_Other']->witness_required) {?>
+			<?php echo $this->renderPartial('signature_table4', array('vi'=>($css_class == 'impaired'), 'name'=>$this->patient->fullName))?>
+			<?php if ($elements['Element_OphTrConsent_Other']->witness_required) {
+    ?>
 				<br/>
 				<span>A <strong>witness</strong> should sign below <strong>if the patient is unable to sign but has indicated <?php echo $this->patient->obj?> consent.</strong></span><br/><br/>
-				<?php echo $this->renderPartial('signature_table3',array('vi'=>($css_class == 'impaired'),'name'=>$elements['Element_OphTrConsent_Other']->witness_name))?>
-			<?php }?>
+				<?php echo $this->renderPartial('signature_table3', array('vi'=>($css_class == 'impaired'), 'name'=>$elements['Element_OphTrConsent_Other']->witness_name))?>
+			<?php 
+}?>
 			<h3>Confirmation of consent</h3>
 			(to be completed by a health professional when the patient is admitted, if the patient has signed the form in advance)
 			<p>
 				On behalf of the team treating the patient, I have confirmed with the patient that <?php echo $this->patient->pro?> has no further questions and wishes the procedure to go ahead.
 			</p>
-			<?php echo $this->renderPartial('signature_table1',array('vi'=>($css_class == 'impaired'),'consultant'=>$elements['Element_OphTrConsent_Other']->consultant, 'mask_consultant' => true))?>
+			<?php echo $this->renderPartial('signature_table1', array('vi'=>($css_class == 'impaired'), 'consultant'=>$elements['Element_OphTrConsent_Other']->consultant, 'mask_consultant' => true))?>
 			<div class="spacer"></div>
 			<p>
 				<strong>Important notes:</strong> (tick if applicable)
@@ -168,7 +211,8 @@
 				[&nbsp;&nbsp;] Patient has withdrawn consent (ask patient to sign /date here): ..................................................................
 			</p>
 		</div>
-		<?php if ($elements['Element_OphTrConsent_Other']->include_supplementary_consent) {?>
+		<?php if ($elements['Element_OphTrConsent_Other']->include_supplementary_consent) {
+    ?>
 			<div class="pageBreak">
 				<h2>Form 1: Supplementary consent</h2>
 				<h3>Images</h3>
@@ -179,9 +223,24 @@
 					<strong>I agree to use in audit, education and publication:</strong>
 				</p>
 				<p>
-					[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Yes') {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] Yes&nbsp;&nbsp;&nbsp;
-					[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'No') {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] No&nbsp;&nbsp;&nbsp;
-					[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Not applicable') {?>x<?php } else {?>&nbsp;&nbsp;<?php }?>] Not applicable
+					[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Yes') {
+    ?>x<?php 
+} else {
+    ?>&nbsp;&nbsp;<?php 
+}
+    ?>] Yes&nbsp;&nbsp;&nbsp;
+					[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'No') {
+    ?>x<?php 
+} else {
+    ?>&nbsp;&nbsp;<?php 
+}
+    ?>] No&nbsp;&nbsp;&nbsp;
+					[<?php if ($elements['Element_OphTrConsent_Permissions']->images->name == 'Not applicable') {
+    ?>x<?php 
+} else {
+    ?>&nbsp;&nbsp;<?php 
+}
+    ?>] Not applicable
 				</p>
 				<p>
 					If you do not wish to take part in the above, your care will not be compromised in any way.
@@ -193,6 +252,7 @@
 					Date ...............................
 				</p>
 			</div>
-		<?php }?>
+		<?php 
+}?>
 	</div>
 </div>

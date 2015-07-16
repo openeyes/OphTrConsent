@@ -37,152 +37,151 @@
 
 class Element_OphTrConsent_BenefitsAndRisks extends BaseEventTypeElement
 {
-	public $service;
+    public $service;
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return the static model class
-	 */
-	public static function model($className = __CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'et_ophtrconsent_benfitrisk';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'et_ophtrconsent_benfitrisk';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('event_id, benefits, risks, ', 'safe'),
-			array('benefits, risks, ', 'required'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, event_id, benefits, risks, ', 'safe', 'on' => 'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('event_id, benefits, risks, ', 'safe'),
+            array('benefits, risks, ', 'required'),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, event_id, benefits, risks, ', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'element_type' => array(self::HAS_ONE, 'ElementType', 'id','on' => "element_type.class_name='".get_class($this)."'"),
-			'eventType' => array(self::BELONGS_TO, 'EventType', 'event_type_id'),
-			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
-			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
-			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'element_type' => array(self::HAS_ONE, 'ElementType', 'id','on' => "element_type.class_name='".get_class($this)."'"),
+            'eventType' => array(self::BELONGS_TO, 'EventType', 'event_type_id'),
+            'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
+            'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'event_id' => 'Event',
-			'benefits' => 'Benefits',
-			'risks' => 'Risks',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'event_id' => 'Event',
+            'benefits' => 'Benefits',
+            'risks' => 'Risks',
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria = new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('id', $this->id, true);
-		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('benefits', $this->benefits);
-		$criteria->compare('risks', $this->risks);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('event_id', $this->event_id, true);
+        $criteria->compare('benefits', $this->benefits);
+        $criteria->compare('risks', $this->risks);
 
-		return new CActiveDataProvider(get_class($this), array(
-			'criteria' => $criteria,
-		));
-	}
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+        ));
+    }
 
-	/**
-	 * Use the procedures to determine what the benefit and risk strings should be for this
-	 * element
-	 *
-	 * @param Procedure[] $procedures
-	 */
-	public function setBenefitsAndRisksFromProcedures($procedures)
-	{
-		$all_procedure_ids = array();
-		$all_procedures = array();
+    /**
+     * Use the procedures to determine what the benefit and risk strings should be for this
+     * element
+     *
+     * @param Procedure[] $procedures
+     */
+    public function setBenefitsAndRisksFromProcedures($procedures)
+    {
+        $all_procedure_ids = array();
+        $all_procedures = array();
 
-		// merge given procedures with their additional procedures
-		foreach ($procedures as $proc) {
-			if (!in_array($proc->id, $all_procedure_ids)) {
-				$all_procedure_ids[] = $proc->id;
-				$all_procedures[] = $proc;
-			}
-			foreach ($proc->additional as $additional) {
-				if (!in_array($additional->id, $all_procedure_ids)) {
-					$all_procedure_ids[] = $additional->id;
-					$all_procedures[] = $additional;
-				}
-			}
-		}
+        // merge given procedures with their additional procedures
+        foreach ($procedures as $proc) {
+            if (!in_array($proc->id, $all_procedure_ids)) {
+                $all_procedure_ids[] = $proc->id;
+                $all_procedures[] = $proc;
+            }
+            foreach ($proc->additional as $additional) {
+                if (!in_array($additional->id, $all_procedure_ids)) {
+                    $all_procedure_ids[] = $additional->id;
+                    $all_procedures[] = $additional;
+                }
+            }
+        }
 
-		$complication_ids = array();
-		$complications = array();
-		$benefit_ids = array();
-		$benefits = array();
+        $complication_ids = array();
+        $complications = array();
+        $benefit_ids = array();
+        $benefits = array();
 
-		// iterate through full set of procedures to get complications/benefits
-		foreach ($all_procedures as $proc) {
-			foreach ($proc->complications as $complication) {
-				if (!in_array($complication->id,$complication_ids) && $complication->active) {
-					$complications[] = $complication;
-					$complication_ids[] = $complication->id;
-				}
-			}
-			foreach ($proc->benefits as $benefit) {
-				if (!in_array($benefit->id,$benefit_ids) && $benefit->active) {
-					$benefits[] = $benefit;
-					$benefit_ids[] = $benefit->id;
-				}
-			}
-		}
+        // iterate through full set of procedures to get complications/benefits
+        foreach ($all_procedures as $proc) {
+            foreach ($proc->complications as $complication) {
+                if (!in_array($complication->id, $complication_ids) && $complication->active) {
+                    $complications[] = $complication;
+                    $complication_ids[] = $complication->id;
+                }
+            }
+            foreach ($proc->benefits as $benefit) {
+                if (!in_array($benefit->id, $benefit_ids) && $benefit->active) {
+                    $benefits[] = $benefit;
+                    $benefit_ids[] = $benefit->id;
+                }
+            }
+        }
 
-		foreach ($benefits as $i => $benefit) {
-			if ($i==0) {
-				$this->benefits = ucfirst($benefit->name);
-			} else {
-				$this->benefits .= ", ".$benefit->name;
-			}
-		}
+        foreach ($benefits as $i => $benefit) {
+            if ($i==0) {
+                $this->benefits = ucfirst($benefit->name);
+            } else {
+                $this->benefits .= ", ".$benefit->name;
+            }
+        }
 
-		foreach ($complications as $i => $complication) {
-			if ($i==0) {
-				$this->risks = ucfirst($complication->name);
-			} else {
-				$this->risks .= ", ".$complication->name;
-			}
-		}
-	}
-
+        foreach ($complications as $i => $complication) {
+            if ($i==0) {
+                $this->risks = ucfirst($complication->name);
+            } else {
+                $this->risks .= ", ".$complication->name;
+            }
+        }
+    }
 }

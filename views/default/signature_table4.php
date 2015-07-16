@@ -17,7 +17,8 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
  ?>
-<?php if (@$vi) {?>
+<?php if (@$vi) {
+    ?>
 	<table>
 		<tr>
 			<td>Patient's signature:.....................</td>
@@ -27,7 +28,9 @@
 			<td colspan="2">Name: <?php echo $name?></td>
 		</tr>
 	</table>
-<?php } else {?>
+<?php 
+} else {
+    ?>
 	<table class="signature">
 		<tr>
 			<td>Patient's signature:............................................</td>
@@ -37,4 +40,5 @@
 			<td colspan="2">Name: <?php echo $name?></td>
 		</tr>
 	</table>
-<?php }?>
+<?php 
+}?>

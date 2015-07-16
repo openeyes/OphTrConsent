@@ -17,18 +17,26 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
  ?>
-<?php if (@$vi) {?>
+<?php if (@$vi) {
+    ?>
 	<table>
 		<tr>
 			<td>Signed:............................</td>
 			<td>Date:...............................</td>
 		</tr>
 		<tr>
-			<td>Name (PRINT): <?php if (!@$mask_consultant) { echo $consultant->fullNameAndTitle; } ?></td>
-			<td>Job title: <?php if (!@$mask_consultant) { echo $consultant->role; } ?></td>
+			<td>Name (PRINT): <?php if (!@$mask_consultant) {
+    echo $consultant->fullNameAndTitle;
+}
+    ?></td>
+			<td>Job title: <?php if (!@$mask_consultant) {
+    echo $consultant->role;
+}
+    ?></td>
 		</tr>
 	</table>
-	<?php if (@$lastmodified && $consultant->id != $lastmodified->id) {?>
+	<?php if (@$lastmodified && $consultant->id != $lastmodified->id) {
+    ?>
 		<div class="spacer"></div>
 		<table>
 			<tr>
@@ -40,19 +48,30 @@
 				<td>Job title: <?php echo $lastmodified->role?></td>
 			</tr>
 		</table>
-	<?php }?>
-<?php } else {?>
+	<?php 
+}
+    ?>
+<?php 
+} else {
+    ?>
 	<table>
 		<tr>
 			<td>Signed:.............................................</td>
 			<td>Date:...........................................</td>
 		</tr>
 		<tr>
-			<td>Name (PRINT): <?php if (!@$mask_consultant) { echo $consultant->fullNameAndTitle; } ?></td>
-			<td>Job title: <?php if (!@$mask_consultant) { echo $consultant->role; } ?></td>
+			<td>Name (PRINT): <?php if (!@$mask_consultant) {
+    echo $consultant->fullNameAndTitle;
+}
+    ?></td>
+			<td>Job title: <?php if (!@$mask_consultant) {
+    echo $consultant->role;
+}
+    ?></td>
 		</tr>
 	</table>
-	<?php if (@$lastmodified && $consultant->id != $lastmodified->id) {?>
+	<?php if (@$lastmodified && $consultant->id != $lastmodified->id) {
+    ?>
 		<div class="spacer"></div>
 		<table>
 			<tr>
@@ -64,5 +83,8 @@
 				<td>Job title: <?php echo $lastmodified->role?></td>
 			</tr>
 		</table>
-	<?php }?>
-<?php }?>
+	<?php 
+}
+    ?>
+<?php 
+}?>

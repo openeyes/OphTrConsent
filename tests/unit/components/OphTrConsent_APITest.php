@@ -15,34 +15,34 @@
 
 class OphTrConsent_APITest extends CDbTestCase
 {
-	public $fixtures = array(
-		'el_procedure' => 'Element_OphTrConsent_Procedure',
-		'proclist' => 'EtOphtrconsentProcedureProceduresProcedures',
-		'procs' => 'Procedure',
-		'events' => 'Event',
-		'episodes' => 'Episode',
-	);
+    public $fixtures = array(
+        'el_procedure' => 'Element_OphTrConsent_Procedure',
+        'proclist' => 'EtOphtrconsentProcedureProceduresProcedures',
+        'procs' => 'Procedure',
+        'events' => 'Event',
+        'episodes' => 'Episode',
+    );
 
-	public function setUp()
-	{
-		parent::setUp();
-	}
+    public function setUp()
+    {
+        parent::setUp();
+    }
 
-	public function tearDown()
-	{
-	}
+    public function tearDown()
+    {
+    }
 
-	public function testGetFooterProcedures_Just2()
-	{
-		$api = Yii::app()->moduleAPI->get('OphTrConsent');
+    public function testGetFooterProcedures_Just2()
+    {
+        $api = Yii::app()->moduleAPI->get('OphTrConsent');
 
-		$this->assertEquals('Procedure(s): Foobar Procedure, Test Procedure',$api->getFooterProcedures(13));
-	}
+        $this->assertEquals('Procedure(s): Foobar Procedure, Test Procedure', $api->getFooterProcedures(13));
+    }
 
-	public function testGetFooterProcedures_MoreThan2()
-	{
-		$api = Yii::app()->moduleAPI->get('OphTrConsent');
+    public function testGetFooterProcedures_MoreThan2()
+    {
+        $api = Yii::app()->moduleAPI->get('OphTrConsent');
 
-		$this->assertEquals('Procedure(s): Foobar Procedure, Test Procedure...',$api->getFooterProcedures(14));
-	}
+        $this->assertEquals('Procedure(s): Foobar Procedure, Test Procedure...', $api->getFooterProcedures(14));
+    }
 }

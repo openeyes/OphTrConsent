@@ -17,7 +17,8 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
  ?>
-<?php if (@$vi) {?>
+<?php if (@$vi) {
+    ?>
 	<table>
 		<tr>
 			<td>Signature:.......................</td>
@@ -28,7 +29,9 @@
 			<td>Relationship to child:........................</td>
 		</tr>
 	</table>
-<?php } else {?>
+<?php 
+} else {
+    ?>
 	<table>
 		<tr>
 			<td>Signature:.......................................</td>
@@ -39,4 +42,5 @@
 			<td>Relationship to child:...........................</td>
 		</tr>
 	</table>
-<?php }?>
+<?php 
+}?>

@@ -18,7 +18,9 @@
  */
 ?>
 <ul class="<?php echo $css_class?>">
-	<?php foreach ($procedures as $proc) {?>
+	<?php foreach ($procedures as $proc) {
+    ?>
 		<li><?php echo $eye?> <?php echo $proc->term?></li>
-	<?php }?>
+	<?php 
+}?>
 </ul>

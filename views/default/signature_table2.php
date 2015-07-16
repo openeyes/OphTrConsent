@@ -17,36 +17,46 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
  ?>
-<?php if (@$vi) {?>
+<?php if (@$vi) {
+    ?>
 	<table>
 		<tr>
 			<td>Signed:............................</td>
 			<td>Date:...............................</td>
 		</tr>
-		<?php if (@$address) {?>
+		<?php if (@$address) {
+    ?>
 			<tr>
 				<td colspan="2">Address (if not the same as patient):.................................................................................................</td>
 			</tr>
-		<?php }?>
+		<?php 
+}
+    ?>
 		<tr>
 			<td>Name (PRINT):.............................................</td>
 			<td>Relationship to patient:..........................</td>
 		</tr>
 	</table>
-<?php } else {?>
+<?php 
+} else {
+    ?>
 	<table>
 		<tr>
 			<td>Signed:.............................................</td>
 			<td>Date:......................................................</td>
 		</tr>
-		<?php if (@$address) {?>
+		<?php if (@$address) {
+    ?>
 			<tr>
 				<td colspan="2">Address (if not the same as patient):......................................................................</td>
 			</tr>
-		<?php }?>
+		<?php 
+}
+    ?>
 		<tr>
 			<td>Name (PRINT):.................................</td>
 			<td>Relationship to patient:..........................</td>
 		</tr>
 	</table>
-<?php }?>
+<?php 
+}?>

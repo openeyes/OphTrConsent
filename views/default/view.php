@@ -17,21 +17,25 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 if ($this->checkPrintAccess()) {
-	$this->event_actions[] = EventAction::button('Print', 'print', array(),array('class'=>'button small'));
-	$this->event_actions[] = EventAction::button('Print for visually impaired', 'print_va', array(),array('class'=>'button small'));
+    $this->event_actions[] = EventAction::button('Print', 'print', array(), array('class'=>'button small'));
+    $this->event_actions[] = EventAction::button('Print for visually impaired', 'print_va', array(), array('class'=>'button small'));
 }
 ?>
 <?php $this->beginContent('//patient/event_container');?>
 
-	<?php if ($this->event->delete_pending) {?>
+	<?php if ($this->event->delete_pending) {
+    ?>
 		<div class="alert-box alert with-icon">
 			This event is pending deletion and has been locked.
 		</div>
-	<?php } elseif (Element_OphTrConsent_Type::model()->find('event_id=?',array($this->event->id))->draft) {?>
+	<?php 
+} elseif (Element_OphTrConsent_Type::model()->find('event_id=?', array($this->event->id))->draft) {
+    ?>
 		<div class="alert-box alert with-icon">
 			This consent form is a draft and can still be edited
 		</div>
-	<?php }?>
+	<?php 
+}?>
 
 	<?php  $this->renderOpenElements($this->action->id); ?>
 

@@ -51,7 +51,8 @@
 		</div>
 	</div>
 
-	<?php if ($element->witness_required) {?>
+	<?php if ($element->witness_required) {
+    ?>
 		<div class="row data-row">
 			<div class="large-3 column">
 				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('witness_name'))?>:</div>
@@ -60,7 +61,8 @@
 				<div class="data-value"><?php echo CHtml::encode($element->witness_name)?></div>
 			</div>
 		</div>
-	<?php }?>
+	<?php 
+}?>
 	<div class="row data-row">
 		<div class="large-3 column">
 			<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('interpreter_required'))?>:</div>
@@ -69,7 +71,8 @@
 			<div class="data-value"><?php echo $element->interpreter_required ? 'Yes' : 'No'?></div>
 		</div>
 	</div>
-	<?php if ($element->interpreter_required) {?>
+	<?php if ($element->interpreter_required) {
+    ?>
 		<div class="row data-row">
 			<div class="large-3 column">
 				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('interpreter_name'))?>:</div>
@@ -78,8 +81,10 @@
 				<div class="data-value"><?php echo CHtml::encode($element->interpreter_name)?></div>
 			</div>
 		</div>
-	<?php }?>
-	<?php if ($element->parent_guardian) {?>
+	<?php 
+}?>
+	<?php if ($element->parent_guardian) {
+    ?>
 		<div class="row data-row">
 			<div class="large-3 column">
 				<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('parent_guardian'))?>:</div>
@@ -88,7 +93,8 @@
 				<div class="data-value"><?php echo CHtml::encode($element->parent_guardian)?></div>
 			</div>
 		</div>
-	<?php }?>
+	<?php 
+}?>
 	<div class="row data-row">
 		<div class="large-3 column">
 			<div class="data-label"><?php echo CHtml::encode($element->getAttributeLabel('include_supplementary_consent'))?>:</div>
