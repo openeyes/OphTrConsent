@@ -137,7 +137,12 @@ class Element_OphTrConsent_Procedure extends BaseEventTypeElement
 			'criteria' => $criteria,
 		));
 	}
-
+	protected function afterValidate()
+	{
+		if (empty($_POST['Procedures_procedures'])) {
+			$this->addError('procedures', 'At least one procedure must be entered');
+		}
+	}
 	//TODO: get POST handling out of here.
 	protected function afterSave()
 	{
